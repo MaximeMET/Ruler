@@ -126,20 +126,33 @@ class ProtractorView @JvmOverloads constructor(
         if (width == 0 || height == 0) return
         val color = palette.colorOf(MeasureMode.PROTRACTOR)
         wedgePaint.color = color
-        tickPaint.color = color
-        labelPaint.color = color
         anglePaint.color = color
-        dotPaint.color = color
 
         drawWedge(canvas)
-        drawScale(canvas)
+        drawScale(canvas, color)
+
+        // The wedge is filled with the tool colour, so the part of the scale that falls
+        // inside it would be invisible if it kept that colour. Repaint that part in the
+        // canvas colour - the wedge and the canvas are always opposite in lightness - the
+        // same way the ruler repaints the ticks inside the measurement rectangle.
+        val measuring = angle > 0.05f
+        if (measuring) {
+            val saved = canvas.save()
+            canvas.clipPath(wedgePath)
+            drawScale(canvas, palette.background)
+            canvas.restoreToCount(saved)
+        }
 
         tickPaint.strokeWidth = dp(1f)
+        tickPaint.color = color
         canvas.drawLine(
             centerX - tickRadius - gap, centerY,
             centerX + tickRadius + gap, centerY,
             tickPaint
         )
+
+        // The pivot always sits inside the wedge; keep it visible while measuring.
+        dotPaint.color = if (measuring) palette.background else color
         canvas.drawCircle(centerX, centerY, dp(2f), dotPaint)
         canvas.drawText(String.format("%.1f°", angle), centerX, height - inset, anglePaint)
     }
@@ -156,7 +169,9 @@ class ProtractorView @JvmOverloads constructor(
         canvas.drawPath(wedgePath, wedgePaint)
     }
 
-    private fun drawScale(canvas: Canvas) {
+    private fun drawScale(canvas: Canvas, color: Int) {
+        tickPaint.color = color
+        labelPaint.color = color
         for (i in 1 until 180) {
             val saved = canvas.save()
             canvas.rotate(i - 90f, centerX, centerY)

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Линейка</string>
+
+    <!-- Units -->
+    <string name="unit_cm">см</string>
+    <string name="unit_mm">мм</string>
+    <string name="unit_inch">дюйм</string>
+
+    <!-- Main screen -->
+    <string name="mode_one_point">Измерять от края</string>
+    <string name="mode_two_points">Измерять между точками</string>
+    <string name="mode_four_points">Измерять прямоугольник</string>
+    <string name="mode_protractor">Транспортир</string>
+    <string name="calibration">Калибровка</string>
+    <string name="settings">Настройки</string>
+    <string name="close">Закрыть</string>
+    <string name="stop_measuring">Завершить измерение</string>
+
+    <!-- Calibration -->
+    <string name="credit_card_length">Длина карты:</string>
+    <string name="coefficient">коэффициент</string>
+    <string name="reset">Сброс</string>
+    <string name="save">Сохранить</string>
+    <string name="saved">Сохранено</string>
+    <string name="calibration_hint">Приложите карту к экрану, совместите длинную сторону с рамкой и подстройте кнопками или перетаскиванием шкалы.</string>
+
+    <!-- Settings -->
+    <string name="pref_group_display">Экран</string>
+    <string name="pref_group_measure">Измерение</string>
+    <string name="pref_group_info">Информация</string>
+    <string name="orientation">Ориентация экрана</string>
+    <string name="orientation_landscape">альбомная</string>
+    <string name="orientation_reverse">обратная</string>
+    <string name="keep_screen_on">Не выключать экран</string>
+    <string name="keep_screen_on_summary">Экран не гаснет во время измерения</string>
+    <string name="use_dark_theme">Тёмная тема</string>
+    <string name="dark_theme">Тёмная</string>
+    <string name="light_theme">Светлая</string>
+    <string name="padding">Отступ от края</string>
+    <string name="padding_summary">Оставляет небольшой отступ до первого деления</string>
+    <string name="language">Язык</string>
+    <string name="follow_system">Как в системе</string>
+    <string name="measurement">Единица измерения</string>
+    <string name="information">О программе</string>
+
+    <!-- About -->
+    <string name="about_version">Версия %1$s</string>
+    <string name="about_tagline">Линейка и транспортир с открытым исходным кодом для Android. Без рекламы, без разрешений, без слежки.</string>
+    <string name="about_license_title">Лицензия</string>
+    <string name="about_license_body">Распространяется по лицензии MIT. Можно свободно использовать, изучать, изменять и распространять.</string>
+    <string name="about_disclaimer_title">Отказ от ответственности</string>
+    <string name="about_disclaimer_body">Приложение предоставляется как есть, без гарантий. Точность зависит от сенсорного экрана и правильной калибровки, поэтому значения приблизительные.</string>
+    <string name="about_source">Исходный код</string>
+
+    <!-- Accessibility -->
+    <string name="a11y_unit_toggle">Единица измерения</string>
+</resources>

@@ -12,6 +12,8 @@ import android.widget.LinearLayout
 import android.widget.Switch
 import android.widget.TextView
 import org.openruler.app.core.LengthUnit
+import org.openruler.app.core.Locales
+import java.util.Locale
 
 /**
  * Settings screen. The rows are built in code so that the labels and the current values
@@ -82,6 +84,12 @@ class SettingsActivity : BaseActivity() {
             checked = prefs.edgePadding
         ) { prefs.edgePadding = it }
 
+        addValueRow(
+            icon = R.drawable.ic_language,
+            title = R.string.language,
+            value = Locales.labelOf(prefs.language) ?: getString(R.string.follow_system)
+        ) { showLanguageDialog() }
+
         addSection(R.string.pref_group_measure)
         addValueRow(
             icon = R.drawable.ic_convert,
@@ -92,7 +100,7 @@ class SettingsActivity : BaseActivity() {
         addValueRow(
             icon = R.drawable.ic_calibration,
             title = R.string.calibration,
-            value = String.format("%.2f", prefs.calibration)
+            value = String.format(Locale.ROOT, "%.2f", prefs.calibration)
         ) {
             startActivity(Intent(this, CalibrationActivity::class.java))
         }
@@ -132,6 +140,27 @@ class SettingsActivity : BaseActivity() {
                 prefs.unit = units[which]
                 dialog.dismiss()
                 buildRows()
+            }
+            .show()
+    }
+
+    /**
+     * Language picker: the first entry keeps following the system language, the rest pin
+     * one of the translations that ship with the app. Each entry is labelled in its own
+     * language so it can be found without reading the current one.
+     */
+    private fun showLanguageDialog() {
+        val tags = listOf(Locales.SYSTEM) + Locales.choices.map { it.tag }
+        val labels = listOf(getString(R.string.follow_system)) + Locales.choices.map { it.label }
+        val selected = tags.indexOf(prefs.language).coerceAtLeast(0)
+        AlertDialog.Builder(this)
+            .setTitle(R.string.language)
+            .setSingleChoiceItems(labels.toTypedArray(), selected) { dialog, which ->
+                dialog.dismiss()
+                if (tags[which] != prefs.language) {
+                    Locales.apply(this, tags[which])
+                    recreate()
+                }
             }
             .show()
     }

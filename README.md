@@ -7,8 +7,8 @@
 
 * 没有广告：AdMob、Pangle、AppLovin、Yandex、IronSource、Firebase 等全部不存在
 * 不申请任何权限：清单里连 `INTERNET` 都没有
-* 零第三方依赖：只用 Android Framework + Kotlin 标准库，release 包约 70 KB
-* 简体中文 / English 双语界面
+* 零第三方依赖：只用 Android Framework + Kotlin 标准库，release 包约 110 KB
+* 17 种语言，默认跟随系统语言，也可以在设置里单独指定
 * 深色主题（默认）/ 浅色主题，靛蓝 + 紫罗兰配色
 * 矢量自适应图标：Android 8+ 走自适应图标（含 Android 13 主题图标），旧系统用同一套图形的方角图标
 
@@ -22,7 +22,23 @@
 | 矩形测量 | 可拖动矩形，实时显示宽、高与面积 |
 | 量角器 | 半圆刻度盘，两根可拖动的针，双指可同时调整夹角；扇形里的刻度与数字会自动换成底色绘制，不会被填色盖住 |
 | 校准 | 用银行卡长边（85.60 mm）做参照，加减按钮或直接拖动微调，系数实时保存 |
-| 设置 | 屏幕方向、屏幕常亮、深色主题、边缘留白、测量单位 |
+| 设置 | 屏幕方向、屏幕常亮、深色主题、边缘留白、语言、测量单位 |
+
+## 语言
+
+默认**跟随系统语言**；如果系统语言不在支持列表里，会回落到英文。设置页的「语言」一行可以在
+应用内直接切换，列表里每一项都用该语言自己的写法（English、简体中文、日本語、Русский…），
+不用先看懂当前界面也能找到自己的语言。
+
+目前带完整翻译的语言：English、简体中文、繁體中文、日本語、한국어、Español、Português (Brasil)、
+Français、Deutsch、Italiano、Русский、Türkçe、العربية、हिन्दी、Bahasa Indonesia、Tiếng Việt、ไทย。
+
+实现方式不依赖 AndroidX：选项存在 `SharedPreferences`，每个 Activity 在 `attachBaseContext()`
+里用 `createConfigurationContext()` 套上对应语言，所以在 Android 6 到 16 上行为一致；Android 13+
+另外通过 `android:localeConfig` 注册到系统的「应用语言」页面，两处设置保持同步。
+工具栏弹窗（英文）与所有读数里的数字固定用拉丁数字和小数点，和刻度上的数字保持一致。
+
+![语言选择](docs/screenshots/language.png)
 
 ## 截图
 
@@ -88,7 +104,7 @@ adb install -r app/build/outputs/apk/debug/app-debug.apk
 ```
 
 release 构建默认开启 R8 代码压缩与资源压缩，并剔除 Kotlin 的反射元数据，本仓库构建出来的
-`app-release.apk` 约 70 KB（debug 包约 900 KB，因为它不做任何压缩）。
+`app-release.apk` 约 110 KB（其中约 40 KB 是 17 种语言的文案；debug 包约 1 MB，因为它不做任何压缩）。
 
 「关于」页底部的源码按钮现在指向占位地址，发布前改成你自己的仓库即可：
 `app/src/main/java/org/openruler/app/AboutActivity.kt` 里的 `SOURCE_URL`。

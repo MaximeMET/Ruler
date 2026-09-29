@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Language: a globe, tinted with the palette accent by the settings list. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <path
+        android:pathData="M3.5,12a8.5,8.5 0 1,0 17,0a8.5,8.5 0 1,0 -17,0z"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.7" />
+
+    <path
+        android:pathData="M12,3.5a6.2,8.5 0 1,0 0,17a6.2,8.5 0 1,0 0,-17z"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.6" />
+
+    <path
+        android:pathData="M4.2,8.6h15.6M4.2,15.4h15.6"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.6" />
+</vector>

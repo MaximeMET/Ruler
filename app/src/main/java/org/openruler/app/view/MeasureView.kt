@@ -20,6 +20,7 @@ import org.openruler.app.core.Palette
 import org.openruler.app.core.Scale
 import org.openruler.app.core.contrastOn
 import org.openruler.app.core.dim
+import java.util.Locale
 
 /**
  * Draggable measurement overlay.
@@ -230,14 +231,14 @@ class MeasureView @JvmOverloads constructor(
         areaPaint.color = modeColor
 
         val unitText = unitLabel()
-        val valueText = String.format("%.2f", measuredWidthValue)
+        val valueText = String.format(Locale.ROOT, "%.2f", measuredWidthValue)
         val valueWidth = textWidth(valuePaint, valueText)
         val unitWidth = textWidth(smallPaint, unitText)
         valuePaint.getTextBounds("99,99", 0, 5, textBounds)
         val textHeight = textBounds.height().toFloat()
 
         if (mode == MeasureMode.FOUR_POINT) {
-            val heightText = String.format("%.2f", measuredHeightValue)
+            val heightText = String.format(Locale.ROOT, "%.2f", measuredHeightValue)
             val heightWidth = textWidth(valuePaint, heightText)
 
             // Width of the rectangle: dimension line below it, label in the middle of the line.
@@ -281,7 +282,7 @@ class MeasureView @JvmOverloads constructor(
     }
 
     private fun drawArea(canvas: Canvas, unitText: String) {
-        val text = String.format("S = %.2f %s²", measuredAreaValue, unitText)
+        val text = String.format(Locale.ROOT, "S = %.2f %s²", measuredAreaValue, unitText)
         areaPaint.getTextBounds(text, 0, text.length, textBounds)
         val baseline = height - dp(24f)
         canvas.drawText(text, width - dp(24f), baseline, areaPaint)

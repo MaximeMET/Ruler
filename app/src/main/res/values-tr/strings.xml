@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Cetvel</string>
+
+    <!-- Units -->
+    <string name="unit_cm">cm</string>
+    <string name="unit_mm">mm</string>
+    <string name="unit_inch">inç</string>
+
+    <!-- Main screen -->
+    <string name="mode_one_point">Kenardan ölç</string>
+    <string name="mode_two_points">İki nokta arasını ölç</string>
+    <string name="mode_four_points">Dikdörtgen ölç</string>
+    <string name="mode_protractor">İletki</string>
+    <string name="calibration">Kalibrasyon</string>
+    <string name="settings">Ayarlar</string>
+    <string name="close">Kapat</string>
+    <string name="stop_measuring">Ölçümü bitir</string>
+
+    <!-- Calibration -->
+    <string name="credit_card_length">Kart uzunluğu:</string>
+    <string name="coefficient">katsayı</string>
+    <string name="reset">Sıfırla</string>
+    <string name="save">Kaydet</string>
+    <string name="saved">Kaydedildi</string>
+    <string name="calibration_hint">Kartı ekrana koyup uzun kenarını çerçeveye hizalayın, ardından düğmelerle veya cetveli sürükleyerek ince ayar yapın.</string>
+
+    <!-- Settings -->
+    <string name="pref_group_display">Ekran</string>
+    <string name="pref_group_measure">Ölçüm</string>
+    <string name="pref_group_info">Bilgi</string>
+    <string name="orientation">Ekran yönü</string>
+    <string name="orientation_landscape">yatay</string>
+    <string name="orientation_reverse">ters yatay</string>
+    <string name="keep_screen_on">Ekranı açık tut</string>
+    <string name="keep_screen_on_summary">Ekranın kapanmasını engeller</string>
+    <string name="use_dark_theme">Koyu tema</string>
+    <string name="dark_theme">Koyu</string>
+    <string name="light_theme">Açık</string>
+    <string name="padding">Kenar boşluğu</string>
+    <string name="padding_summary">İlk çizgiden önce boşluk bırakır</string>
+    <string name="language">Dil</string>
+    <string name="follow_system">Sistemi izle</string>
+    <string name="measurement">Birim</string>
+    <string name="information">Hakkında</string>
+
+    <!-- About -->
+    <string name="about_version">Sürüm %1$s</string>
+    <string name="about_tagline">Android için açık kaynaklı cetvel ve iletki. Reklam yok, izin yok, takip yok.</string>
+    <string name="about_license_title">Lisans</string>
+    <string name="about_license_body">MIT lisansı ile yayınlanmıştır. Özgürce kullanabilir, inceleyebilir, değiştirebilir ve dağıtabilirsiniz.</string>
+    <string name="about_disclaimer_title">Yasal uyarı</string>
+    <string name="about_disclaimer_body">Uygulama olduğu gibi sunulur, hiçbir garanti verilmez. Doğruluk dokunmatik ekrana ve doğru kalibrasyona bağlıdır; değerler tahminidir.</string>
+    <string name="about_source">Kaynak kodu</string>
+
+    <!-- Accessibility -->
+    <string name="a11y_unit_toggle">Ölçü birimi</string>
+</resources>

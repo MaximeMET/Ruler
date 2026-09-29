@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">자</string>
+
+    <!-- Units -->
+    <string name="unit_cm">cm</string>
+    <string name="unit_mm">mm</string>
+    <string name="unit_inch">인치</string>
+
+    <!-- Main screen -->
+    <string name="mode_one_point">가장자리에서 측정</string>
+    <string name="mode_two_points">두 지점 사이 측정</string>
+    <string name="mode_four_points">사각형 측정</string>
+    <string name="mode_protractor">각도기</string>
+    <string name="calibration">보정</string>
+    <string name="settings">설정</string>
+    <string name="close">닫기</string>
+    <string name="stop_measuring">측정 종료</string>
+
+    <!-- Calibration -->
+    <string name="credit_card_length">카드 긴 변:</string>
+    <string name="coefficient">보정 계수</string>
+    <string name="reset">초기화</string>
+    <string name="save">저장</string>
+    <string name="saved">저장됨</string>
+    <string name="calibration_hint">카드를 화면에 대고 긴 변을 테두리에 맞춘 뒤 버튼이나 드래그로 미세 조정하세요.</string>
+
+    <!-- Settings -->
+    <string name="pref_group_display">화면</string>
+    <string name="pref_group_measure">측정</string>
+    <string name="pref_group_info">정보</string>
+    <string name="orientation">화면 방향</string>
+    <string name="orientation_landscape">가로</string>
+    <string name="orientation_reverse">반대 방향</string>
+    <string name="keep_screen_on">화면 항상 켜기</string>
+    <string name="keep_screen_on_summary">측정 중 화면이 꺼지지 않습니다</string>
+    <string name="use_dark_theme">어두운 테마</string>
+    <string name="dark_theme">어두운 테마</string>
+    <string name="light_theme">밝은 테마</string>
+    <string name="padding">가장자리 여백</string>
+    <string name="padding_summary">첫 눈금 앞에 여백을 둡니다</string>
+    <string name="language">언어</string>
+    <string name="follow_system">시스템 설정 따르기</string>
+    <string name="measurement">측정 단위</string>
+    <string name="information">정보</string>
+
+    <!-- About -->
+    <string name="about_version">버전 %1$s</string>
+    <string name="about_tagline">Android용 오픈 소스 자와 각도기. 광고 없음, 권한 없음, 추적 없음.</string>
+    <string name="about_license_title">라이선스</string>
+    <string name="about_license_body">MIT 라이선스로 배포됩니다. 자유롭게 사용, 연구, 수정, 재배포할 수 있습니다.</string>
+    <string name="about_disclaimer_title">면책 조항</string>
+    <string name="about_disclaimer_body">이 앱은 있는 그대로 제공되며 어떠한 보증도 하지 않습니다. 정확도는 터치스크린의 공칭 픽셀 밀도와 보정 결과에 따라 달라지므로 측정값은 참고용입니다.</string>
+    <string name="about_source">소스 코드</string>
+
+    <!-- Accessibility -->
+    <string name="a11y_unit_toggle">측정 단위</string>
+</resources>

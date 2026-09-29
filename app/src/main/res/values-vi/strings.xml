@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Thước</string>
+
+    <!-- Units -->
+    <string name="unit_cm">cm</string>
+    <string name="unit_mm">mm</string>
+    <string name="unit_inch">inch</string>
+
+    <!-- Main screen -->
+    <string name="mode_one_point">Đo từ mép</string>
+    <string name="mode_two_points">Đo giữa hai điểm</string>
+    <string name="mode_four_points">Đo hình chữ nhật</string>
+    <string name="mode_protractor">Thước đo góc</string>
+    <string name="calibration">Hiệu chuẩn</string>
+    <string name="settings">Cài đặt</string>
+    <string name="close">Đóng</string>
+    <string name="stop_measuring">Kết thúc đo</string>
+
+    <!-- Calibration -->
+    <string name="credit_card_length">Chiều dài thẻ:</string>
+    <string name="coefficient">hệ số</string>
+    <string name="reset">Đặt lại</string>
+    <string name="save">Lưu</string>
+    <string name="saved">Đã lưu</string>
+    <string name="calibration_hint">Đặt thẻ lên màn hình, căn cạnh dài của thẻ với khung, rồi tinh chỉnh bằng nút hoặc kéo thước.</string>
+
+    <!-- Settings -->
+    <string name="pref_group_display">Hiển thị</string>
+    <string name="pref_group_measure">Đo lường</string>
+    <string name="pref_group_info">Thông tin</string>
+    <string name="orientation">Hướng màn hình</string>
+    <string name="orientation_landscape">ngang</string>
+    <string name="orientation_reverse">ngang ngược</string>
+    <string name="keep_screen_on">Giữ màn hình sáng</string>
+    <string name="keep_screen_on_summary">Không cho màn hình tắt khi đo</string>
+    <string name="use_dark_theme">Chủ đề tối</string>
+    <string name="dark_theme">Tối</string>
+    <string name="light_theme">Sáng</string>
+    <string name="padding">Lề cạnh</string>
+    <string name="padding_summary">Chừa một khoảng nhỏ trước vạch đầu tiên</string>
+    <string name="language">Ngôn ngữ</string>
+    <string name="follow_system">Theo hệ thống</string>
+    <string name="measurement">Đơn vị</string>
+    <string name="information">Giới thiệu</string>
+
+    <!-- About -->
+    <string name="about_version">Phiên bản %1$s</string>
+    <string name="about_tagline">Thước và thước đo góc mã nguồn mở cho Android. Không quảng cáo, không quyền, không theo dõi.</string>
+    <string name="about_license_title">Giấy phép</string>
+    <string name="about_license_body">Phát hành theo giấy phép MIT. Bạn có thể tự do sử dụng, nghiên cứu, sửa đổi và phân phối lại.</string>
+    <string name="about_disclaimer_title">Miễn trừ trách nhiệm</string>
+    <string name="about_disclaimer_body">Ứng dụng được cung cấp nguyên trạng, không kèm bảo đảm nào. Độ chính xác phụ thuộc vào màn hình cảm ứng và hiệu chuẩn đúng, nên giá trị chỉ mang tính tham khảo.</string>
+    <string name="about_source">Mã nguồn</string>
+
+    <!-- Accessibility -->
+    <string name="a11y_unit_toggle">Đơn vị đo</string>
+</resources>

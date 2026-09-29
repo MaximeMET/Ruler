@@ -16,6 +16,11 @@ class Prefs private constructor(context: Context) {
         get() = LengthUnit.fromId(sp.getString(KEY_UNIT, null))
         set(value) = sp.edit().putString(KEY_UNIT, value.id).apply()
 
+    /** BCP-47 language tag, or [Locales.SYSTEM] to follow the system language. */
+    var language: String
+        get() = sp.getString(KEY_LANGUAGE, Locales.SYSTEM) ?: Locales.SYSTEM
+        set(value) = sp.edit().putString(KEY_LANGUAGE, value).apply()
+
     var darkTheme: Boolean
         get() = sp.getBoolean(KEY_DARK, true)
         set(value) = sp.edit().putBoolean(KEY_DARK, value).apply()
@@ -44,6 +49,7 @@ class Prefs private constructor(context: Context) {
 
     companion object {
         private const val KEY_UNIT = "preference_unit_measurement"
+        private const val KEY_LANGUAGE = "preference_language"
         private const val KEY_DARK = "preference_dark_mode"
         private const val KEY_KEEP_ON = "preference_keep_screen_on"
         private const val KEY_PADDING = "preference_ruler_padding"

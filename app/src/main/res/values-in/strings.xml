@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Penggaris</string>
+
+    <!-- Units -->
+    <string name="unit_cm">cm</string>
+    <string name="unit_mm">mm</string>
+    <string name="unit_inch">inci</string>
+
+    <!-- Main screen -->
+    <string name="mode_one_point">Ukur dari tepi</string>
+    <string name="mode_two_points">Ukur antara dua titik</string>
+    <string name="mode_four_points">Ukur persegi panjang</string>
+    <string name="mode_protractor">Busur derajat</string>
+    <string name="calibration">Kalibrasi</string>
+    <string name="settings">Pengaturan</string>
+    <string name="close">Tutup</string>
+    <string name="stop_measuring">Hentikan pengukuran</string>
+
+    <!-- Calibration -->
+    <string name="credit_card_length">Panjang kartu:</string>
+    <string name="coefficient">koefisien</string>
+    <string name="reset">Atur ulang</string>
+    <string name="save">Simpan</string>
+    <string name="saved">Tersimpan</string>
+    <string name="calibration_hint">Tempelkan kartu pada layar, sejajarkan sisi panjangnya dengan bingkai, lalu sesuaikan dengan tombol atau menyeret penggaris.</string>
+
+    <!-- Settings -->
+    <string name="pref_group_display">Tampilan</string>
+    <string name="pref_group_measure">Pengukuran</string>
+    <string name="pref_group_info">Informasi</string>
+    <string name="orientation">Orientasi layar</string>
+    <string name="orientation_landscape">lanskap</string>
+    <string name="orientation_reverse">lanskap terbalik</string>
+    <string name="keep_screen_on">Layar selalu menyala</string>
+    <string name="keep_screen_on_summary">Mencegah layar mati saat mengukur</string>
+    <string name="use_dark_theme">Tema gelap</string>
+    <string name="dark_theme">Gelap</string>
+    <string name="light_theme">Terang</string>
+    <string name="padding">Jarak tepi</string>
+    <string name="padding_summary">Menyisakan sedikit jarak sebelum tanda pertama</string>
+    <string name="language">Bahasa</string>
+    <string name="follow_system">Ikuti sistem</string>
+    <string name="measurement">Satuan</string>
+    <string name="information">Tentang</string>
+
+    <!-- About -->
+    <string name="about_version">Versi %1$s</string>
+    <string name="about_tagline">Penggaris dan busur derajat open source untuk Android. Tanpa iklan, tanpa izin, tanpa pelacakan.</string>
+    <string name="about_license_title">Lisensi</string>
+    <string name="about_license_body">Dirilis dengan lisensi MIT. Anda bebas menggunakan, mempelajari, mengubah, dan menyebarkannya.</string>
+    <string name="about_disclaimer_title">Penafian</string>
+    <string name="about_disclaimer_body">Aplikasi disediakan apa adanya, tanpa jaminan apa pun. Akurasi bergantung pada layar sentuh dan kalibrasi yang tepat, jadi nilainya hanya perkiraan.</string>
+    <string name="about_source">Kode sumber</string>
+
+    <!-- Accessibility -->
+    <string name="a11y_unit_toggle">Satuan ukur</string>
+</resources>

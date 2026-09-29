@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Régua</string>
+
+    <!-- Units -->
+    <string name="unit_cm">cm</string>
+    <string name="unit_mm">mm</string>
+    <string name="unit_inch">polegada</string>
+
+    <!-- Main screen -->
+    <string name="mode_one_point">Medir a partir da borda</string>
+    <string name="mode_two_points">Medir entre dois pontos</string>
+    <string name="mode_four_points">Medir um retângulo</string>
+    <string name="mode_protractor">Transferidor</string>
+    <string name="calibration">Calibração</string>
+    <string name="settings">Configurações</string>
+    <string name="close">Fechar</string>
+    <string name="stop_measuring">Encerrar medição</string>
+
+    <!-- Calibration -->
+    <string name="credit_card_length">Comprimento do cartão:</string>
+    <string name="coefficient">coeficiente</string>
+    <string name="reset">Redefinir</string>
+    <string name="save">Salvar</string>
+    <string name="saved">Salvo</string>
+    <string name="calibration_hint">Encoste um cartão na tela, alinhe o lado maior com a moldura e ajuste pelos botões ou arrastando a régua.</string>
+
+    <!-- Settings -->
+    <string name="pref_group_display">Tela</string>
+    <string name="pref_group_measure">Medição</string>
+    <string name="pref_group_info">Informações</string>
+    <string name="orientation">Orientação da tela</string>
+    <string name="orientation_landscape">horizontal</string>
+    <string name="orientation_reverse">invertida</string>
+    <string name="keep_screen_on">Manter a tela ligada</string>
+    <string name="keep_screen_on_summary">Impede que a tela se apague</string>
+    <string name="use_dark_theme">Tema escuro</string>
+    <string name="dark_theme">Escuro</string>
+    <string name="light_theme">Claro</string>
+    <string name="padding">Margem na borda</string>
+    <string name="padding_summary">Deixa uma pequena margem antes da primeira marca</string>
+    <string name="language">Idioma</string>
+    <string name="follow_system">Seguir o sistema</string>
+    <string name="measurement">Unidade</string>
+    <string name="information">Sobre</string>
+
+    <!-- About -->
+    <string name="about_version">Versão %1$s</string>
+    <string name="about_tagline">Régua e transferidor de código aberto para Android. Sem anúncios, sem permissões, sem rastreamento.</string>
+    <string name="about_license_title">Licença</string>
+    <string name="about_license_body">Distribuído sob a licença MIT. Você pode usar, estudar, modificar e redistribuir livremente.</string>
+    <string name="about_disclaimer_title">Aviso</string>
+    <string name="about_disclaimer_body">O aplicativo é fornecido como está, sem garantias. A precisão depende da tela sensível ao toque e de uma calibração correta, então os valores são estimativas.</string>
+    <string name="about_source">Código-fonte</string>
+
+    <!-- Accessibility -->
+    <string name="a11y_unit_toggle">Unidade de medida</string>
+</resources>

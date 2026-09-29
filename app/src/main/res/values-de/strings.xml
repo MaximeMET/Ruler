@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Lineal</string>
+
+    <!-- Units -->
+    <string name="unit_cm">cm</string>
+    <string name="unit_mm">mm</string>
+    <string name="unit_inch">Zoll</string>
+
+    <!-- Main screen -->
+    <string name="mode_one_point">Vom Rand messen</string>
+    <string name="mode_two_points">Zwischen zwei Punkten messen</string>
+    <string name="mode_four_points">Rechteck messen</string>
+    <string name="mode_protractor">Winkelmesser</string>
+    <string name="calibration">Kalibrierung</string>
+    <string name="settings">Einstellungen</string>
+    <string name="close">Schließen</string>
+    <string name="stop_measuring">Messung beenden</string>
+
+    <!-- Calibration -->
+    <string name="credit_card_length">Kartenlänge:</string>
+    <string name="coefficient">Faktor</string>
+    <string name="reset">Zurücksetzen</string>
+    <string name="save">Speichern</string>
+    <string name="saved">Gespeichert</string>
+    <string name="calibration_hint">Karte auf den Bildschirm legen, lange Kante am Rahmen ausrichten und mit den Tasten oder durch Ziehen feinjustieren.</string>
+
+    <!-- Settings -->
+    <string name="pref_group_display">Anzeige</string>
+    <string name="pref_group_measure">Messung</string>
+    <string name="pref_group_info">Informationen</string>
+    <string name="orientation">Bildschirmausrichtung</string>
+    <string name="orientation_landscape">Querformat</string>
+    <string name="orientation_reverse">umgekehrtes Querformat</string>
+    <string name="keep_screen_on">Bildschirm immer an</string>
+    <string name="keep_screen_on_summary">Verhindert, dass der Bildschirm abschaltet</string>
+    <string name="use_dark_theme">Dunkles Design</string>
+    <string name="dark_theme">Dunkel</string>
+    <string name="light_theme">Hell</string>
+    <string name="padding">Randabstand</string>
+    <string name="padding_summary">Lässt vor der ersten Skala einen kleinen Rand</string>
+    <string name="language">Sprache</string>
+    <string name="follow_system">Systemsprache</string>
+    <string name="measurement">Einheit</string>
+    <string name="information">Über</string>
+
+    <!-- About -->
+    <string name="about_version">Version %1$s</string>
+    <string name="about_tagline">Open-Source-Lineal und Winkelmesser für Android. Keine Werbung, keine Berechtigungen, kein Tracking.</string>
+    <string name="about_license_title">Lizenz</string>
+    <string name="about_license_body">Veröffentlicht unter der MIT-Lizenz. Nutzung, Studium, Änderung und Weitergabe sind frei.</string>
+    <string name="about_disclaimer_title">Haftungsausschluss</string>
+    <string name="about_disclaimer_body">Die App wird ohne Gewähr bereitgestellt. Die Genauigkeit hängt vom Touchscreen und einer korrekten Kalibrierung ab; die Werte sind Näherungen.</string>
+    <string name="about_source">Quellcode</string>
+
+    <!-- Accessibility -->
+    <string name="a11y_unit_toggle">Maßeinheit</string>
+</resources>

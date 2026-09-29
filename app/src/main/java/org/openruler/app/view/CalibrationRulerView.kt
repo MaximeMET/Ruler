@@ -12,6 +12,7 @@ import android.view.View
 import org.openruler.app.core.LengthUnit
 import org.openruler.app.core.Palette
 import org.openruler.app.core.Scale
+import java.util.Locale
 
 /**
  * Calibration ruler.
@@ -161,6 +162,7 @@ class CalibrationRulerView @JvmOverloads constructor(
             LengthUnit.INCH -> CARD_LENGTH_MM / 25.4f
         }
         val cardText = String.format(
+            Locale.ROOT,
             "%s %.2f %s",
             context.getString(org.openruler.app.R.string.credit_card_length).replace(":", ""),
             cardValue,
@@ -169,7 +171,7 @@ class CalibrationRulerView @JvmOverloads constructor(
         canvas.drawText(cardText, origin + cardLength / 2f, (laneStart + laneEnd) / 2f + labelHeight / 2f, textPaint)
 
         val coefficientLabel = context.getString(org.openruler.app.R.string.coefficient)
-        val coefficientValue = String.format("%.2f", coefficient)
+        val coefficientValue = String.format(Locale.ROOT, "%.2f", coefficient)
         val labelWidth = labelPaint.measureText(coefficientLabel)
         val valueWidth = valuePaint.measureText(coefficientValue)
         val blockStart = rulerLength - dp(16f) - labelWidth - dp(6f) - valueWidth

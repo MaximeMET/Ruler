@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">مسطرة</string>
+
+    <!-- Units -->
+    <string name="unit_cm">سم</string>
+    <string name="unit_mm">مم</string>
+    <string name="unit_inch">بوصة</string>
+
+    <!-- Main screen -->
+    <string name="mode_one_point">القياس من الحافة</string>
+    <string name="mode_two_points">القياس بين نقطتين</string>
+    <string name="mode_four_points">قياس مستطيل</string>
+    <string name="mode_protractor">المنقلة</string>
+    <string name="calibration">المعايرة</string>
+    <string name="settings">الإعدادات</string>
+    <string name="close">إغلاق</string>
+    <string name="stop_measuring">إنهاء القياس</string>
+
+    <!-- Calibration -->
+    <string name="credit_card_length">طول البطاقة:</string>
+    <string name="coefficient">معامل المعايرة</string>
+    <string name="reset">إعادة ضبط</string>
+    <string name="save">حفظ</string>
+    <string name="saved">تم الحفظ</string>
+    <string name="calibration_hint">ضع بطاقة على الشاشة وطابق حرفها الطويل مع الإطار، ثم اضبط بالزرين أو بسحب المسطرة.</string>
+
+    <!-- Settings -->
+    <string name="pref_group_display">العرض</string>
+    <string name="pref_group_measure">القياس</string>
+    <string name="pref_group_info">معلومات</string>
+    <string name="orientation">اتجاه الشاشة</string>
+    <string name="orientation_landscape">أفقي</string>
+    <string name="orientation_reverse">أفقي معكوس</string>
+    <string name="keep_screen_on">إبقاء الشاشة مضاءة</string>
+    <string name="keep_screen_on_summary">يمنع إطفاء الشاشة أثناء القياس</string>
+    <string name="use_dark_theme">المظهر الداكن</string>
+    <string name="dark_theme">داكن</string>
+    <string name="light_theme">فاتح</string>
+    <string name="padding">هامش الحافة</string>
+    <string name="padding_summary">يترك فراغًا قبل أول تدريج</string>
+    <string name="language">اللغة</string>
+    <string name="follow_system">لغة النظام</string>
+    <string name="measurement">وحدة القياس</string>
+    <string name="information">حول</string>
+
+    <!-- About -->
+    <string name="about_version">الإصدار %1$s</string>
+    <string name="about_tagline">مسطرة ومنقلة مفتوحة المصدر لأندرويد. بلا إعلانات، بلا أذونات، بلا تتبّع.</string>
+    <string name="about_license_title">الترخيص</string>
+    <string name="about_license_body">منشور تحت رخصة MIT. يمكنك استخدامه ودراسته وتعديله وإعادة توزيعه بحرية.</string>
+    <string name="about_disclaimer_title">إخلاء المسؤولية</string>
+    <string name="about_disclaimer_body">يُقدَّم التطبيق كما هو دون أي ضمان. تعتمد الدقة على شاشة اللمس وعلى معايرة صحيحة، لذا القيم تقديرية.</string>
+    <string name="about_source">الكود المصدري</string>
+
+    <!-- Accessibility -->
+    <string name="a11y_unit_toggle">وحدة القياس</string>
+</resources>

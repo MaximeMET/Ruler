@@ -43,6 +43,8 @@
     <string name="use_dark_theme">Use dark theme</string>
     <string name="dark_theme">Dark theme</string>
     <string name="light_theme">Light theme</string>
+    <string name="language">Language</string>
+    <string name="follow_system">Follow system</string>
     <string name="padding">Indent from the edge</string>
     <string name="padding_summary">Leaves a small margin for the first tick</string>
     <string name="measurement">Measurement</string>

@@ -16,6 +16,7 @@ import kotlin.math.hypot
 import kotlin.math.min
 import org.openruler.app.core.MeasureMode
 import org.openruler.app.core.Palette
+import java.util.Locale
 
 /**
  * Half circle protractor with two draggable arms.
@@ -154,7 +155,7 @@ class ProtractorView @JvmOverloads constructor(
         // The pivot always sits inside the wedge; keep it visible while measuring.
         dotPaint.color = if (measuring) palette.background else color
         canvas.drawCircle(centerX, centerY, dp(2f), dotPaint)
-        canvas.drawText(String.format("%.1f°", angle), centerX, height - inset, anglePaint)
+        canvas.drawText(String.format(Locale.ROOT, "%.1f°", angle), centerX, height - inset, anglePaint)
     }
 
     private fun drawWedge(canvas: Canvas) {

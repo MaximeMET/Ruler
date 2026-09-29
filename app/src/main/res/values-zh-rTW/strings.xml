@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">尺子</string>
+
+    <!-- Units -->
+    <string name="unit_cm">公分</string>
+    <string name="unit_mm">公釐</string>
+    <string name="unit_inch">英吋</string>
+
+    <!-- Main screen -->
+    <string name="mode_one_point">從邊緣開始測量</string>
+    <string name="mode_two_points">測量兩點之間的距離</string>
+    <string name="mode_four_points">測量矩形面積</string>
+    <string name="mode_protractor">量角器</string>
+    <string name="calibration">校正</string>
+    <string name="settings">設定</string>
+    <string name="close">關閉</string>
+    <string name="stop_measuring">結束測量</string>
+
+    <!-- Calibration -->
+    <string name="credit_card_length">信用卡長度：</string>
+    <string name="coefficient">校正係數</string>
+    <string name="reset">重設</string>
+    <string name="save">儲存</string>
+    <string name="saved">已儲存</string>
+    <string name="calibration_hint">把一張信用卡貼在螢幕上，讓卡片長邊與方框對齊，再用按鈕或拖動刻度微調。</string>
+
+    <!-- Settings -->
+    <string name="pref_group_display">顯示</string>
+    <string name="pref_group_measure">測量</string>
+    <string name="pref_group_info">資訊</string>
+    <string name="orientation">螢幕方向</string>
+    <string name="orientation_landscape">橫向</string>
+    <string name="orientation_reverse">反向橫向</string>
+    <string name="keep_screen_on">螢幕恆亮</string>
+    <string name="keep_screen_on_summary">測量時螢幕不會自動熄滅</string>
+    <string name="use_dark_theme">深色主題</string>
+    <string name="dark_theme">深色</string>
+    <string name="light_theme">淺色</string>
+    <string name="padding">邊緣留白</string>
+    <string name="padding_summary">左側第一個刻度前留出空隙</string>
+    <string name="language">語言</string>
+    <string name="follow_system">跟隨系統</string>
+    <string name="measurement">測量單位</string>
+    <string name="information">關於</string>
+
+    <!-- About -->
+    <string name="about_version">版本 %1$s</string>
+    <string name="about_tagline">開源的 Android 尺子與量角器：沒有廣告、不申請權限、不做統計。</string>
+    <string name="about_license_title">開源授權</string>
+    <string name="about_license_body">本專案以 MIT 授權條款發布，你可以自由使用、研究、修改和再發布。</string>
+    <string name="about_disclaimer_title">免責聲明</string>
+    <string name="about_disclaimer_body">本應用程式依「現狀」提供，不附帶任何擔保。尺子精確度取決於觸控螢幕的像素密度標稱值與校正結果，測量值僅供參考，不作為計量依據。</string>
+    <string name="about_source">原始碼</string>
+
+    <!-- Accessibility -->
+    <string name="a11y_unit_toggle">測量單位</string>
+</resources>

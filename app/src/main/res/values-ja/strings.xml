@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">定規</string>
+
+    <!-- Units -->
+    <string name="unit_cm">cm</string>
+    <string name="unit_mm">mm</string>
+    <string name="unit_inch">インチ</string>
+
+    <!-- Main screen -->
+    <string name="mode_one_point">端から測る</string>
+    <string name="mode_two_points">2 点間を測る</string>
+    <string name="mode_four_points">長方形を測る</string>
+    <string name="mode_protractor">分度器</string>
+    <string name="calibration">校正</string>
+    <string name="settings">設定</string>
+    <string name="close">閉じる</string>
+    <string name="stop_measuring">測定を終了</string>
+
+    <!-- Calibration -->
+    <string name="credit_card_length">カードの長辺：</string>
+    <string name="coefficient">校正係数</string>
+    <string name="reset">リセット</string>
+    <string name="save">保存</string>
+    <string name="saved">保存しました</string>
+    <string name="calibration_hint">カードを画面に当てて長辺を枠に合わせ、ボタンまたはドラッグで微調整します。</string>
+
+    <!-- Settings -->
+    <string name="pref_group_display">表示</string>
+    <string name="pref_group_measure">測定</string>
+    <string name="pref_group_info">情報</string>
+    <string name="orientation">画面の向き</string>
+    <string name="orientation_landscape">横向き</string>
+    <string name="orientation_reverse">逆横向き</string>
+    <string name="keep_screen_on">画面を常時オン</string>
+    <string name="keep_screen_on_summary">測定中に画面が消灯しません</string>
+    <string name="use_dark_theme">ダークテーマ</string>
+    <string name="dark_theme">ダーク</string>
+    <string name="light_theme">ライト</string>
+    <string name="padding">端の余白</string>
+    <string name="padding_summary">最初の目盛りの前に余白を空けます</string>
+    <string name="language">言語</string>
+    <string name="follow_system">システムに従う</string>
+    <string name="measurement">単位</string>
+    <string name="information">情報</string>
+
+    <!-- About -->
+    <string name="about_version">バージョン %1$s</string>
+    <string name="about_tagline">Android 向けのオープンソース定規・分度器。広告なし、権限なし、トラッキングなし。</string>
+    <string name="about_license_title">ライセンス</string>
+    <string name="about_license_body">MIT ライセンスで公開しています。自由に使用、研究、改変、再配布できます。</string>
+    <string name="about_disclaimer_title">免責事項</string>
+    <string name="about_disclaimer_body">本アプリは「現状のまま」提供され、いかなる保証も伴いません。精度はタッチパネルの公称画素密度と校正結果に依存するため、測定値は目安です。</string>
+    <string name="about_source">ソースコード</string>
+
+    <!-- Accessibility -->
+    <string name="a11y_unit_toggle">測定単位</string>
+</resources>

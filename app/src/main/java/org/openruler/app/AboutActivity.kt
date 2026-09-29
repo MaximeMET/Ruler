@@ -8,13 +8,17 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.content.res.ColorStateList
 import android.graphics.Color
+import org.openruler.app.core.EdgeToEdge
 import org.openruler.app.core.withAlpha
 
 class AboutActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        EdgeToEdge.enable(this)
         setContentView(R.layout.activity_about)
+
+        EdgeToEdge.fitSystemBars(this, findViewById(R.id.appBar), findViewById(R.id.aboutContent))
 
         findViewById<TextView>(R.id.appBarTitle).setText(R.string.information)
         findViewById<ImageView>(R.id.buttonBack).apply {

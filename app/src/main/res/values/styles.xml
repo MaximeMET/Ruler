@@ -6,10 +6,14 @@
         <item name="android:colorPrimary">@color/light_primary</item>
         <item name="android:colorPrimaryDark">@color/light_primary_dark</item>
         <item name="android:colorAccent">@color/light_accent</item>
-        <item name="android:statusBarColor">@color/light_primary_dark</item>
+        <!-- The app bar paints the status bar area once the window is edge to edge (API 30+),
+             so keep the pre-edge-to-edge colour identical and the icons white. -->
+        <item name="android:statusBarColor">@color/light_primary</item>
+        <item name="android:windowLightStatusBar">false</item>
         <item name="android:textColorPrimary">#101623</item>
         <item name="android:textColorSecondary">@color/light_text_light</item>
         <item name="android:navigationBarColor">@color/light_background</item>
+        <item name="android:windowLightNavigationBar">true</item>
     </style>
 
     <style name="Theme.OpenRuler.Dark" parent="@android:style/Theme.Material.NoActionBar">
@@ -17,10 +21,12 @@
         <item name="android:colorPrimary">@color/dark_primary</item>
         <item name="android:colorPrimaryDark">@color/dark_primary_dark</item>
         <item name="android:colorAccent">@color/dark_accent</item>
-        <item name="android:statusBarColor">@color/dark_background</item>
+        <item name="android:statusBarColor">@color/dark_primary</item>
+        <item name="android:windowLightStatusBar">false</item>
         <item name="android:textColorPrimary">#E6E9F0</item>
         <item name="android:textColorSecondary">@color/dark_text_light</item>
         <item name="android:navigationBarColor">@color/dark_background</item>
+        <item name="android:windowLightNavigationBar">false</item>
     </style>
 
     <style name="Theme.OpenRuler.Fullscreen">

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import org.openruler.app.core.EdgeToEdge
 import org.openruler.app.view.CalibrationRulerView
 
 /**
@@ -16,7 +17,14 @@ class CalibrationActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        EdgeToEdge.enable(this)
         setContentView(R.layout.activity_calibration)
+
+        EdgeToEdge.fitSystemBars(
+            this,
+            findViewById(R.id.appBar),
+            findViewById(R.id.nudgeButtons)
+        )
 
         rulerView = findViewById(R.id.calibrationView)
         rulerView.palette = palette

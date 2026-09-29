@@ -12,6 +12,7 @@ import android.widget.LinearLayout
 import android.widget.Switch
 import android.widget.TextView
 import org.openruler.app.core.LengthUnit
+import org.openruler.app.core.EdgeToEdge
 import org.openruler.app.core.Locales
 import java.util.Locale
 
@@ -25,8 +26,11 @@ class SettingsActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        EdgeToEdge.enable(this)
         setContentView(R.layout.activity_settings)
         container = findViewById(R.id.settingsContainer)
+
+        EdgeToEdge.fitSystemBars(this, findViewById(R.id.appBar), container)
 
         findViewById<TextView>(R.id.appBarTitle).setText(R.string.settings)
         findViewById<ImageView>(R.id.buttonBack).apply {

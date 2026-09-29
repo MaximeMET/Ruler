@@ -38,6 +38,6 @@ class AboutActivity : BaseActivity() {
     }
 
     private companion object {
-        const val SOURCE_URL = "https://github.com/"
+        const val SOURCE_URL = "https://github.com/MaximeMET/ruler"
     }
 }

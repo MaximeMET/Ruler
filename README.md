@@ -110,8 +110,8 @@ adb install -r app/build/outputs/apk/debug/app-debug.apk
 release 构建默认开启 R8 代码压缩与资源压缩，并剔除 Kotlin 的反射元数据，本仓库构建出来的
 `app-release.apk` 约 110 KB（其中约 40 KB 是 17 种语言的文案；debug 包约 1 MB，因为它不做任何压缩）。
 
-「关于」页底部的源码按钮现在指向占位地址，发布前改成你自己的仓库即可：
-`app/src/main/java/org/openruler/app/AboutActivity.kt` 里的 `SOURCE_URL`。
+「关于」页底部的源码按钮指向 <https://github.com/MaximeMET/ruler>；如果你 fork 了本项目，
+把 `app/src/main/java/org/openruler/app/AboutActivity.kt` 里的 `SOURCE_URL` 换成自己的仓库地址即可。
 
 也可以直接用 Android Studio 打开仓库根目录，同步后点运行。
 

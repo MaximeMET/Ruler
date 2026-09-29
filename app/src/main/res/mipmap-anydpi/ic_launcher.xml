@@ -1,16 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Launcher icon for API < 26, where adaptive icons do not exist. Same artwork, drawn as
+  one rounded square: the plate is scaled up because nothing crops the canvas here.
+-->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp"
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-    <path
-        android:pathData="M22,0h64a22,22 0 0,1 22,22v64a22,22 0 0,1 -22,22h-64a22,22 0 0,1 -22,-22v-64a22,22 0 0,1 22,-22z"
-        android:fillColor="#2196F3" />
-    <path
-        android:pathData="M24,46h60a4,4 0 0,1 4,4v8a4,4 0 0,1 -4,4h-60a4,4 0 0,1 -4,-4v-8a4,4 0 0,1 4,-4z"
-        android:fillColor="#FFFFFF" />
-    <path
-        android:pathData="M28,48v6M36,48v10M44,48v6M52,48v10M60,48v6M68,48v10M76,48v6M84,48v10"
-        android:strokeColor="#2196F3"
-        android:strokeWidth="2.5" />
+
+    <group>
+        <clip-path android:pathData="M26,0h56a26,26 0 0 1 26,26v56a26,26 0 0 1 -26,26h-56a26,26 0 0 1 -26,-26v-56a26,26 0 0 1 26,-26z" />
+        <path
+            android:fillColor="#4F46E5"
+            android:pathData="M0,0h108v108h-108z" />
+        <path
+            android:fillColor="#6366F1"
+            android:pathData="M-28,6a40,40 0 1,0 80,0a40,40 0 1,0 -80,0z" />
+        <path
+            android:fillColor="#7C3AED"
+            android:pathData="M28,92a62,62 0 1,0 124,0a62,62 0 1,0 -124,0z" />
+    </group>
+
+    <group
+        android:pivotX="54"
+        android:pivotY="54"
+        android:scaleX="1.34"
+        android:scaleY="1.34">
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M39,26h30a13,13 0 0 1 13,13v30a13,13 0 0 1 -13,13h-30a13,13 0 0 1 -13,-13v-30a13,13 0 0 1 13,-13z" />
+        <path
+            android:pathData="M38,27.5v14M48,27.5v9M58,27.5v14M68,27.5v9"
+            android:strokeColor="#4F46E5"
+            android:strokeWidth="4.5"
+            android:strokeLineCap="round" />
+        <path
+            android:pathData="M28,42h9M28,50h6M28,58h9M28,66h6"
+            android:strokeColor="#4F46E5"
+            android:strokeWidth="4"
+            android:strokeLineCap="round" />
+        <path
+            android:fillColor="#7C3AED"
+            android:pathData="M63.5,70a6.5,6.5 0 1,0 13,0a6.5,6.5 0 1,0 -13,0z" />
+    </group>
 </vector>

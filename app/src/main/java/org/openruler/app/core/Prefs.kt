@@ -17,7 +17,7 @@ class Prefs private constructor(context: Context) {
         set(value) = sp.edit().putString(KEY_UNIT, value.id).apply()
 
     var darkTheme: Boolean
-        get() = sp.getBoolean(KEY_DARK, false)
+        get() = sp.getBoolean(KEY_DARK, true)
         set(value) = sp.edit().putBoolean(KEY_DARK, value).apply()
 
     var keepScreenOn: Boolean

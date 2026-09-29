@@ -1,13 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Adaptive-icon foreground layer: a square ruler that fills most of the safe zone.
+
+  Only the middle 72x72 of this 108x108 canvas is visible once the launcher applies its
+  mask, so the plate spans x/y 26..82 (56 units, ~78% of the visible area) and stays
+  inside the 66x66 safe zone.
+-->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp"
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
+
+    <!-- Ruler body. -->
     <path
-        android:pathData="M24,46h60a4,4 0 0,1 4,4v8a4,4 0 0,1 -4,4h-60a4,4 0 0,1 -4,-4v-8a4,4 0 0,1 4,-4z"
-        android:fillColor="#FFFFFF" />
+        android:fillColor="#FFFFFF"
+        android:pathData="M39,26h30a13,13 0 0 1 13,13v30a13,13 0 0 1 -13,13h-30a13,13 0 0 1 -13,-13v-30a13,13 0 0 1 13,-13z" />
+
+    <!-- Scale along the top edge (long / short / long / short). -->
     <path
-        android:pathData="M28,48v6M36,48v10M44,48v6M52,48v10M60,48v6M68,48v10M76,48v6M84,48v10"
-        android:strokeColor="#2196F3"
-        android:strokeWidth="2.5" />
+        android:pathData="M38,27.5v14M48,27.5v9M58,27.5v14M68,27.5v9"
+        android:strokeColor="#4F46E5"
+        android:strokeWidth="4.5"
+        android:strokeLineCap="round" />
+
+    <!-- Shorter scale along the left edge. -->
+    <path
+        android:pathData="M28,42h9M28,50h6M28,58h9M28,66h6"
+        android:strokeColor="#4F46E5"
+        android:strokeWidth="4"
+        android:strokeLineCap="round" />
+
+    <!-- Hanging hole. Painted with the colour the background layer shows underneath so
+         it reads as a real hole. -->
+    <path
+        android:fillColor="#7C3AED"
+        android:pathData="M63.5,70a6.5,6.5 0 1,0 13,0a6.5,6.5 0 1,0 -13,0z" />
 </vector>

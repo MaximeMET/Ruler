@@ -72,8 +72,8 @@ class UnitToggleView @JvmOverloads constructor(
         val radius = h / 2f
         val middle = w / 2f
 
-        // Unselected half: plain white pill.
-        fillPaint.color = android.graphics.Color.WHITE
+        // Unselected half: plain surface pill.
+        fillPaint.color = palette.toggleSurface
         rect.set(0f, 0f, w, h)
         canvas.drawRoundRect(rect, radius, radius, fillPaint)
 
@@ -96,15 +96,15 @@ class UnitToggleView @JvmOverloads constructor(
         }
         fillPaint.color = palette.panel
         canvas.drawPath(path, fillPaint)
-        strokePaint.color = android.graphics.Color.WHITE
+        strokePaint.color = palette.toggleStroke
         canvas.drawPath(path, strokePaint)
 
         // Labels.
         textPaint.getTextBounds("cm", 0, 2, textBounds)
         val baseline = h / 2f + textBounds.height() / 2f
-        textPaint.color = if (leftSelected) android.graphics.Color.WHITE else palette.accent
+        textPaint.color = if (leftSelected) palette.iconOnPanel else palette.accent
         canvas.drawText(label(leftLabel), middle / 2f, baseline, textPaint)
-        textPaint.color = if (leftSelected) palette.accent else android.graphics.Color.WHITE
+        textPaint.color = if (leftSelected) palette.accent else palette.iconOnPanel
         canvas.drawText(label(rightLabel), middle + middle / 2f, baseline, textPaint)
     }
 

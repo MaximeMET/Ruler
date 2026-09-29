@@ -34,6 +34,17 @@ class SettingsActivity : BaseActivity() {
         buildRows()
     }
 
+    /**
+     * The rows are always rebuilt from the preferences, but every switch row reuses one
+     * layout id, so the framework's instance-state restore hands the same saved value to
+     * all of them and overwrites the real state (this happens whenever the theme toggle
+     * recreates the activity). Rebuild once it is done.
+     */
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        buildRows()
+    }
+
     private fun buildRows() {
         container.removeAllViews()
 
@@ -157,6 +168,10 @@ class SettingsActivity : BaseActivity() {
         row.findViewById<ImageView>(R.id.rowChevron).visibility = View.GONE
         val switch = row.findViewById<Switch>(R.id.rowSwitch)
         switch.visibility = View.VISIBLE
+        // Every row reuses the same id, so the framework would restore one row's saved
+        // state into all of them after a recreation (the theme switch calls recreate()).
+        // The rows are always rebuilt from the preferences, so keep them out of it.
+        switch.isSaveEnabled = false
         row.setOnClickListener {
             val newValue = !switch.isChecked
             switch.isChecked = newValue

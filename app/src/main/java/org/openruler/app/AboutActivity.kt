@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.content.res.ColorStateList
 import android.graphics.Color
+import org.openruler.app.core.withAlpha
 
 class AboutActivity : BaseActivity() {
 
@@ -24,9 +25,15 @@ class AboutActivity : BaseActivity() {
         findViewById<TextView>(R.id.aboutVersion).text =
             getString(R.string.about_version, BuildConfig.VERSION_NAME)
 
-        findViewById<Button>(R.id.buttonSource).setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(SOURCE_URL))
-            runCatching { startActivity(intent) }
+        findViewById<Button>(R.id.buttonSource).apply {
+            // Tonal button: a wash of the accent with accent text, which stays readable
+            // in both palettes.
+            backgroundTintList = ColorStateList.valueOf(withAlpha(palette.accent, 0x2E))
+            setTextColor(palette.accent)
+            setOnClickListener {
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(SOURCE_URL))
+                runCatching { startActivity(intent) }
+            }
         }
     }
 

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Monochrome layer for Android 13+ themed icons: the system tints this single colour.
+  Drawn with strokes only, so the vector needs no API 24 fill rule and AAPT does not
+  have to rasterise a bitmap fallback for older releases.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <path
+        android:pathData="M39,26h30a13,13 0 0 1 13,13v30a13,13 0 0 1 -13,13h-30a13,13 0 0 1 -13,-13v-30a13,13 0 0 1 13,-13z"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="7" />
+    <path
+        android:pathData="M38,27.5v14M48,27.5v9M58,27.5v14M68,27.5v9"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="5"
+        android:strokeLineCap="round" />
+    <path
+        android:pathData="M28,42h10M28,58h10"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="5"
+        android:strokeLineCap="round" />
+</vector>

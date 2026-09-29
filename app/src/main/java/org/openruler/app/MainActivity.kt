@@ -191,8 +191,8 @@ class MainActivity : BaseActivity() {
         protractor.visibility = View.GONE
         ruler.visibility = View.VISIBLE
         ruler.mode = MeasureMode.ONE_POINT
-        ruler.mainColor = palette.panel
-        ruler.topScaleColor = Color.WHITE
+        ruler.mainColor = palette.rulerAccent
+        ruler.topScaleColor = palette.idleScale
         ruler.overlayRect = null
         closeButton.visibility = View.GONE
         setToolBarVisible(true)
@@ -232,7 +232,7 @@ class MainActivity : BaseActivity() {
         ruler.calibration = prefs.calibration
         ruler.indentFromEdge = prefs.edgePadding
         if (!measuring) {
-            ruler.mainColor = palette.panel
+            ruler.mainColor = palette.rulerAccent
         }
 
         measure.palette = palette
@@ -247,7 +247,7 @@ class MainActivity : BaseActivity() {
         findViewById<ImageView>(R.id.buttonCalibration).imageTintList = iconTint
         findViewById<ImageView>(R.id.buttonSettings).imageTintList = iconTint
         if (measuring) styleCloseButton(palette.colorOf(mode))
-        if (measuring) ruler.topScaleColor = null else ruler.topScaleColor = Color.WHITE
+        if (measuring) ruler.topScaleColor = null else ruler.topScaleColor = palette.idleScale
     }
 
     private fun recreateTheme() {

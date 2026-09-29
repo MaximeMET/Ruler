@@ -7,9 +7,10 @@
 
 * 没有广告：AdMob、Pangle、AppLovin、Yandex、IronSource、Firebase 等全部不存在
 * 不申请任何权限：清单里连 `INTERNET` 都没有
-* 零第三方依赖：只用 Android Framework + Kotlin 标准库，release 包不到 1 MB
+* 零第三方依赖：只用 Android Framework + Kotlin 标准库，release 包约 70 KB
 * 简体中文 / English 双语界面
-* 浅色 / 深色主题
+* 深色主题（默认）/ 浅色主题，靛蓝 + 紫罗兰配色
+* 矢量自适应图标：Android 8+ 走自适应图标（含 Android 13 主题图标），旧系统用同一套图形的方角图标
 
 ## 功能
 
@@ -28,6 +29,27 @@
 | 尺子 | 矩形测量 | 量角器 | 校准 |
 | --- | --- | --- | --- |
 | ![main](docs/screenshots/main.png) | ![rect](docs/screenshots/measure-rect.png) | ![protractor](docs/screenshots/protractor.png) | ![calibration](docs/screenshots/calibration.png) |
+
+| 设置（深色，默认） | 关于 |
+| --- | --- |
+| ![settings](docs/screenshots/settings.png) | ![about](docs/screenshots/about.png) |
+
+## 配色与图标
+
+配色全部重写过，主色 `#4F46E5`（靛蓝）配 `#7C3AED`（紫罗兰）：
+
+| | 深色主题（默认） | 浅色主题 |
+| --- | --- | --- |
+| 画布 | `#0B0E14` 近黑 | `#F4F6FB` 低亮度灰白 |
+| 工具栏 | `#151A24` | `#4F46E5` |
+| 刻度高亮 | `#818CF8` | `#4F46E5` |
+| 单点 / 两点 / 矩形 / 量角器 | `#60A5FA` / `#34D399` / `#FBBF24` / `#C084FC` | `#2563EB` / `#059669` / `#EA580C` / `#7C3AED` |
+
+深色主题默认打开，因为纯白底在暗环境里太刺眼。工具栏、单位切换胶囊、设置页图标都按主题改色，
+不再出现「深色底 + 白色控件」的硬拼色。
+
+图标是矢量绘制的圆角方形尺身（占可见区约 78%），顶部刻度 + 左侧短刻度 + 挂孔，
+同时提供自适应图标的前景、背景、单色三层，以及给 Android 7 及以下的方角版本。
 
 ## 构建
 
@@ -49,6 +71,12 @@
 ```bash
 adb install -r app/build/outputs/apk/debug/app-debug.apk
 ```
+
+release 构建默认开启 R8 代码压缩与资源压缩，并剔除 Kotlin 的反射元数据，本仓库构建出来的
+`app-release.apk` 约 70 KB（debug 包约 900 KB，因为它不做任何压缩）。
+
+「关于」页底部的源码按钮现在指向占位地址，发布前改成你自己的仓库即可：
+`app/src/main/java/org/openruler/app/AboutActivity.kt` 里的 `SOURCE_URL`。
 
 也可以直接用 Android Studio 打开仓库根目录，同步后点运行。
 

@@ -17,11 +17,17 @@ data class Palette(
     val rulerAccent: Int,
     /** Icons drawn on top of [panel]. */
     val iconOnPanel: Int,
+    /** Colour of the idle top scale, which sits inside the tool bar. */
+    val idleScale: Int,
     /** Accent used by dialogs, list rows and the settings screen. */
     val accent: Int,
     val textPrimary: Int,
     val textSecondary: Int,
     val divider: Int,
+    /** Fill of the unselected half of a segmented control. */
+    val toggleSurface: Int,
+    /** Outline drawn around the selected half of a segmented control. */
+    val toggleStroke: Int,
     val modeColors: Map<MeasureMode, Int>,
     val isDark: Boolean
 ) {
@@ -31,39 +37,45 @@ data class Palette(
     companion object {
 
         val LIGHT = Palette(
-            background = Color.parseColor("#FFFFFF"),
-            panel = Color.parseColor("#2196F3"),
-            rulerContrast = Color.parseColor("#777777"),
-            rulerAccent = Color.parseColor("#2196F3"),
+            background = Color.parseColor("#F4F6FB"),
+            panel = Color.parseColor("#4F46E5"),
+            rulerContrast = Color.parseColor("#64748B"),
+            rulerAccent = Color.parseColor("#4F46E5"),
             iconOnPanel = Color.WHITE,
-            accent = Color.parseColor("#2196F3"),
-            textPrimary = Color.parseColor("#000000"),
-            textSecondary = Color.parseColor("#596369"),
-            divider = Color.parseColor("#22000000"),
+            idleScale = Color.WHITE,
+            accent = Color.parseColor("#4F46E5"),
+            textPrimary = Color.parseColor("#101623"),
+            textSecondary = Color.parseColor("#5A6478"),
+            divider = Color.parseColor("#1A0B1220"),
+            toggleSurface = Color.parseColor("#FFFFFF"),
+            toggleStroke = Color.parseColor("#FFFFFF"),
             modeColors = mapOf(
-                MeasureMode.ONE_POINT to Color.parseColor("#6089D5"),
-                MeasureMode.TWO_POINT to Color.parseColor("#00A18B"),
-                MeasureMode.FOUR_POINT to Color.parseColor("#E65100"),
-                MeasureMode.PROTRACTOR to Color.parseColor("#283593")
+                MeasureMode.ONE_POINT to Color.parseColor("#2563EB"),
+                MeasureMode.TWO_POINT to Color.parseColor("#059669"),
+                MeasureMode.FOUR_POINT to Color.parseColor("#EA580C"),
+                MeasureMode.PROTRACTOR to Color.parseColor("#7C3AED")
             ),
             isDark = false
         )
 
         val DARK = Palette(
-            background = Color.parseColor("#111111"),
-            panel = Color.parseColor("#2994FF"),
-            rulerContrast = Color.parseColor("#DDFFFFFF"),
-            rulerAccent = Color.parseColor("#F9A825"),
+            background = Color.parseColor("#0B0E14"),
+            panel = Color.parseColor("#151A24"),
+            rulerContrast = Color.parseColor("#8A93A8"),
+            rulerAccent = Color.parseColor("#818CF8"),
             iconOnPanel = Color.WHITE,
-            accent = Color.parseColor("#448AFF"),
-            textPrimary = Color.WHITE,
-            textSecondary = Color.parseColor("#ABBBC4"),
-            divider = Color.parseColor("#33FFFFFF"),
+            idleScale = Color.parseColor("#A5B4FC"),
+            accent = Color.parseColor("#818CF8"),
+            textPrimary = Color.parseColor("#E6E9F0"),
+            textSecondary = Color.parseColor("#97A0B3"),
+            divider = Color.parseColor("#262E3D"),
+            toggleSurface = Color.parseColor("#232A38"),
+            toggleStroke = Color.parseColor("#818CF8"),
             modeColors = mapOf(
-                MeasureMode.ONE_POINT to Color.parseColor("#FFC107"),
-                MeasureMode.TWO_POINT to Color.parseColor("#FFEB3B"),
-                MeasureMode.FOUR_POINT to Color.parseColor("#B2FF59"),
-                MeasureMode.PROTRACTOR to Color.parseColor("#F44336")
+                MeasureMode.ONE_POINT to Color.parseColor("#60A5FA"),
+                MeasureMode.TWO_POINT to Color.parseColor("#34D399"),
+                MeasureMode.FOUR_POINT to Color.parseColor("#FBBF24"),
+                MeasureMode.PROTRACTOR to Color.parseColor("#C084FC")
             ),
             isDark = true
         )

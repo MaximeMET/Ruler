@@ -6,9 +6,10 @@
         <item name="android:colorPrimary">@color/light_primary</item>
         <item name="android:colorPrimaryDark">@color/light_primary_dark</item>
         <item name="android:colorAccent">@color/light_accent</item>
-        <item name="android:statusBarColor">@color/light_primary</item>
-        <item name="android:textColorPrimary">@color/black</item>
+        <item name="android:statusBarColor">@color/light_primary_dark</item>
+        <item name="android:textColorPrimary">#101623</item>
         <item name="android:textColorSecondary">@color/light_text_light</item>
+        <item name="android:navigationBarColor">@color/light_background</item>
     </style>
 
     <style name="Theme.OpenRuler.Dark" parent="@android:style/Theme.Material.NoActionBar">
@@ -16,9 +17,10 @@
         <item name="android:colorPrimary">@color/dark_primary</item>
         <item name="android:colorPrimaryDark">@color/dark_primary_dark</item>
         <item name="android:colorAccent">@color/dark_accent</item>
-        <item name="android:statusBarColor">@color/dark_primary_dark</item>
-        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:statusBarColor">@color/dark_background</item>
+        <item name="android:textColorPrimary">#E6E9F0</item>
         <item name="android:textColorSecondary">@color/dark_text_light</item>
+        <item name="android:navigationBarColor">@color/dark_background</item>
     </style>
 
     <style name="Theme.OpenRuler.Fullscreen">
@@ -41,7 +43,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">?android:attr/actionBarSize</item>
         <item name="android:background">?android:attr/colorPrimary</item>
-        <item name="android:elevation">4dp</item>
+        <item name="android:elevation">0dp</item>
     </style>
 
     <style name="AppBar.Title">

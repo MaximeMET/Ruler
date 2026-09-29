@@ -16,7 +16,6 @@
             android:id="@+id/hint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#22000000"
             android:padding="8dp"
             android:text="@string/calibration_hint"
             android:textColor="?android:attr/textColorSecondary"

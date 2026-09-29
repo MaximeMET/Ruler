@@ -24,6 +24,9 @@ class CalibrationActivity : BaseActivity() {
         rulerView.setCoefficient(prefs.calibration)
 
         findViewById<TextView>(R.id.appBarTitle).setText(R.string.calibration)
+        findViewById<android.view.View>(R.id.nudgeButtons).background
+            ?.mutate()
+            ?.setTint(palette.accent)
 
         val reset = findViewById<ImageView>(R.id.buttonReset)
         val save = findViewById<ImageView>(R.id.buttonSave)

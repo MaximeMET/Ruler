@@ -40,6 +40,10 @@ Français、Deutsch、Italiano、Русский、Türkçe、العربية、�
 
 ![语言选择](docs/screenshots/language.png)
 
+想贡献新语言也很简单：把 `app/src/main/res/values/strings.xml` 复制成 `values-<语言代码>/strings.xml`
+翻译一遍，再把语言加进 `core/Locales.kt` 的 `choices` 与 `res/xml/locales_config.xml` 就行，
+不需要改其它代码。
+
 ## 截图
 
 | 尺子 | 矩形测量 | 量角器 | 校准 |

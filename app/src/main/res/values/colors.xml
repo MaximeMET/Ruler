@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Light theme -->
+    <color name="light_primary">#2196F3</color>
+    <color name="light_primary_dark">#1976D2</color>
+    <color name="light_background">#FFFFFF</color>
+    <color name="light_one_point">#6089D5</color>
+    <color name="light_two_points">#00A18B</color>
+    <color name="light_four_points">#E65100</color>
+    <color name="light_protractor">#283593</color>
+    <color name="light_ruler_contrast">#777777</color>
+    <color name="light_gray_text">#88000000</color>
+    <color name="light_text_light">#596369</color>
+    <color name="light_icon">#FFFFFFFF</color>
+    <color name="light_accent">#2196F3</color>
+
+    <!-- Dark theme -->
+    <color name="dark_primary">#448AFF</color>
+    <color name="dark_primary_dark">#2B76E2</color>
+    <color name="dark_background">#111111</color>
+    <color name="dark_ruler">#2994FF</color>
+    <color name="dark_one_point">#FFC107</color>
+    <color name="dark_two_points">#FFEB3B</color>
+    <color name="dark_four_points">#B2FF59</color>
+    <color name="dark_protractor">#F44336</color>
+    <color name="dark_ruler_contrast">#DDFFFFFF</color>
+    <color name="dark_gray_text">#88FFFFFF</color>
+    <color name="dark_text_light">#ABBBC4</color>
+    <color name="dark_icon">#FFFFFFFF</color>
+    <color name="dark_accent">#F9A825</color>
+
+    <color name="white">#FFFFFFFF</color>
+    <color name="black">#FF000000</color>
+    <color name="transparent">#00000000</color>
+</resources>

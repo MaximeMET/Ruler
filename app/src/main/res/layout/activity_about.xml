@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/appBar"
+        layout="@layout/view_app_bar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <ImageView
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_gravity="center_horizontal"
+                android:importantForAccessibility="no"
+                android:src="@mipmap/ic_launcher" />
+
+            <TextView
+                android:id="@+id/aboutTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center"
+                android:text="@string/app_name"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/aboutVersion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="?android:attr/textColorSecondary"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/aboutTagline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:text="@string/about_tagline"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/about_license_title"
+                android:textColor="?android:attr/colorAccent"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/about_license_body"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/about_disclaimer_title"
+                android:textColor="?android:attr/colorAccent"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/about_disclaimer_body"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/buttonSource"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/about_source" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

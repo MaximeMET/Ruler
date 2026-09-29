@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">开源尺子</string>
+    <string name="ruler">尺子</string>
+
+    <!-- Units -->
+    <string name="unit_cm">厘米</string>
+    <string name="unit_mm">毫米</string>
+    <string name="unit_inch">英寸</string>
+    <string name="unit_degree">°</string>
+    <string name="unit_square">%1$s²</string>
+    <string name="format_length">%.2f</string>
+    <string name="format_area">S = %1$.2f %2$s</string>
+
+    <!-- Main screen -->
+    <string name="mode_one_point">从边缘开始测量</string>
+    <string name="mode_two_points">测量两点之间的距离</string>
+    <string name="mode_four_points">测量矩形面积</string>
+    <string name="mode_protractor">量角器</string>
+    <string name="calibration">校准</string>
+    <string name="settings">设置</string>
+    <string name="close">关闭</string>
+    <string name="stop_measuring">结束测量</string>
+    <string name="tap_to_measure">点下方图标开始测量</string>
+
+    <!-- Calibration -->
+    <string name="credit_card_length">银行卡长度：</string>
+    <string name="coefficient">校准系数</string>
+    <string name="reset">重置</string>
+    <string name="save">保存</string>
+    <string name="saved">已保存</string>
+    <string name="calibration_hint">把一张银行卡贴在屏幕上，让卡片长边与方框对齐，再用按钮或拖动刻度微调。</string>
+
+    <!-- Settings -->
+    <string name="pref_group_display">显示</string>
+    <string name="pref_group_measure">测量</string>
+    <string name="pref_group_info">信息</string>
+    <string name="orientation">屏幕方向</string>
+    <string name="orientation_summary">横屏或反向横屏</string>
+    <string name="orientation_landscape">横屏</string>
+    <string name="orientation_reverse">反向横屏</string>
+    <string name="keep_screen_on">屏幕常亮</string>
+    <string name="keep_screen_on_summary">测量时屏幕不会自动熄灭</string>
+    <string name="use_dark_theme">深色主题</string>
+    <string name="dark_theme">深色</string>
+    <string name="light_theme">浅色</string>
+    <string name="padding">边缘留白</string>
+    <string name="padding_summary">左侧第一个刻度前留出空隙</string>
+    <string name="measurement">测量单位</string>
+    <string name="measurement_summary">尺子和读数使用的单位</string>
+    <string name="on">开</string>
+    <string name="off">关</string>
+    <string name="information">关于</string>
+    <string name="information_summary">关于开源尺子</string>
+    <string name="reset_calibration">重置校准</string>
+
+    <!-- About -->
+    <string name="about_version">版本 %1$s</string>
+    <string name="about_tagline">开源的安卓尺子与量角器：没有广告、不申请权限、不做统计。</string>
+    <string name="about_license_title">开源许可</string>
+    <string name="about_license_body">本项目以 MIT 许可证发布，你可以自由使用、研究、修改和再发布。</string>
+    <string name="about_disclaimer_title">免责声明</string>
+    <string name="about_disclaimer_body">本应用按“现状”提供，不附带任何担保。尺子精度取决于触摸屏的像素密度标称值与校准结果，测量值仅供参考，不作为计量依据。</string>
+    <string name="about_source">源代码</string>
+
+    <!-- Accessibility -->
+    <string name="a11y_unit_toggle">测量单位</string>
+</resources>

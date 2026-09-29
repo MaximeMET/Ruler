@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.OpenRuler" parent="@android:style/Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@color/light_background</item>
+        <item name="android:colorPrimary">@color/light_primary</item>
+        <item name="android:colorPrimaryDark">@color/light_primary_dark</item>
+        <item name="android:colorAccent">@color/light_accent</item>
+        <item name="android:statusBarColor">@color/light_primary</item>
+        <item name="android:textColorPrimary">@color/black</item>
+        <item name="android:textColorSecondary">@color/light_text_light</item>
+    </style>
+
+    <style name="Theme.OpenRuler.Dark" parent="@android:style/Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/dark_background</item>
+        <item name="android:colorPrimary">@color/dark_primary</item>
+        <item name="android:colorPrimaryDark">@color/dark_primary_dark</item>
+        <item name="android:colorAccent">@color/dark_accent</item>
+        <item name="android:statusBarColor">@color/dark_primary_dark</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorSecondary">@color/dark_text_light</item>
+    </style>
+
+    <style name="Theme.OpenRuler.Fullscreen">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+    </style>
+
+    <style name="Theme.OpenRuler.Dark.Fullscreen">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+    </style>
+
+    <style name="AppBar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?android:attr/actionBarSize</item>
+        <item name="android:background">?android:attr/colorPrimary</item>
+        <item name="android:elevation">4dp</item>
+    </style>
+
+    <style name="AppBar.Title">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingEnd">8dp</item>
+    </style>
+
+    <style name="AppBar.Icon">
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:background">?android:attr/selectableItemBackgroundBorderless</item>
+        <item name="android:tint">@color/white</item>
+    </style>
+</resources>

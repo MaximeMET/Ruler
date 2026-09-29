@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/appBar"
+            layout="@layout/view_app_bar" />
+
+        <TextView
+            android:id="@+id/hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#22000000"
+            android:padding="8dp"
+            android:text="@string/calibration_hint"
+            android:textColor="?android:attr/textColorSecondary"
+            android:textSize="12sp" />
+
+        <org.openruler.app.view.CalibrationRulerView
+            android:id="@+id/calibrationView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/nudgeButtons"
+        android:layout_width="56dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="28dp"
+        android:background="@drawable/rounded_background"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/buttonMinus"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/calibration"
+            android:padding="16dp"
+            android:rotation="90"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_minus"
+            android:tint="@color/white" />
+
+        <ImageButton
+            android:id="@+id/buttonPlus"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/calibration"
+            android:padding="16dp"
+            android:rotation="90"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_plus"
+            android:tint="@color/white" />
+    </LinearLayout>
+
+</FrameLayout>

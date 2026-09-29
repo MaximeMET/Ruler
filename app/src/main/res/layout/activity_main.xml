@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <org.openruler.app.view.MeasureView
+        android:id="@+id/measureView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+    <org.openruler.app.view.ProtractorView
+        android:id="@+id/protractorView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+    <FrameLayout
+        android:id="@+id/toolBar"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_gravity="top">
+
+        <org.openruler.app.view.UnitToggleView
+            android:id="@+id/unitToggle"
+            android:layout_width="200dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/a11y_unit_toggle" />
+
+        <LinearLayout
+            android:id="@+id/modeRow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:gravity="center_vertical"
+            android:paddingEnd="8dp"
+            android:paddingBottom="8dp">
+
+            <ImageView
+                android:id="@+id/buttonCalibration"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="10dp"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/calibration"
+                android:padding="13dp"
+                android:src="@drawable/ic_calibration" />
+
+            <ImageView
+                android:id="@+id/buttonModeOne"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="6dp"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/mode_one_point"
+                android:padding="14dp"
+                android:src="@drawable/ic_mode_one" />
+
+            <ImageView
+                android:id="@+id/buttonModeTwo"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="6dp"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/mode_two_points"
+                android:padding="14dp"
+                android:src="@drawable/ic_mode_two" />
+
+            <ImageView
+                android:id="@+id/buttonModeFour"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="6dp"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/mode_four_points"
+                android:padding="14dp"
+                android:src="@drawable/ic_mode_four" />
+
+            <ImageView
+                android:id="@+id/buttonProtractor"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="6dp"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/mode_protractor"
+                android:padding="14dp"
+                android:src="@drawable/ic_protractor" />
+
+            <ImageView
+                android:id="@+id/buttonSettings"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="4dp"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/settings"
+                android:padding="14dp"
+                android:src="@drawable/ic_settings" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <org.openruler.app.view.RulerView
+        android:id="@+id/rulerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ImageView
+        android:id="@+id/buttonClose"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_gravity="top|end"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/circle_background"
+        android:contentDescription="@string/stop_measuring"
+        android:padding="12dp"
+        android:src="@drawable/ic_close"
+        android:visibility="gone" />
+
+</FrameLayout>

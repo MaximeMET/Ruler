@@ -51,6 +51,8 @@
 图标是矢量绘制的圆角方形尺身（占可见区约 78%），顶部刻度 + 左侧短刻度 + 挂孔，
 同时提供自适应图标的前景、背景、单色三层，以及给 Android 7 及以下的方角版本。
 
+![图标：重画前 / 重画后](docs/screenshots/icon-before-after.png)
+
 ## 构建
 
 需要 JDK 17 与 Android SDK（`compileSdk 35`）。项目自带 Gradle Wrapper：

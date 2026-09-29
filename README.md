@@ -1,5 +1,12 @@
 # 尺子 Ruler
 
+[![Release](https://img.shields.io/github/v/release/MaximeMET/ruler?label=release)](https://github.com/MaximeMET/ruler/releases/latest)
+[![License](https://img.shields.io/github/license/MaximeMET/ruler?label=license)](LICENSE)
+[![APK size](https://img.shields.io/badge/APK-108%20KB-4f46e5)](https://github.com/MaximeMET/ruler/releases/latest)
+
+**下载：[Releases → `Ruler-1.0.0.apk`](https://github.com/MaximeMET/ruler/releases/latest)** ——
+108 KB，Android 6.0（API 23）及以上。
+
 一个开源的 Android 尺子 / 量角器应用：把手机屏幕当尺子用，测量厘米、毫米、英寸与角度。
 
 界面与交互参考了 Google Play 上的同类尺规应用（`org.nixgame.ruler`，作者 Evgrafov Aleksei），

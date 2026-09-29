@@ -1,16 +1,24 @@
+<!--
+  Two points: two equal bars plus the distance between them, an "H" whose bounding box
+  is square.
+-->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="24dp"
     android:height="24dp"
     android:viewportWidth="24"
     android:viewportHeight="24">
+
     <path
-        android:pathData="M6,5h12a2,2 0 0,1 2,2v10a2,2 0 0,1 -2,2h-12a2,2 0 0,1 -2,-2v-10a2,2 0 0,1 2,-2z"
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M4.6,2.4h1a2.2,2.2 0 0 1 2.2,2.2v14.8a2.2,2.2 0 0 1 -2.2,2.2h-1a2.2,2.2 0 0 1 -2.2,-2.2v-14.8a2.2,2.2 0 0 1 2.2,-2.2z" />
+
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M18.4,2.4h1a2.2,2.2 0 0 1 2.2,2.2v14.8a2.2,2.2 0 0 1 -2.2,2.2h-1a2.2,2.2 0 0 1 -2.2,-2.2v-14.8a2.2,2.2 0 0 1 2.2,-2.2z" />
+
+    <path
+        android:pathData="M9.2,12H14.8"
         android:strokeColor="#FFFFFFFF"
-        android:strokeWidth="1.6" />
-    <path
-        android:pathData="M6.8,6.5h2v11h-2z"
-        android:fillColor="#FFFFFFFF" />
-    <path
-        android:pathData="M15.6,6.2h1.6v11.6h-1.6z"
-        android:fillColor="#FFFFFFFF" />
+        android:strokeWidth="2.4"
+        android:strokeLineCap="round" />
 </vector>

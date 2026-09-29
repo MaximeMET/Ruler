@@ -53,6 +53,13 @@
 
 ![图标：重画前 / 重画后](docs/screenshots/icon-before-after.png)
 
+首页工具栏上的按钮图标也一并重画：原来的单点 / 两点 / 矩形 / 量角器图标共用一个
+16×14 的框，里面只有 1.6 单位的细线，再套上 14dp 内边距后实际只画到约 13×12dp，看起来又小又不方。
+现在每个图标都按 19.2×19.2 的正方形绘制、线条加粗到 2.4~2.5 单位，按钮内边距减到 9dp，
+也就是 48dp 的按钮里画 30dp 的图标，比原来大了约 60%。
+
+![工具栏图标：重画前 / 重画后](docs/screenshots/toolbar-icons.png)
+
 ## 构建
 
 需要 JDK 17 与 Android SDK（`compileSdk 35`）。项目自带 Gradle Wrapper：

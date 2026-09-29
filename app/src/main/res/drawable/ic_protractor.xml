@@ -1,13 +1,33 @@
+<!--
+  Protractor: the quarter disc of a real protractor with its pivot dot and the arm the
+  user drags. Square bounding box, same weight as the rest of the row.
+-->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="24dp"
     android:height="24dp"
     android:viewportWidth="24"
     android:viewportHeight="24">
+
     <path
-        android:pathData="M6,5h12a2,2 0 0,1 2,2v10a2,2 0 0,1 -2,2h-12a2,2 0 0,1 -2,-2v-10a2,2 0 0,1 2,-2z"
+        android:pathData="M2.6,20.4H20.4V2.6"
         android:strokeColor="#FFFFFFFF"
-        android:strokeWidth="1.6" />
+        android:strokeWidth="2.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+
     <path
-        android:pathData="M7.6,17.2L7.6,11A6.2,6.2 0 0,1 13.8,17.2Z"
-        android:fillColor="#FFFFFFFF" />
+        android:pathData="M2.6,20.4A17.8,17.8 0 0 1 20.4,2.6"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="2.5"
+        android:strokeLineCap="round" />
+
+    <path
+        android:pathData="M20.4,20.4L8.5,8.5"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="2.5"
+        android:strokeLineCap="round" />
+
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M18.3,20.4a2.1,2.1 0 1,0 4.2,0a2.1,2.1 0 1,0 -4.2,0z" />
 </vector>

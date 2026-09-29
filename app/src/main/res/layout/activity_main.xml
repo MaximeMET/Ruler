@@ -46,7 +46,7 @@
                 android:layout_marginEnd="10dp"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/calibration"
-                android:padding="13dp"
+                android:padding="9dp"
                 android:src="@drawable/ic_calibration" />
 
             <ImageView
@@ -57,7 +57,7 @@
                 android:layout_marginEnd="6dp"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/mode_one_point"
-                android:padding="14dp"
+                android:padding="9dp"
                 android:src="@drawable/ic_mode_one" />
 
             <ImageView
@@ -68,7 +68,7 @@
                 android:layout_marginEnd="6dp"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/mode_two_points"
-                android:padding="14dp"
+                android:padding="9dp"
                 android:src="@drawable/ic_mode_two" />
 
             <ImageView
@@ -79,7 +79,7 @@
                 android:layout_marginEnd="6dp"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/mode_four_points"
-                android:padding="14dp"
+                android:padding="9dp"
                 android:src="@drawable/ic_mode_four" />
 
             <ImageView
@@ -90,7 +90,7 @@
                 android:layout_marginEnd="6dp"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/mode_protractor"
-                android:padding="14dp"
+                android:padding="9dp"
                 android:src="@drawable/ic_protractor" />
 
             <ImageView
@@ -101,7 +101,7 @@
                 android:layout_marginEnd="4dp"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/settings"
-                android:padding="14dp"
+                android:padding="9dp"
                 android:src="@drawable/ic_settings" />
         </LinearLayout>
     </FrameLayout>

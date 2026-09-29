@@ -1,13 +1,25 @@
+<!-- Rectangle: a square frame carrying the four draggable corner handles. -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="24dp"
     android:height="24dp"
     android:viewportWidth="24"
     android:viewportHeight="24">
+
     <path
-        android:pathData="M6,5h12a2,2 0 0,1 2,2v10a2,2 0 0,1 -2,2h-12a2,2 0 0,1 -2,-2v-10a2,2 0 0,1 2,-2z"
+        android:pathData="M5.2,2.4h13.6a2.8,2.8 0 0 1 2.8,2.8v13.6a2.8,2.8 0 0 1 -2.8,2.8h-13.6a2.8,2.8 0 0 1 -2.8,-2.8v-13.6a2.8,2.8 0 0 1 2.8,-2.8z"
         android:strokeColor="#FFFFFFFF"
-        android:strokeWidth="1.6" />
+        android:strokeWidth="2.5" />
+
     <path
-        android:pathData="M7.6,10.6h5.6v6.6h-5.6z"
-        android:fillColor="#FFFFFFFF" />
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M3.3,5.4a2.1,2.1 0 1,0 4.2,0a2.1,2.1 0 1,0 -4.2,0z" />
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M16.5,5.4a2.1,2.1 0 1,0 4.2,0a2.1,2.1 0 1,0 -4.2,0z" />
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M3.3,18.6a2.1,2.1 0 1,0 4.2,0a2.1,2.1 0 1,0 -4.2,0z" />
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M16.5,18.6a2.1,2.1 0 1,0 4.2,0a2.1,2.1 0 1,0 -4.2,0z" />
 </vector>

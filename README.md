@@ -1,4 +1,4 @@
-# 开源尺子 Open Ruler
+# 尺子 Ruler
 
 一个开源的 Android 尺子 / 量角器应用：把手机屏幕当尺子用，测量厘米、毫米、英寸与角度。
 
@@ -135,7 +135,7 @@ app/src/main/java/org/openruler/app/
 这是**功能对等的重写**，不是原 APK 的重打包：
 
 * 全部源码与图标都是重新编写、绘制的，没有复制原应用的代码、图片或字体资源；
-* 应用名、包名、图标为原创（`Open Ruler` / `org.openruler.app`），避免与原应用混淆；
+* 应用显示名称是「尺子 / Ruler」，包名 `org.openruler.app`，图标为矢量重绘，与原应用无关；
 * 移除了广告（AdMob、Pangle、AppLovin、Yandex、IronSource）与 Firebase / AppMetrica 统计；
 * 移除了评分弹窗、内购（Pro 版）与自家应用互推；
 * 矩形测量里宽、高读数的摆放做了修正——原版把宽度的数字放在高度标注线旁、把高度数字放在宽度标注线旁；

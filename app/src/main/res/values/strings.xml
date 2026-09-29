@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Open Ruler</string>
-    <string name="ruler">Ruler</string>
+    <string name="app_name">Ruler</string>
 
     <!-- Units -->
     <string name="unit_cm">cm</string>
@@ -51,7 +50,7 @@
     <string name="on">on</string>
     <string name="off">off</string>
     <string name="information">Information</string>
-    <string name="information_summary">About Open Ruler</string>
+    <string name="information_summary">About Ruler</string>
     <string name="reset_calibration">Reset calibration</string>
 
     <!-- About -->

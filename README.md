@@ -34,6 +34,12 @@
 | --- | --- |
 | ![settings](docs/screenshots/settings.png) | ![about](docs/screenshots/about.png) |
 
+量角器的扇形填充会盖住刻度，所以被扇形覆盖的那部分刻度与数字改用画布底色重绘：
+修复前（上）张到 158.5° 时 30°~150° 的刻度全部消失，修复后（下）读数始终完整。
+尺子的矩形测量用的是同一套办法。
+
+![量角器扇形内刻度：修复前 / 修复后](docs/screenshots/protractor-contrast.png)
+
 ## 配色与图标
 
 配色全部重写过，主色 `#4F46E5`（靛蓝）配 `#7C3AED`（紫罗兰）：

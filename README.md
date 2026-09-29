@@ -41,6 +41,9 @@
 ./gradlew assembleRelease
 ```
 
+第一次执行 wrapper 会下载 Gradle 8.9（约 130 MB）；如果网络受限，也可以装好 Gradle 8.9 后
+直接执行 `gradle assembleRelease`，或者用 Android Studio 打开仓库根目录构建。
+
 产物在 `app/build/outputs/apk/` 下。安装到手机：
 
 ```bash

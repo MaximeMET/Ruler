@@ -244,7 +244,8 @@ class MeasureView @JvmOverloads constructor(
             val widthBlock = valueWidth + margin + unitWidth
             val widthBaseline = (r.bottom + margin + textHeight)
                 .coerceAtMost(height - margin)
-            val widthCenter = r.centerX().coerceIn(widthBlock / 2f + margin, width - widthBlock / 2f - margin)
+            val widthCenter = r.centerX()
+                .coerceInSafe(widthBlock / 2f + margin, width - widthBlock / 2f - margin)
             val widthLeft = widthCenter - widthBlock / 2f
             drawDualText(canvas, valueText, widthLeft + valueWidth, widthBaseline, valuePaint, r, modeColor)
             drawDualText(canvas, unitText, widthLeft + valueWidth + margin, widthBaseline, smallPaint, r, modeColor)
@@ -256,7 +257,7 @@ class MeasureView @JvmOverloads constructor(
             // Height of the rectangle: dimension line on the right, label in the middle of it.
             val heightBlock = heightWidth + margin + unitWidth
             val heightBaseline = (r.centerY() + textHeight / 2f)
-                .coerceIn(textHeight + margin, height - margin)
+                .coerceInSafe(textHeight + margin, height - margin)
             val heightLeft = (r.right + margin)
                 .coerceAtMost(width - heightBlock - margin)
             drawDualText(canvas, heightText, heightLeft + heightWidth, heightBaseline, valuePaint, r, modeColor)
@@ -385,17 +386,19 @@ class MeasureView @JvmOverloads constructor(
 
     private fun grab(id: Int, x: Float, y: Float) {
         val canGrabLeft = mode == MeasureMode.TWO_POINT || mode == MeasureMode.FOUR_POINT
-        val dLeft = distanceTo(left, x, y)
-        val dRight = distanceTo(right, x, y)
-        val takeLeft = canGrabLeft && dLeft < dRight
-        if (takeLeft) {
-            if (firstHandleIsLeft) return
-            firstHandleIsLeft = true
-        } else {
-            firstHandleIsLeft = false
+        when {
+            firstPointer == MotionEvent.INVALID_POINTER_ID -> {
+                val takeLeft = canGrabLeft && distanceTo(left, x, y) < distanceTo(right, x, y)
+                firstPointer = id
+                firstHandleIsLeft = takeLeft
+                apply(takeLeft, x, y)
+            }
+
+            secondPointer == MotionEvent.INVALID_POINTER_ID && canGrabLeft -> {
+                secondPointer = id
+                apply(!firstHandleIsLeft, x, y)
+            }
         }
-        firstPointer = id
-        move(id, x, y)
     }
 
     private fun move(id: Int, x: Float, y: Float) {
@@ -447,4 +450,8 @@ class MeasureView @JvmOverloads constructor(
     private fun dp(value: Float): Float = value * resources.displayMetrics.density
 
     private fun sp(value: Float): Float = value * resources.displayMetrics.scaledDensity
+
+    /** `coerceIn` that tolerates an empty range, which happens on very small screens. */
+    private fun Float.coerceInSafe(min: Float, max: Float): Float =
+        if (min <= max) coerceIn(min, max) else this
 }

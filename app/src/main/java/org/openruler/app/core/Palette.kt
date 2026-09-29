@@ -19,7 +19,11 @@ data class Palette(
     val iconOnPanel: Int,
     /** Colour of the idle top scale, which sits inside the tool bar. */
     val idleScale: Int,
-    /** Accent used by dialogs, list rows and the settings screen. */
+    /**
+     * The one accent the app draws with: dialogs, list rows, the settings screen and every
+     * measuring tool - ruler ticks, handles, readouts, the rectangle and the protractor.
+     * The tools share it on purpose, so switching between them does not change the palette.
+     */
     val accent: Int,
     val textPrimary: Int,
     val textSecondary: Int,
@@ -28,11 +32,8 @@ data class Palette(
     val toggleSurface: Int,
     /** Outline drawn around the selected half of a segmented control. */
     val toggleStroke: Int,
-    val modeColors: Map<MeasureMode, Int>,
     val isDark: Boolean
 ) {
-
-    fun colorOf(mode: MeasureMode): Int = modeColors.getValue(mode)
 
     companion object {
 
@@ -49,12 +50,6 @@ data class Palette(
             divider = Color.parseColor("#1A0B1220"),
             toggleSurface = Color.parseColor("#FFFFFF"),
             toggleStroke = Color.parseColor("#FFFFFF"),
-            modeColors = mapOf(
-                MeasureMode.ONE_POINT to Color.parseColor("#2563EB"),
-                MeasureMode.TWO_POINT to Color.parseColor("#059669"),
-                MeasureMode.FOUR_POINT to Color.parseColor("#EA580C"),
-                MeasureMode.PROTRACTOR to Color.parseColor("#7C3AED")
-            ),
             isDark = false
         )
 
@@ -71,12 +66,6 @@ data class Palette(
             divider = Color.parseColor("#262E3D"),
             toggleSurface = Color.parseColor("#232A38"),
             toggleStroke = Color.parseColor("#818CF8"),
-            modeColors = mapOf(
-                MeasureMode.ONE_POINT to Color.parseColor("#60A5FA"),
-                MeasureMode.TWO_POINT to Color.parseColor("#34D399"),
-                MeasureMode.FOUR_POINT to Color.parseColor("#FBBF24"),
-                MeasureMode.PROTRACTOR to Color.parseColor("#C084FC")
-            ),
             isDark = true
         )
 

@@ -14,7 +14,6 @@ import kotlin.math.abs
 import kotlin.math.atan2
 import kotlin.math.hypot
 import kotlin.math.min
-import org.openruler.app.core.MeasureMode
 import org.openruler.app.core.Palette
 import java.util.Locale
 
@@ -125,7 +124,7 @@ class ProtractorView @JvmOverloads constructor(
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         if (width == 0 || height == 0) return
-        val color = palette.colorOf(MeasureMode.PROTRACTOR)
+        val color = palette.accent
         wedgePaint.color = color
         anglePaint.color = color
 

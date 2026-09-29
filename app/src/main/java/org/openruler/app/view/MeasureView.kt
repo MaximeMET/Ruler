@@ -212,23 +212,23 @@ class MeasureView @JvmOverloads constructor(
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         if (width == 0 || height == 0) return
-        val modeColor = palette.colorOf(mode)
+        val toolColor = palette.accent
         val r = rect
 
-        fillPaint.color = modeColor
+        fillPaint.color = toolColor
         canvas.drawRect(r, fillPaint)
 
-        handlePaint.color = dim(modeColor, 0.7f)
+        handlePaint.color = dim(toolColor, 0.7f)
         canvas.drawLine(right.x, r.top, right.x, r.bottom, handlePaint)
         if (mode == MeasureMode.FOUR_POINT) {
             canvas.drawLine(r.left, right.y, r.right, right.y, handlePaint)
         }
 
-        linePaint.color = modeColor
-        valuePaint.color = modeColor
-        unitPaint.color = modeColor
-        smallPaint.color = modeColor
-        areaPaint.color = modeColor
+        linePaint.color = toolColor
+        valuePaint.color = toolColor
+        unitPaint.color = toolColor
+        smallPaint.color = toolColor
+        areaPaint.color = toolColor
 
         val unitText = unitLabel()
         val valueText = String.format(Locale.ROOT, "%.2f", measuredWidthValue)
@@ -248,11 +248,11 @@ class MeasureView @JvmOverloads constructor(
             val widthCenter = r.centerX()
                 .coerceInSafe(widthBlock / 2f + margin, width - widthBlock / 2f - margin)
             val widthLeft = widthCenter - widthBlock / 2f
-            drawDualText(canvas, valueText, widthLeft + valueWidth, widthBaseline, valuePaint, r, modeColor)
-            drawDualText(canvas, unitText, widthLeft + valueWidth + margin, widthBaseline, smallPaint, r, modeColor)
+            drawDualText(canvas, valueText, widthLeft + valueWidth, widthBaseline, valuePaint, r, toolColor)
+            drawDualText(canvas, unitText, widthLeft + valueWidth + margin, widthBaseline, smallPaint, r, toolColor)
             drawWidthDimension(
                 canvas, r, widthBaseline - textHeight / 2f,
-                widthLeft - margin, widthLeft + widthBlock + margin, modeColor
+                widthLeft - margin, widthLeft + widthBlock + margin, toolColor
             )
 
             // Height of the rectangle: dimension line on the right, label in the middle of it.
@@ -261,11 +261,11 @@ class MeasureView @JvmOverloads constructor(
                 .coerceInSafe(textHeight + margin, height - margin)
             val heightLeft = (r.right + margin)
                 .coerceAtMost(width - heightBlock - margin)
-            drawDualText(canvas, heightText, heightLeft + heightWidth, heightBaseline, valuePaint, r, modeColor)
-            drawDualText(canvas, unitText, heightLeft + heightWidth + margin, heightBaseline, smallPaint, r, modeColor)
+            drawDualText(canvas, heightText, heightLeft + heightWidth, heightBaseline, valuePaint, r, toolColor)
+            drawDualText(canvas, unitText, heightLeft + heightWidth + margin, heightBaseline, smallPaint, r, toolColor)
             drawHeightDimension(
                 canvas, r, heightLeft + heightBlock / 2f,
-                heightBaseline - textHeight - margin, heightBaseline + margin, modeColor
+                heightBaseline - textHeight - margin, heightBaseline + margin, toolColor
             )
 
             drawArea(canvas, unitText)
@@ -276,8 +276,8 @@ class MeasureView @JvmOverloads constructor(
                 r.right + margin,
                 width - margin - valueWidth - unitWidth - margin
             ).coerceAtLeast(margin)
-            drawDualText(canvas, valueText, blockStart + valueWidth, baseline, valuePaint, r, modeColor)
-            drawDualText(canvas, unitText, blockStart + valueWidth + margin, baseline, smallPaint, r, modeColor)
+            drawDualText(canvas, valueText, blockStart + valueWidth, baseline, valuePaint, r, toolColor)
+            drawDualText(canvas, unitText, blockStart + valueWidth + margin, baseline, smallPaint, r, toolColor)
         }
     }
 
@@ -329,13 +329,13 @@ class MeasureView @JvmOverloads constructor(
         baseline: Float,
         paint: Paint,
         area: RectF,
-        modeColor: Int
+        toolColor: Int
     ) {
-        paint.color = modeColor
+        paint.color = toolColor
         canvas.drawText(text, x, baseline, paint)
         val save = canvas.save()
         canvas.clipRect(area)
-        paint.color = contrastOn(modeColor)
+        paint.color = contrastOn(toolColor)
         canvas.drawText(text, x, baseline, paint)
         canvas.restoreToCount(save)
     }

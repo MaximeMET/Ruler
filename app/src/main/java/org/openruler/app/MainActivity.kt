@@ -86,7 +86,7 @@ class MainActivity : BaseActivity() {
                 savedInstanceState.getString(STATE_MODE, MeasureMode.ONE_POINT.name)
                     ?: MeasureMode.ONE_POINT.name
             )
-            startMeasuring(saved, animate = false)
+            startMeasuring(saved)
             if (saved == MeasureMode.PROTRACTOR) {
                 protractor.restore(
                     savedInstanceState.getFloat(STATE_ARM_A, 45f),
@@ -151,10 +151,10 @@ class MainActivity : BaseActivity() {
 
     // region measuring
 
-    private fun startMeasuring(tool: MeasureMode, animate: Boolean = true) {
+    private fun startMeasuring(tool: MeasureMode) {
         mode = tool
         measuring = true
-        val color = palette.colorOf(tool)
+        val color = palette.accent
         ruler.mode = tool
         ruler.mainColor = color
         ruler.topScaleColor = null
@@ -180,7 +180,7 @@ class MainActivity : BaseActivity() {
             }
         }
         styleCloseButton(color)
-        setToolBarVisible(!animate)
+        setToolBarVisible(false)
         closeButton.visibility = View.VISIBLE
     }
 
@@ -204,17 +204,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun setToolBarVisible(visible: Boolean) {
-        toolBar.animate().cancel()
-        if (visible) {
-            toolBar.visibility = View.VISIBLE
-            toolBar.animate().translationY(0f).setDuration(220).start()
-        } else {
-            toolBar.animate()
-                .translationY(-toolBar.height.toFloat())
-                .setDuration(220)
-                .withEndAction { toolBar.visibility = View.INVISIBLE }
-                .start()
-        }
+        toolBar.visibility = if (visible) View.VISIBLE else View.INVISIBLE
     }
 
     // endregion
@@ -246,7 +236,7 @@ class MainActivity : BaseActivity() {
         modeButtons.values.forEach { it.imageTintList = iconTint }
         findViewById<ImageView>(R.id.buttonCalibration).imageTintList = iconTint
         findViewById<ImageView>(R.id.buttonSettings).imageTintList = iconTint
-        if (measuring) styleCloseButton(palette.colorOf(mode))
+        if (measuring) styleCloseButton(palette.accent)
         if (measuring) ruler.topScaleColor = null else ruler.topScaleColor = palette.idleScale
     }
 

@@ -6,7 +6,7 @@
 
 把手机屏幕当尺子用的开源 Android 应用：测量厘米、毫米、英寸与角度。
 
-**下载**：[Releases](https://github.com/MaximeMET/ruler/releases/latest) 里的 `Ruler-1.0.0.apk`，
+**下载**：[最新 Release](https://github.com/MaximeMET/ruler/releases/latest) 里的 APK，
 约 110 KB，支持 Android 6.0（API 23）及以上。
 
 ## 特性

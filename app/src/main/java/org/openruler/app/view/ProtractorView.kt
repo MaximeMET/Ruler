@@ -48,6 +48,9 @@ class ProtractorView @JvmOverloads constructor(
     private var tickRadius = 0f
     private var wedgeRadius = 0f
 
+    /** `true` while the phone is upright: the dial then runs along the left long edge. */
+    private var portrait = false
+
     private val tickPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply { style = Paint.Style.STROKE }
     private val labelPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         textAlign = Paint.Align.CENTER
@@ -104,11 +107,27 @@ class ProtractorView @JvmOverloads constructor(
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-        centerX = w / 2f
         val bottomLimit = h - labelHeight - 2f * inset
-        tickRadius = min(bottomLimit - inset, w / 2f - inset - gap).coerceAtLeast(dp(40f))
-        centerY = bottomLimit
-        wedgeRadius = hypot(centerX, centerY) * 1.05f
+        portrait = h > w
+        if (portrait) {
+            // The long edge is the one that gets lined up with the object, so in portrait the
+            // dial takes a quarter turn: its base line runs down the left side and the scale
+            // opens to the right. Only the readout stays horizontal, along the bottom.
+            centerX = inset
+            centerY = bottomLimit / 2f
+            tickRadius = min(bottomLimit / 2f - inset, w - 2f * inset).coerceAtLeast(dp(40f))
+        } else {
+            centerX = w / 2f
+            centerY = bottomLimit
+            tickRadius = min(bottomLimit - inset, w / 2f - inset - gap).coerceAtLeast(dp(40f))
+        }
+        // The wedge has to reach past every corner, whichever way the dial is turned.
+        wedgeRadius = maxOf(
+            hypot(centerX, centerY),
+            hypot(w - centerX, centerY),
+            hypot(centerX, h - centerY),
+            hypot(w - centerX, h - centerY)
+        ) * 1.05f
         wedgeRect.set(
             centerX - wedgeRadius, centerY - wedgeRadius,
             centerX + wedgeRadius, centerY + wedgeRadius
@@ -127,6 +146,9 @@ class ProtractorView @JvmOverloads constructor(
         val color = palette.accent
         wedgePaint.color = color
         anglePaint.color = color
+
+        val saved = canvas.save()
+        if (portrait) canvas.rotate(90f, centerX, centerY)
 
         drawWedge(canvas)
         drawScale(canvas, color)
@@ -154,7 +176,12 @@ class ProtractorView @JvmOverloads constructor(
         // The pivot always sits inside the wedge; keep it visible while measuring.
         dotPaint.color = if (measuring) palette.background else color
         canvas.drawCircle(centerX, centerY, dp(2f), dotPaint)
-        canvas.drawText(String.format(Locale.ROOT, "%.1f°", angle), centerX, height - inset, anglePaint)
+
+        canvas.restoreToCount(saved)
+
+        // The readout keeps its own direction so it can be read while the phone is upright.
+        anglePaint.color = color
+        canvas.drawText(String.format(Locale.ROOT, "%.1f°", angle), width / 2f, height - inset, anglePaint)
     }
 
     private fun drawWedge(canvas: Canvas) {
@@ -274,7 +301,18 @@ class ProtractorView @JvmOverloads constructor(
         val dx = x - centerX
         val dy = centerY - y
         if (hypot(dx, dy) < dp(12f)) return null
-        val degrees = Math.toDegrees(atan2(dy.toDouble(), dx.toDouble())).toFloat()
+        val degrees = if (portrait) {
+            // The dial is turned a quarter turn here: 0° points down the screen, 90° right.
+            // Touches past the base line fold onto the nearer end of the scale.
+            val raw = Math.toDegrees(atan2(dx.toDouble(), (y - centerY).toDouble())).toFloat()
+            when {
+                raw < -90f -> 180f
+                raw < 0f -> 0f
+                else -> raw
+            }
+        } else {
+            Math.toDegrees(atan2(dy.toDouble(), dx.toDouble())).toFloat()
+        }
         return degrees.coerceIn(0f, 180f)
     }
 

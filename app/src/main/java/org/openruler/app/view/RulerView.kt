@@ -297,18 +297,9 @@ class RulerView @JvmOverloads constructor(
             canvas.drawLine(originX, y, originX + visible, y, paint)
             if (isLabel) {
                 val label = ((i / perLabel) * labelStep).toString()
-                if (portrait) {
-                    // Portrait: the numbers run down the long edge, the way the calibration
-                    // ruler prints them, so the scale keeps one drawing routine.
-                    val advance = textPaint.measureText(label)
-                    val start = (y - advance / 2f).coerceAtLeast(0f)
-                    val save = canvas.save()
-                    canvas.rotate(90f, labelX, start)
-                    canvas.drawText(label, labelX, start, textPaint)
-                    canvas.restoreToCount(save)
-                } else {
-                    canvas.drawText(label, labelX, y + labelTextHeight / 2f, textPaint)
-                }
+                // Labels stay horizontal in both orientations so the scale can be read at a
+                // glance while the phone is held upright.
+                canvas.drawText(label, labelX, y + labelTextHeight / 2f, textPaint)
             }
         }
         textPaint.textAlign = Paint.Align.CENTER

@@ -11,8 +11,8 @@ android {
         applicationId = "org.openruler.app"
         minSdk = 23
         targetSdk = 35
-        versionCode = 3
-        versionName = "1.1.0"
+        versionCode = 4
+        versionName = "1.1.1"
     }
 
     buildTypes {

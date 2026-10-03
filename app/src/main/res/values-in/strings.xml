@@ -14,6 +14,7 @@
     <string name="mode_protractor">Busur derajat</string>
     <string name="calibration">Kalibrasi</string>
     <string name="settings">Pengaturan</string>
+    <string name="orientation_toggle">Beralih potret dan lanskap</string>
     <string name="close">Tutup</string>
     <string name="stop_measuring">Hentikan pengukuran</string>
 
@@ -30,8 +31,10 @@
     <string name="pref_group_measure">Pengukuran</string>
     <string name="pref_group_info">Informasi</string>
     <string name="orientation">Orientasi layar</string>
+    <string name="orientation_portrait">potret</string>
+    <string name="orientation_portrait_reverse">potret terbalik</string>
     <string name="orientation_landscape">lanskap</string>
-    <string name="orientation_reverse">lanskap terbalik</string>
+    <string name="orientation_landscape_reverse">lanskap terbalik</string>
     <string name="keep_screen_on">Layar selalu menyala</string>
     <string name="keep_screen_on_summary">Mencegah layar mati saat mengukur</string>
     <string name="use_dark_theme">Tema gelap</string>

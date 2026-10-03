@@ -14,6 +14,7 @@
     <string name="mode_protractor">Транспортир</string>
     <string name="calibration">Калибровка</string>
     <string name="settings">Настройки</string>
+    <string name="orientation_toggle">Переключить книжную и альбомную</string>
     <string name="close">Закрыть</string>
     <string name="stop_measuring">Завершить измерение</string>
 
@@ -30,8 +31,10 @@
     <string name="pref_group_measure">Измерение</string>
     <string name="pref_group_info">Информация</string>
     <string name="orientation">Ориентация экрана</string>
+    <string name="orientation_portrait">книжная</string>
+    <string name="orientation_portrait_reverse">обратная книжная</string>
     <string name="orientation_landscape">альбомная</string>
-    <string name="orientation_reverse">обратная</string>
+    <string name="orientation_landscape_reverse">обратная альбомная</string>
     <string name="keep_screen_on">Не выключать экран</string>
     <string name="keep_screen_on_summary">Экран не гаснет во время измерения</string>
     <string name="use_dark_theme">Тёмная тема</string>

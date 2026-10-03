@@ -14,6 +14,7 @@
     <string name="mode_protractor">चांदा</string>
     <string name="calibration">कैलिब्रेशन</string>
     <string name="settings">सेटिंग्स</string>
+    <string name="orientation_toggle">पोर्ट्रेट और लैंडस्केप बदलें</string>
     <string name="close">बंद करें</string>
     <string name="stop_measuring">मापना बंद करें</string>
 
@@ -30,8 +31,10 @@
     <string name="pref_group_measure">माप</string>
     <string name="pref_group_info">जानकारी</string>
     <string name="orientation">स्क्रीन की दिशा</string>
+    <string name="orientation_portrait">पोर्ट्रेट</string>
+    <string name="orientation_portrait_reverse">पोर्ट्रेट उलटा</string>
     <string name="orientation_landscape">लैंडस्केप</string>
-    <string name="orientation_reverse">उलटी दिशा</string>
+    <string name="orientation_landscape_reverse">लैंडस्केप उलटा</string>
     <string name="keep_screen_on">स्क्रीन चालू रखें</string>
     <string name="keep_screen_on_summary">मापते समय स्क्रीन बंद नहीं होगी</string>
     <string name="use_dark_theme">डार्क थीम</string>

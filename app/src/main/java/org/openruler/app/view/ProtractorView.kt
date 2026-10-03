@@ -172,6 +172,9 @@ class ProtractorView @JvmOverloads constructor(
     private fun drawScale(canvas: Canvas, color: Int) {
         tickPaint.color = color
         labelPaint.color = color
+        // The dial can only be as wide as the screen. A portrait screen fits a much smaller
+        // dial, where the 10 degree numbers would touch, so print every third one there.
+        val labelEvery = if (tickRadius >= dp(230f)) 10 else 30
         for (i in 1 until 180) {
             val saved = canvas.save()
             canvas.rotate(i - 90f, centerX, centerY)
@@ -186,7 +189,7 @@ class ProtractorView @JvmOverloads constructor(
                 centerX, centerY - tickRadius + length,
                 tickPaint
             )
-            if (i % 10 == 0) {
+            if (i % labelEvery == 0) {
                 canvas.drawText(
                     i.toString(),
                     centerX,

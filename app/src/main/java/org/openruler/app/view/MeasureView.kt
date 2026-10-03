@@ -30,6 +30,10 @@ import java.util.Locale
  *  * [MeasureMode.TWO_POINT] – both edges move, the readout is the distance between them,
  *  * [MeasureMode.FOUR_POINT] – both corners move freely, the readout adds width, height
  *    and area.
+ *
+ * Landscape measures along the long edge of the screen, so the edges of the one and two
+ * point tools are vertical. Portrait turns the tools a quarter turn: those edges become
+ * horizontal and the readout is the distance from the top edge or between the two lines.
  */
 class MeasureView @JvmOverloads constructor(
     context: Context,
@@ -50,6 +54,14 @@ class MeasureView @JvmOverloads constructor(
 
     var palette: Palette = Palette.LIGHT
         set(value) {
+            field = value
+            invalidate()
+        }
+
+    /** `true` while the screen is portrait, when the measured axis runs down the screen. */
+    var portrait: Boolean = false
+        set(value) {
+            if (field == value) return
             field = value
             invalidate()
         }
@@ -145,11 +157,17 @@ class MeasureView @JvmOverloads constructor(
         val indent = if (indentFromEdge) dp(36f) else 0f
 
         when (mode) {
-            MeasureMode.ONE_POINT -> {
+            MeasureMode.ONE_POINT -> if (portrait) {
+                left.set(0f, indent)
+                right.set(width.toFloat(), quantize(height * 0.75f, stepY))
+            } else {
                 left.set(indent, 0f)
                 right.set(quantize(width * 0.75f, stepX), height.toFloat())
             }
-            MeasureMode.TWO_POINT -> {
+            MeasureMode.TWO_POINT -> if (portrait) {
+                left.set(0f, quantize(height * 0.2f, stepY))
+                right.set(width.toFloat(), quantize(height * 0.75f, stepY))
+            } else {
                 left.set(quantize(width * 0.2f, stepX), 0f)
                 right.set(quantize(width * 0.75f, stepX), height.toFloat())
             }
@@ -177,20 +195,27 @@ class MeasureView @JvmOverloads constructor(
         if (points.size < 2) return
         left.set(points[0])
         right.set(points[1])
+        // The restored corners win over the default seed that [start] queued up.
+        pendingMode = null
         refresh()
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-        val scaleX = if (oldw > 0) w.toFloat() / oldw else 0f
-        val scaleY = if (oldh > 0) h.toFloat() / oldh else 0f
-        if (scaleX > 0f && scaleY > 0f) {
-            left.set(left.x * scaleX, left.y * scaleY)
-            right.set(right.x * scaleX, right.y * scaleY)
-        } else if (pendingMode != null) {
-            pendingMode?.let { mode = it }
+        val pending = pendingMode
+        if (pending != null) {
+            mode = pending
             pendingMode = null
             seedPoints()
+        } else if (active && oldw > 0 && oldh > 0 && (w != oldw || h != oldh)) {
+            // A rotation or a window resize while a tool is open: the old corners do not
+            // mean anything on the new axes, so start the tool again on the new geometry.
+            seedPoints()
+        } else if (oldw > 0 && oldh > 0) {
+            val scaleX = w.toFloat() / oldw
+            val scaleY = h.toFloat() / oldh
+            left.set(left.x * scaleX, left.y * scaleY)
+            right.set(right.x * scaleX, right.y * scaleY)
         }
         refresh()
     }
@@ -200,9 +225,15 @@ class MeasureView @JvmOverloads constructor(
         if (width == 0 || height == 0) return
         val metrics = resources.displayMetrics
         val r = rect
-        measuredWidthValue = Scale.pxToUnits(r.width(), unit, metrics.xdpi, calibration)
-        measuredHeightValue = Scale.pxToUnits(r.height(), unit, metrics.ydpi, calibration)
-        measuredAreaValue = measuredWidthValue * measuredHeightValue
+        if (portrait && mode != MeasureMode.FOUR_POINT) {
+            measuredWidthValue = Scale.pxToUnits(r.height(), unit, metrics.ydpi, calibration)
+            measuredHeightValue = 0f
+            measuredAreaValue = 0f
+        } else {
+            measuredWidthValue = Scale.pxToUnits(r.width(), unit, metrics.xdpi, calibration)
+            measuredHeightValue = Scale.pxToUnits(r.height(), unit, metrics.ydpi, calibration)
+            measuredAreaValue = measuredWidthValue * measuredHeightValue
+        }
         if (active) onRectChanged?.invoke(r)
         invalidate()
     }
@@ -219,7 +250,11 @@ class MeasureView @JvmOverloads constructor(
         canvas.drawRect(r, fillPaint)
 
         handlePaint.color = dim(toolColor, 0.7f)
-        canvas.drawLine(right.x, r.top, right.x, r.bottom, handlePaint)
+        if (portrait && mode != MeasureMode.FOUR_POINT) {
+            canvas.drawLine(r.left, right.y, r.right, right.y, handlePaint)
+        } else {
+            canvas.drawLine(right.x, r.top, right.x, r.bottom, handlePaint)
+        }
         if (mode == MeasureMode.FOUR_POINT) {
             canvas.drawLine(r.left, right.y, r.right, right.y, handlePaint)
         }
@@ -269,6 +304,15 @@ class MeasureView @JvmOverloads constructor(
             )
 
             drawArea(canvas, unitText)
+        } else if (portrait) {
+            // Single readout, centred under the movable edge.
+            val blockWidth = valueWidth + margin + unitWidth
+            val center = r.centerX()
+                .coerceInSafe(blockWidth / 2f + margin, width - blockWidth / 2f - margin)
+            val blockLeft = center - blockWidth / 2f
+            val baseline = (r.bottom + margin + textHeight).coerceAtMost(height - margin)
+            drawDualText(canvas, valueText, blockLeft + valueWidth, baseline, valuePaint, r, toolColor)
+            drawDualText(canvas, unitText, blockLeft + valueWidth + margin, baseline, smallPaint, r, toolColor)
         } else {
             // Single readout, vertically centred next to the band.
             val baseline = r.centerY() + textHeight / 2f
@@ -417,7 +461,11 @@ class MeasureView @JvmOverloads constructor(
 
     private fun apply(toLeft: Boolean, x: Float, y: Float) {
         val target = if (toLeft) left else right
-        target.x = x.coerceIn(0f, width.toFloat())
+        if (portrait && mode != MeasureMode.FOUR_POINT) {
+            target.y = y.coerceIn(0f, height.toFloat())
+        } else {
+            target.x = x.coerceIn(0f, width.toFloat())
+        }
         if (mode == MeasureMode.FOUR_POINT) {
             target.y = y.coerceIn(0f, height.toFloat())
         }
@@ -435,8 +483,9 @@ class MeasureView @JvmOverloads constructor(
     }
 
     private fun distanceTo(point: PointF, x: Float, y: Float): Float {
-        val dx = point.x - x
-        val dy = if (mode == MeasureMode.FOUR_POINT) point.y - y else 0f
+        val vertical = portrait && mode != MeasureMode.FOUR_POINT
+        val dx = if (vertical) 0f else point.x - x
+        val dy = if (vertical || mode == MeasureMode.FOUR_POINT) point.y - y else 0f
         return dx * dx + dy * dy
     }
 

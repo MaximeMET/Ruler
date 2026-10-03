@@ -14,6 +14,7 @@
     <string name="mode_protractor">Winkelmesser</string>
     <string name="calibration">Kalibrierung</string>
     <string name="settings">Einstellungen</string>
+    <string name="orientation_toggle">Hoch- und Querformat umschalten</string>
     <string name="close">Schließen</string>
     <string name="stop_measuring">Messung beenden</string>
 
@@ -30,8 +31,10 @@
     <string name="pref_group_measure">Messung</string>
     <string name="pref_group_info">Informationen</string>
     <string name="orientation">Bildschirmausrichtung</string>
+    <string name="orientation_portrait">Hochformat</string>
+    <string name="orientation_portrait_reverse">umgekehrtes Hochformat</string>
     <string name="orientation_landscape">Querformat</string>
-    <string name="orientation_reverse">umgekehrtes Querformat</string>
+    <string name="orientation_landscape_reverse">umgekehrtes Querformat</string>
     <string name="keep_screen_on">Bildschirm immer an</string>
     <string name="keep_screen_on_summary">Verhindert, dass der Bildschirm abschaltet</string>
     <string name="use_dark_theme">Dunkles Design</string>

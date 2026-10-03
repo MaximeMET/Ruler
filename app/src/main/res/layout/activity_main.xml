@@ -35,74 +35,100 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:gravity="center_vertical"
+            android:orientation="horizontal"
             android:paddingEnd="8dp"
             android:paddingBottom="8dp">
 
-            <ImageView
-                android:id="@+id/buttonCalibration"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="6dp"
-                android:layout_marginEnd="10dp"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/calibration"
-                android:padding="9dp"
-                android:src="@drawable/ic_calibration" />
+            <LinearLayout
+                android:id="@+id/toolRow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/buttonModeOne"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="6dp"
-                android:layout_marginEnd="6dp"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/mode_one_point"
-                android:padding="9dp"
-                android:src="@drawable/ic_mode_one" />
+                <ImageView
+                    android:id="@+id/buttonCalibration"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/calibration"
+                    android:padding="9dp"
+                    android:src="@drawable/ic_calibration" />
 
-            <ImageView
-                android:id="@+id/buttonModeTwo"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="6dp"
-                android:layout_marginEnd="6dp"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/mode_two_points"
-                android:padding="9dp"
-                android:src="@drawable/ic_mode_two" />
+                <ImageView
+                    android:id="@+id/buttonModeOne"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="6dp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/mode_one_point"
+                    android:padding="9dp"
+                    android:src="@drawable/ic_mode_one" />
 
-            <ImageView
-                android:id="@+id/buttonModeFour"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="6dp"
-                android:layout_marginEnd="6dp"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/mode_four_points"
-                android:padding="9dp"
-                android:src="@drawable/ic_mode_four" />
+                <ImageView
+                    android:id="@+id/buttonModeTwo"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="6dp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/mode_two_points"
+                    android:padding="9dp"
+                    android:src="@drawable/ic_mode_two" />
 
-            <ImageView
-                android:id="@+id/buttonProtractor"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="6dp"
-                android:layout_marginEnd="6dp"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/mode_protractor"
-                android:padding="9dp"
-                android:src="@drawable/ic_protractor" />
+                <ImageView
+                    android:id="@+id/buttonModeFour"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="6dp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/mode_four_points"
+                    android:padding="9dp"
+                    android:src="@drawable/ic_mode_four" />
+            </LinearLayout>
 
-            <ImageView
-                android:id="@+id/buttonSettings"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="6dp"
-                android:layout_marginEnd="4dp"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/settings"
-                android:padding="9dp"
-                android:src="@drawable/ic_settings" />
+            <LinearLayout
+                android:id="@+id/extraRow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/buttonProtractor"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="6dp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/mode_protractor"
+                    android:padding="9dp"
+                    android:src="@drawable/ic_protractor" />
+
+                <ImageView
+                    android:id="@+id/buttonOrientation"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="6dp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/orientation_toggle"
+                    android:padding="9dp"
+                    android:src="@drawable/ic_rotate" />
+
+                <ImageView
+                    android:id="@+id/buttonSettings"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="4dp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/settings"
+                    android:padding="9dp"
+                    android:src="@drawable/ic_settings" />
+            </LinearLayout>
         </LinearLayout>
     </FrameLayout>
 

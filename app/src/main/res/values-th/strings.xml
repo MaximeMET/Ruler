@@ -14,6 +14,7 @@
     <string name="mode_protractor">ไม้โปรแทรกเตอร์</string>
     <string name="calibration">ปรับเทียบ</string>
     <string name="settings">ตั้งค่า</string>
+    <string name="orientation_toggle">สลับแนวตั้งและแนวนอน</string>
     <string name="close">ปิด</string>
     <string name="stop_measuring">หยุดวัด</string>
 
@@ -30,8 +31,10 @@
     <string name="pref_group_measure">การวัด</string>
     <string name="pref_group_info">ข้อมูล</string>
     <string name="orientation">ทิศทางหน้าจอ</string>
+    <string name="orientation_portrait">แนวตั้ง</string>
+    <string name="orientation_portrait_reverse">แนวตั้งกลับด้าน</string>
     <string name="orientation_landscape">แนวนอน</string>
-    <string name="orientation_reverse">แนวนอนกลับด้าน</string>
+    <string name="orientation_landscape_reverse">แนวนอนกลับด้าน</string>
     <string name="keep_screen_on">เปิดหน้าจอตลอด</string>
     <string name="keep_screen_on_summary">ป้องกันไม่ให้หน้าจอดับระหว่างวัด</string>
     <string name="use_dark_theme">ธีมมืด</string>

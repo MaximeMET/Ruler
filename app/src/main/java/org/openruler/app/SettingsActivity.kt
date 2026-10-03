@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Switch
 import android.widget.TextView
+import org.openruler.app.core.DisplayOrientation
 import org.openruler.app.core.LengthUnit
 import org.openruler.app.core.EdgeToEdge
 import org.openruler.app.core.Locales
@@ -58,10 +59,7 @@ class SettingsActivity : BaseActivity() {
         addValueRow(
             icon = R.drawable.ic_orientation,
             title = R.string.orientation,
-            value = getString(
-                if (prefs.reverseOrientation) R.string.orientation_reverse
-                else R.string.orientation_landscape
-            )
+            value = orientationLabel(prefs.orientation)
         ) { showOrientationDialog() }
 
         addSwitchRow(
@@ -120,19 +118,28 @@ class SettingsActivity : BaseActivity() {
     }
 
     private fun showOrientationDialog() {
-        val options = arrayOf(
-            getString(R.string.orientation_landscape),
-            getString(R.string.orientation_reverse)
-        )
+        val options = DisplayOrientation.entries
         AlertDialog.Builder(this)
             .setTitle(R.string.orientation)
-            .setSingleChoiceItems(options, if (prefs.reverseOrientation) 1 else 0) { dialog, which ->
-                prefs.reverseOrientation = which == 1
+            .setSingleChoiceItems(
+                options.map { orientationLabel(it) }.toTypedArray(),
+                options.indexOf(prefs.orientation)
+            ) { dialog, which ->
+                prefs.orientation = options[which]
                 dialog.dismiss()
-                recreate()
+                buildRows()
             }
             .show()
     }
+
+    private fun orientationLabel(orientation: DisplayOrientation): String = getString(
+        when (orientation) {
+            DisplayOrientation.PORTRAIT -> R.string.orientation_portrait
+            DisplayOrientation.REVERSE_PORTRAIT -> R.string.orientation_portrait_reverse
+            DisplayOrientation.LANDSCAPE -> R.string.orientation_landscape
+            DisplayOrientation.REVERSE_LANDSCAPE -> R.string.orientation_landscape_reverse
+        }
+    )
 
     private fun showUnitDialog() {
         val units = arrayOf(LengthUnit.INCH, LengthUnit.CM, LengthUnit.MM)

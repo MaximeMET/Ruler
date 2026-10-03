@@ -24,6 +24,9 @@ import org.openruler.app.core.contrastOn
  *  * the rectangle tool uses the top and the left scale,
  *  * while nothing is being measured the top scale is painted in the panel colour
  *    (white over the blue tool bar) so the screen still reads as one ruler.
+ *
+ * In portrait the long edge of the screen is the left one, so the vertical scale becomes
+ * the ruler the user reads and the two horizontal scales are dropped.
  */
 class RulerView @JvmOverloads constructor(
     context: Context,
@@ -44,6 +47,26 @@ class RulerView @JvmOverloads constructor(
 
     var indentFromEdge: Boolean = false
         set(value) {
+            field = value
+            invalidate()
+        }
+
+    /** `true` while the screen is portrait: the vertical scale is the main ruler. */
+    var portrait: Boolean = false
+        set(value) {
+            if (field == value) return
+            field = value
+            invalidate()
+        }
+
+    /**
+     * Height of the tool bar in pixels. The portrait ruler reaches into the panel, and that
+     * part is printed in the panel ink - the same trick that keeps the landscape top scale
+     * readable on the coloured bar.
+     */
+    var panelHeight: Float = 0f
+        set(value) {
+            if (field == value) return
             field = value
             invalidate()
         }
@@ -119,27 +142,26 @@ class RulerView @JvmOverloads constructor(
         val stepX = Scale.pxPerTick(unit, metrics.xdpi, calibration)
         val stepY = Scale.pxPerTick(unit, metrics.ydpi, calibration)
 
-        val override = topScaleColor
-        if (override != null) {
-            // Idle screen: the top scale melts into the coloured tool bar.
-            drawHorizontalScale(canvas, stepX, top = true, short = override, long = override, text = override)
-        } else {
-            drawHorizontalScale(
-                canvas, stepX, top = true,
-                short = palette.rulerContrast, long = mainColor, text = palette.rulerContrast
-            )
-        }
-        if (usesBottomScale) {
-            drawHorizontalScale(
-                canvas, stepX, top = false,
-                short = palette.rulerContrast, long = mainColor, text = palette.rulerContrast
-            )
+        if (usesTopScale) {
+            val override = topScaleColor
+            if (override != null) {
+                // Idle screen: the top scale melts into the coloured tool bar.
+                drawHorizontalScale(canvas, stepX, top = true, short = override, long = override, text = override)
+            } else {
+                drawHorizontalScale(
+                    canvas, stepX, top = true,
+                    short = palette.rulerContrast, long = mainColor, text = palette.rulerContrast
+                )
+            }
+            if (usesBottomScale) {
+                drawHorizontalScale(
+                    canvas, stepX, top = false,
+                    short = palette.rulerContrast, long = mainColor, text = palette.rulerContrast
+                )
+            }
         }
         if (usesVerticalScale) {
-            drawVerticalScale(
-                canvas, stepY,
-                short = palette.rulerContrast, long = mainColor, text = palette.rulerContrast
-            )
+            drawVerticalRuler(canvas, stepY)
         }
 
         val rect = overlayRect
@@ -147,9 +169,11 @@ class RulerView @JvmOverloads constructor(
             val contrast = contrastOn(mainColor)
             val save = canvas.save()
             canvas.clipRect(rect)
-            drawHorizontalScale(canvas, stepX, top = true, short = contrast, long = contrast, text = contrast)
-            if (usesBottomScale) {
-                drawHorizontalScale(canvas, stepX, top = false, short = contrast, long = contrast, text = contrast)
+            if (usesTopScale) {
+                drawHorizontalScale(canvas, stepX, top = true, short = contrast, long = contrast, text = contrast)
+                if (usesBottomScale) {
+                    drawHorizontalScale(canvas, stepX, top = false, short = contrast, long = contrast, text = contrast)
+                }
             }
             if (usesVerticalScale) {
                 drawVerticalScale(canvas, stepY, short = contrast, long = contrast, text = contrast)
@@ -159,10 +183,36 @@ class RulerView @JvmOverloads constructor(
     }
 
     private val usesBottomScale: Boolean
-        get() = mode != MeasureMode.FOUR_POINT
+        get() = !portrait && mode != MeasureMode.FOUR_POINT
+
+    private val usesTopScale: Boolean
+        get() = !portrait
 
     private val usesVerticalScale: Boolean
-        get() = mode == MeasureMode.FOUR_POINT
+        get() = portrait || mode == MeasureMode.FOUR_POINT
+
+    private fun drawVerticalRuler(canvas: Canvas, step: Float) {
+        val ink = topScaleColor
+        if (!portrait || ink == null || panelHeight <= 0f) {
+            drawVerticalScale(
+                canvas, step,
+                short = palette.rulerContrast, long = mainColor, text = palette.rulerContrast
+            )
+            return
+        }
+        val split = panelHeight.coerceAtMost(height.toFloat())
+        val panel = canvas.save()
+        canvas.clipRect(0f, 0f, width.toFloat(), split)
+        drawVerticalScale(canvas, step, short = ink, long = ink, text = ink)
+        canvas.restoreToCount(panel)
+        val below = canvas.save()
+        canvas.clipRect(0f, split, width.toFloat(), height.toFloat())
+        drawVerticalScale(
+            canvas, step,
+            short = palette.rulerContrast, long = mainColor, text = palette.rulerContrast
+        )
+        canvas.restoreToCount(below)
+    }
 
     private val originX: Float
         get() = if (indentFromEdge) indent else 0f
@@ -246,12 +296,19 @@ class RulerView @JvmOverloads constructor(
             val paint = if (isLabel) longPaint else shortPaint
             canvas.drawLine(originX, y, originX + visible, y, paint)
             if (isLabel) {
-                canvas.drawText(
-                    ((i / perLabel) * labelStep).toString(),
-                    labelX,
-                    y + labelTextHeight / 2f,
-                    textPaint
-                )
+                val label = ((i / perLabel) * labelStep).toString()
+                if (portrait) {
+                    // Portrait: the numbers run down the long edge, the way the calibration
+                    // ruler prints them, so the scale keeps one drawing routine.
+                    val advance = textPaint.measureText(label)
+                    val start = (y - advance / 2f).coerceAtLeast(0f)
+                    val save = canvas.save()
+                    canvas.rotate(90f, labelX, start)
+                    canvas.drawText(label, labelX, start, textPaint)
+                    canvas.restoreToCount(save)
+                } else {
+                    canvas.drawText(label, labelX, y + labelTextHeight / 2f, textPaint)
+                }
             }
         }
         textPaint.textAlign = Paint.Align.CENTER

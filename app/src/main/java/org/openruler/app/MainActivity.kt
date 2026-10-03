@@ -3,14 +3,19 @@ package org.openruler.app
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.res.ColorStateList
+import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowInsetsController
 import android.view.WindowManager
+import android.widget.FrameLayout
 import android.widget.ImageView
+import android.widget.LinearLayout
+import org.openruler.app.core.DisplayOrientation
 import org.openruler.app.core.MeasureMode
 import org.openruler.app.core.dim
 import org.openruler.app.view.MeasureView
@@ -27,8 +32,11 @@ class MainActivity : BaseActivity() {
     private lateinit var measure: MeasureView
     private lateinit var protractor: ProtractorView
     private lateinit var toolBar: View
+    private lateinit var modeRow: LinearLayout
+    private lateinit var extraRow: LinearLayout
     private lateinit var unitToggle: UnitToggleView
     private lateinit var closeButton: ImageView
+    private lateinit var orientationButton: ImageView
     private lateinit var modeButtons: Map<MeasureMode, ImageView>
     private lateinit var root: View
 
@@ -48,8 +56,11 @@ class MainActivity : BaseActivity() {
         measure = findViewById(R.id.measureView)
         protractor = findViewById(R.id.protractorView)
         toolBar = findViewById(R.id.toolBar)
+        modeRow = findViewById(R.id.modeRow)
+        extraRow = findViewById(R.id.extraRow)
         unitToggle = findViewById(R.id.unitToggle)
         closeButton = findViewById(R.id.buttonClose)
+        orientationButton = findViewById(R.id.buttonOrientation)
 
         modeButtons = mapOf(
             MeasureMode.ONE_POINT to findViewById(R.id.buttonModeOne),
@@ -77,6 +88,7 @@ class MainActivity : BaseActivity() {
         findViewById<View>(R.id.buttonSettings).setOnClickListener {
             startActivity(Intent(this, SettingsActivity::class.java))
         }
+        orientationButton.setOnClickListener { toggleOrientation() }
         closeButton.setOnClickListener { stopMeasuring() }
 
         measure.onRectChanged = { rect -> ruler.overlayRect = rect }
@@ -110,7 +122,7 @@ class MainActivity : BaseActivity() {
     override fun onResume() {
         super.onResume()
         // Settings may have changed while this activity was in the background.
-        val orientationChanged = applyOrientation()
+        applyOrientation()
         applyKeepScreenOn()
         hideSystemBars()
         if (refreshPalette()) {
@@ -119,9 +131,12 @@ class MainActivity : BaseActivity() {
             return
         }
         applyPalette()
-        if (orientationChanged) {
-            // Nothing else to do: the layout is orientation agnostic.
-        }
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        applyOrientationLayout(newConfig.orientation == Configuration.ORIENTATION_PORTRAIT)
+        hideSystemBars()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -235,6 +250,7 @@ class MainActivity : BaseActivity() {
         val iconTint = ColorStateList.valueOf(palette.iconOnPanel)
         modeButtons.values.forEach { it.imageTintList = iconTint }
         findViewById<ImageView>(R.id.buttonCalibration).imageTintList = iconTint
+        orientationButton.imageTintList = iconTint
         findViewById<ImageView>(R.id.buttonSettings).imageTintList = iconTint
         if (measuring) styleCloseButton(palette.accent)
         if (measuring) ruler.topScaleColor = null else ruler.topScaleColor = palette.idleScale
@@ -244,16 +260,59 @@ class MainActivity : BaseActivity() {
         recreate()
     }
 
-    private fun applyOrientation(): Boolean {
-        val requested = if (prefs.reverseOrientation) {
-            ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE
-        } else {
-            ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-        }
-        if (requestedOrientation == requested) return false
-        requestedOrientation = requested
-        return true
+    /** The toolbar button: keep the 180 degree flip, swap portrait and landscape. */
+    private fun toggleOrientation() {
+        prefs.orientation = prefs.orientation.toggled()
+        applyOrientation()
     }
+
+    private fun applyOrientation() {
+        val orientation = prefs.orientation
+        applyOrientationLayout(orientation.portrait)
+        val requested = when (orientation) {
+            DisplayOrientation.PORTRAIT -> ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+            DisplayOrientation.REVERSE_PORTRAIT -> ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT
+            DisplayOrientation.LANDSCAPE -> ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+            DisplayOrientation.REVERSE_LANDSCAPE -> ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE
+        }
+        if (requestedOrientation == requested) return
+        requestedOrientation = requested
+    }
+
+    /**
+     * Everything is sized in dp, so the two orientations share one layout: only the panel
+     * height, the place of the unit switch and the arrangement of the tool buttons change.
+     * In portrait the controls keep to the right of the left hand ruler.
+     */
+    private fun applyOrientationLayout(portrait: Boolean) {
+        ruler.portrait = portrait
+        measure.portrait = portrait
+
+        val panelHeight = dp(if (portrait) 220f else 250f)
+        ruler.panelHeight = panelHeight.toFloat()
+        if (toolBar.layoutParams.height != panelHeight) {
+            toolBar.layoutParams.height = panelHeight
+            toolBar.requestLayout()
+        }
+
+        // Portrait stacks the two button groups; landscape keeps them in a single row.
+        modeRow.orientation = if (portrait) LinearLayout.VERTICAL else LinearLayout.HORIZONTAL
+        modeRow.gravity = if (portrait) Gravity.END else Gravity.CENTER_VERTICAL
+        (extraRow.layoutParams as LinearLayout.LayoutParams).topMargin = if (portrait) dp(6f) else 0
+        extraRow.requestLayout()
+
+        (unitToggle.layoutParams as FrameLayout.LayoutParams).apply {
+            gravity = if (portrait) Gravity.TOP or Gravity.END else Gravity.CENTER
+            topMargin = if (portrait) dp(40f) else 0
+            // The app never mirrors, so the plain right margin is enough; the relative one
+            // is only resolved on the next inflation and would be dropped on a live flip.
+            rightMargin = if (portrait) dp(24f) else 0
+        }
+        unitToggle.requestLayout()
+    }
+
+    private fun dp(value: Float): Int =
+        (value * resources.displayMetrics.density + 0.5f).toInt()
 
     private fun applyKeepScreenOn() {
         if (prefs.keepScreenOn) {

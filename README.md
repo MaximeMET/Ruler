@@ -2,18 +2,18 @@
 
 [![Release](https://img.shields.io/github/v/release/MaximeMET/ruler?label=release)](https://github.com/MaximeMET/ruler/releases/latest)
 [![License](https://img.shields.io/github/license/MaximeMET/ruler?label=license)](LICENSE)
-[![APK size](https://img.shields.io/badge/APK-110%20KB-4f46e5)](https://github.com/MaximeMET/ruler/releases/latest)
+[![APK size](https://img.shields.io/badge/APK-113%20KB-4f46e5)](https://github.com/MaximeMET/ruler/releases/latest)
 
 把手机屏幕当尺子用的开源 Android 应用：测量厘米、毫米、英寸与角度。
 
 **下载**：[最新 Release](https://github.com/MaximeMET/ruler/releases/latest) 里的 APK，
-约 110 KB，支持 Android 6.0（API 23）及以上。
+约 113 KB，支持 Android 6.0（API 23）及以上。
 
 ## 特性
 
 * 没有广告：AdMob、Pangle、AppLovin、Yandex、IronSource、Firebase 等全部不存在
 * 不申请任何权限：清单里连 `INTERNET` 都没有，装完就是一个纯离线工具
-* 零第三方依赖：只用 Android Framework + Kotlin 标准库，release 包约 110 KB
+* 零第三方依赖：只用 Android Framework + Kotlin 标准库，release 包约 113 KB
 * 17 种语言，默认跟随系统语言，也可以在设置里单独指定
 * 深色主题（默认）/ 浅色主题，全应用统一用一个靛蓝强调色
 * 矢量自适应图标：Android 8+ 走自适应图标（含 Android 13 主题图标），更早的系统用同一套图形的方角图标
@@ -22,23 +22,24 @@
 
 | 功能 | 说明 |
 | --- | --- |
-| 全屏尺子 | 顶部、底部、左侧三条刻度；厘米 / 毫米 / 英寸三种单位，1 mm 或 1/8 inch 一格 |
-| 单点测量 | 一条可拖动的边，测量从屏幕边缘到该边的距离 |
+| 全屏尺子 | 默认竖屏，刻度沿左侧长边；横屏时刻度回到上下长边；厘米 / 毫米 / 英寸三种单位，1 mm 或 1/8 inch 一格 |
+| 横竖屏切换 | 工具栏上的旋转按钮一键切换，设置里还可以选竖屏 / 横屏各自的反向 |
+| 单点测量 | 一条可拖动的边：竖屏从屏幕顶边量下来，横屏从屏幕左边缘量过去 |
 | 两点测量 | 两条可拖动的边，测量两点之间的距离 |
 | 矩形测量 | 可拖动矩形，实时显示宽、高与面积 |
-| 量角器 | 半圆刻度盘，两根可拖动的针，双指可同时调整夹角 |
+| 量角器 | 半圆刻度盘，两根可拖动的针，双指可同时调整夹角；竖屏下缩小直径、每 30° 标一个数字 |
 | 校准 | 用银行卡长边（85.60 mm）做参照，加减按钮或直接拖动微调，系数实时保存 |
 | 设置 | 屏幕方向、屏幕常亮、深色主题、边缘留白、语言、测量单位 |
 
 ## 截图
 
-| 尺子 | 矩形测量 | 量角器 | 校准 |
+| 尺子（竖屏，默认） | 尺子（横屏） | 矩形测量 | 量角器 |
 | --- | --- | --- | --- |
-| ![main](docs/screenshots/main.png) | ![rect](docs/screenshots/measure-rect.png) | ![protractor](docs/screenshots/protractor.png) | ![calibration](docs/screenshots/calibration.png) |
+| ![portrait](docs/screenshots/portrait.png) | ![main](docs/screenshots/main.png) | ![rect](docs/screenshots/measure-rect.png) | ![protractor](docs/screenshots/protractor.png) |
 
-| 设置（深色，默认） | 关于 |
-| --- | --- |
-| ![settings](docs/screenshots/settings.png) | ![about](docs/screenshots/about.png) |
+| 校准 | 设置（深色，默认） | 关于 |
+| --- | --- | --- |
+| ![calibration](docs/screenshots/calibration.png) | ![settings](docs/screenshots/settings.png) | ![about](docs/screenshots/about.png) |
 
 ## 语言
 
@@ -99,7 +100,7 @@ adb install -r app/build/outputs/apk/debug/app-debug.apk
 ```
 
 release 构建默认开启 R8 代码压缩与资源压缩，并剔除 Kotlin 的反射元数据，本仓库构建出来的
-`app-release.apk` 约 110 KB（其中约 40 KB 是 17 种语言的文案；debug 包约 1 MB，因为它不做任何压缩）。
+`app-release.apk` 约 113 KB（其中约 40 KB 是 17 种语言的文案；debug 包约 1 MB，因为它不做任何压缩）。
 
 「关于」页底部的源码按钮指向 <https://github.com/MaximeMET/ruler>；如果你 fork 了本项目，
 把 `app/src/main/java/org/openruler/app/AboutActivity.kt` 里的 `SOURCE_URL` 换成自己的仓库地址即可。

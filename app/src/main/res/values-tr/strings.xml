@@ -14,6 +14,7 @@
     <string name="mode_protractor">İletki</string>
     <string name="calibration">Kalibrasyon</string>
     <string name="settings">Ayarlar</string>
+    <string name="orientation_toggle">Dikey ve yatay arasında geçiş yap</string>
     <string name="close">Kapat</string>
     <string name="stop_measuring">Ölçümü bitir</string>
 
@@ -30,8 +31,10 @@
     <string name="pref_group_measure">Ölçüm</string>
     <string name="pref_group_info">Bilgi</string>
     <string name="orientation">Ekran yönü</string>
+    <string name="orientation_portrait">dikey</string>
+    <string name="orientation_portrait_reverse">ters dikey</string>
     <string name="orientation_landscape">yatay</string>
-    <string name="orientation_reverse">ters yatay</string>
+    <string name="orientation_landscape_reverse">ters yatay</string>
     <string name="keep_screen_on">Ekranı açık tut</string>
     <string name="keep_screen_on_summary">Ekranın kapanmasını engeller</string>
     <string name="use_dark_theme">Koyu tema</string>

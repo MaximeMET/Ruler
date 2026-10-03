@@ -14,6 +14,7 @@
     <string name="mode_protractor">分度器</string>
     <string name="calibration">校正</string>
     <string name="settings">設定</string>
+    <string name="orientation_toggle">縦向きと横向きを切り替え</string>
     <string name="close">閉じる</string>
     <string name="stop_measuring">測定を終了</string>
 
@@ -30,8 +31,10 @@
     <string name="pref_group_measure">測定</string>
     <string name="pref_group_info">情報</string>
     <string name="orientation">画面の向き</string>
+    <string name="orientation_portrait">縦向き</string>
+    <string name="orientation_portrait_reverse">逆縦向き</string>
     <string name="orientation_landscape">横向き</string>
-    <string name="orientation_reverse">逆横向き</string>
+    <string name="orientation_landscape_reverse">逆横向き</string>
     <string name="keep_screen_on">画面を常時オン</string>
     <string name="keep_screen_on_summary">測定中に画面が消灯しません</string>
     <string name="use_dark_theme">ダークテーマ</string>

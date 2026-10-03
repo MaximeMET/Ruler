@@ -14,6 +14,7 @@
     <string name="mode_protractor">المنقلة</string>
     <string name="calibration">المعايرة</string>
     <string name="settings">الإعدادات</string>
+    <string name="orientation_toggle">التبديل بين الوضع الرأسي والأفقي</string>
     <string name="close">إغلاق</string>
     <string name="stop_measuring">إنهاء القياس</string>
 
@@ -30,8 +31,10 @@
     <string name="pref_group_measure">القياس</string>
     <string name="pref_group_info">معلومات</string>
     <string name="orientation">اتجاه الشاشة</string>
+    <string name="orientation_portrait">عمودي</string>
+    <string name="orientation_portrait_reverse">عمودي معكوس</string>
     <string name="orientation_landscape">أفقي</string>
-    <string name="orientation_reverse">أفقي معكوس</string>
+    <string name="orientation_landscape_reverse">أفقي معكوس</string>
     <string name="keep_screen_on">إبقاء الشاشة مضاءة</string>
     <string name="keep_screen_on_summary">يمنع إطفاء الشاشة أثناء القياس</string>
     <string name="use_dark_theme">المظهر الداكن</string>

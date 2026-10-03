@@ -14,6 +14,7 @@
     <string name="mode_protractor">Goniometro</string>
     <string name="calibration">Calibrazione</string>
     <string name="settings">Impostazioni</string>
+    <string name="orientation_toggle">Passa tra verticale e orizzontale</string>
     <string name="close">Chiudi</string>
     <string name="stop_measuring">Termina misura</string>
 
@@ -30,8 +31,10 @@
     <string name="pref_group_measure">Misura</string>
     <string name="pref_group_info">Informazioni</string>
     <string name="orientation">Orientamento schermo</string>
+    <string name="orientation_portrait">verticale</string>
+    <string name="orientation_portrait_reverse">verticale invertito</string>
     <string name="orientation_landscape">orizzontale</string>
-    <string name="orientation_reverse">invertito</string>
+    <string name="orientation_landscape_reverse">orizzontale invertito</string>
     <string name="keep_screen_on">Tieni lo schermo acceso</string>
     <string name="keep_screen_on_summary">Impedisce lo spegnimento dello schermo</string>
     <string name="use_dark_theme">Tema scuro</string>

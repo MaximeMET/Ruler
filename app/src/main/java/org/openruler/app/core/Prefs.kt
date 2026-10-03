@@ -4,6 +4,30 @@ import android.content.Context
 import android.content.SharedPreferences
 
 /**
+ * Physical orientation the measuring screens are pinned to.
+ *
+ * The phone is often used flat on a table, where the orientation sensor cannot tell which
+ * way up it lies, so the orientation is fixed instead of following the sensor. Portrait is
+ * the default; [reverse] flips the screen by 180 degrees for the same physical position.
+ */
+enum class DisplayOrientation(val id: String, val portrait: Boolean, val reverse: Boolean) {
+    PORTRAIT("portrait", portrait = true, reverse = false),
+    REVERSE_PORTRAIT("reverse_portrait", portrait = true, reverse = true),
+    LANDSCAPE("landscape", portrait = false, reverse = false),
+    REVERSE_LANDSCAPE("reverse_landscape", portrait = false, reverse = true);
+
+    /** Portrait to landscape (or back), keeping the 180 degree flip. */
+    fun toggled(): DisplayOrientation = when (this) {
+        PORTRAIT, REVERSE_PORTRAIT -> if (reverse) REVERSE_LANDSCAPE else LANDSCAPE
+        LANDSCAPE, REVERSE_LANDSCAPE -> if (reverse) REVERSE_PORTRAIT else PORTRAIT
+    }
+
+    companion object {
+        fun fromId(id: String?): DisplayOrientation = entries.firstOrNull { it.id == id } ?: PORTRAIT
+    }
+}
+
+/**
  * Thin wrapper around [SharedPreferences]; one instance per process is enough because
  * every activity only ever reads or writes single primitive values.
  */
@@ -33,10 +57,9 @@ class Prefs private constructor(context: Context) {
         get() = sp.getBoolean(KEY_PADDING, false)
         set(value) = sp.edit().putBoolean(KEY_PADDING, value).apply()
 
-    /** `false` = landscape, `true` = reverse landscape. */
-    var reverseOrientation: Boolean
-        get() = sp.getBoolean(KEY_REVERSE, false)
-        set(value) = sp.edit().putBoolean(KEY_REVERSE, value).apply()
+    var orientation: DisplayOrientation
+        get() = DisplayOrientation.fromId(sp.getString(KEY_ORIENTATION, null))
+        set(value) = sp.edit().putString(KEY_ORIENTATION, value.id).apply()
 
     /** Multiplier applied to every tick; 1.0 means "trust the reported pixel density". */
     var calibration: Float
@@ -53,7 +76,7 @@ class Prefs private constructor(context: Context) {
         private const val KEY_DARK = "preference_dark_mode"
         private const val KEY_KEEP_ON = "preference_keep_screen_on"
         private const val KEY_PADDING = "preference_ruler_padding"
-        private const val KEY_REVERSE = "preference_orientation_reverse"
+        private const val KEY_ORIENTATION = "preference_orientation"
         private const val KEY_CALIBRATION = "preference_ruler_calibration"
 
         const val DEFAULT_CALIBRATION = 1.0f

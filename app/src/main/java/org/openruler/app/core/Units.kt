@@ -19,10 +19,10 @@ enum class LengthUnit(val id: String) {
 
 /** Measurement tools available on the main screen. */
 enum class MeasureMode {
-    /** Single movable edge, measures the distance from the left edge of the ruler. */
-    ONE_POINT,
-
-    /** Two movable edges, measures the distance between them. */
+    /**
+     * Two movable edges, measures the distance between them. Either edge can be pinned,
+     * and a typed length pins both at once, which makes the band a fixed ruler.
+     */
     TWO_POINT,
 
     /** Movable rectangle, reports width, height and area. */
@@ -78,5 +78,12 @@ object Scale {
         val step = pxPerTick(unit, dpi, calibration)
         if (step <= 0f) return 0f
         return px / step * valuePerTick(unit)
+    }
+
+    /** Converts a value in [unit] into a pixel distance. */
+    fun unitsToPx(value: Float, unit: LengthUnit, dpi: Float, calibration: Float): Float {
+        val step = pxPerTick(unit, dpi, calibration)
+        if (step <= 0f) return 0f
+        return value / valuePerTick(unit) * step
     }
 }

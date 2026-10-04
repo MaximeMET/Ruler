@@ -8,8 +8,8 @@
     <string name="unit_inch">بوصة</string>
 
     <!-- Main screen -->
-    <string name="mode_one_point">القياس من الحافة</string>
     <string name="mode_two_points">القياس بين نقطتين</string>
+    <string name="enter_length">أدخل الطول</string>
     <string name="mode_four_points">قياس مستطيل</string>
     <string name="mode_protractor">المنقلة</string>
     <string name="calibration">المعايرة</string>

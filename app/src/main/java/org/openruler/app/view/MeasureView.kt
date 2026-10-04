@@ -11,7 +11,7 @@ import android.graphics.Typeface
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
-import kotlin.math.abs
+import kotlin.math.hypot
 import kotlin.math.max
 import kotlin.math.min
 import org.openruler.app.core.LengthUnit
@@ -26,14 +26,15 @@ import java.util.Locale
  * Draggable measurement overlay.
  *
  * Two corner points define the measured area; what they mean depends on the active tool:
- *  * [MeasureMode.ONE_POINT] – the right edge moves, the left edge stays at the zero tick,
- *  * [MeasureMode.TWO_POINT] – both edges move, the readout is the distance between them,
+ *  * [MeasureMode.TWO_POINT] – both edges move, the readout is the distance between them.
+ *    Either edge can be pinned, and a typed length pins both of them at once, which turns
+ *    the band into a fixed ruler,
  *  * [MeasureMode.FOUR_POINT] – both corners move freely, the readout adds width, height
  *    and area.
  *
- * Landscape measures along the long edge of the screen, so the edges of the one and two
- * point tools are vertical. Portrait turns the tools a quarter turn: those edges become
- * horizontal and the readout is the distance from the top edge or between the two lines.
+ * Landscape measures along the long edge of the screen, so the edges of the two point
+ * tool are vertical. Portrait turns the tool a quarter turn: the edges become horizontal
+ * and the readout is the distance between the two lines.
  */
 class MeasureView @JvmOverloads constructor(
     context: Context,
@@ -66,15 +67,22 @@ class MeasureView @JvmOverloads constructor(
             invalidate()
         }
 
-    var mode: MeasureMode = MeasureMode.ONE_POINT
+    var mode: MeasureMode = MeasureMode.TWO_POINT
         private set
-
-    var indentFromEdge: Boolean = false
 
     /** Called whenever the measured rectangle changes. */
     var onRectChanged: ((RectF) -> Unit)? = null
+
+    /** Called when the user taps the readout: the host then asks for a length. */
+    var onValueTap: (() -> Unit)? = null
     var onTouchDown: (() -> Unit)? = null
     var onTouchUp: (() -> Unit)? = null
+
+    /** Each line can be pinned in place, so the band can be used as a fixed ruler. */
+    var leftLocked: Boolean = false
+        private set
+    var rightLocked: Boolean = false
+        private set
 
     private val left = PointF()
     private val right = PointF()
@@ -82,6 +90,15 @@ class MeasureView @JvmOverloads constructor(
     private var firstPointer = MotionEvent.INVALID_POINTER_ID
     private var secondPointer = MotionEvent.INVALID_POINTER_ID
     private var firstHandleIsLeft = false
+
+    /** What the current gesture started on: a line, the readout, or nothing special. */
+    private var tapTarget = TAP_NONE
+    private var tapStartX = 0f
+    private var tapStartY = 0f
+    private var tapMoved = false
+
+    /** Hit box of the readout, refreshed on every draw. */
+    private val readoutRect = RectF()
 
     private val fillPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply { style = Paint.Style.FILL }
     private val handlePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply { style = Paint.Style.STROKE }
@@ -104,6 +121,18 @@ class MeasureView @JvmOverloads constructor(
     }
 
     private val textBounds = Rect()
+    private val lockBody = RectF()
+    private val lockArc = RectF()
+
+    private val chipPaint = Paint(Paint.ANTI_ALIAS_FLAG)
+    private val lockPaint = Paint(Paint.ANTI_ALIAS_FLAG)
+    private val chipRadius = dp(12f)
+    private val chipMargin = dp(26f)
+    /** The close button floats over the top right corner; chips step left to stay tappable. */
+    private val chipCloseZone = dp(66f)
+    private val chipCloseShift = dp(46f)
+    private val chipEdgeGap = dp(4f)
+    private val touchSlop = dp(8f)
 
     private val margin = dp(10f)
     private val tickHalf = dp(5f)
@@ -138,6 +167,8 @@ class MeasureView @JvmOverloads constructor(
             return
         }
         pendingMode = null
+        leftLocked = false
+        rightLocked = false
         seedPoints()
         releasePointers()
         refresh()
@@ -154,16 +185,8 @@ class MeasureView @JvmOverloads constructor(
         val metrics = resources.displayMetrics
         val stepX = Scale.pxPerTick(unit, metrics.xdpi, calibration)
         val stepY = Scale.pxPerTick(unit, metrics.ydpi, calibration)
-        val indent = if (indentFromEdge) dp(36f) else 0f
 
         when (mode) {
-            MeasureMode.ONE_POINT -> if (portrait) {
-                left.set(0f, indent)
-                right.set(width.toFloat(), quantize(height * 0.75f, stepY))
-            } else {
-                left.set(indent, 0f)
-                right.set(quantize(width * 0.75f, stepX), height.toFloat())
-            }
             MeasureMode.TWO_POINT -> if (portrait) {
                 left.set(0f, quantize(height * 0.2f, stepY))
                 right.set(width.toFloat(), quantize(height * 0.75f, stepY))
@@ -210,7 +233,14 @@ class MeasureView @JvmOverloads constructor(
         } else if (active && oldw > 0 && oldh > 0 && (w != oldw || h != oldh)) {
             // A rotation or a window resize while a tool is open: the old corners do not
             // mean anything on the new axes, so start the tool again on the new geometry.
+            // A band that was pinned to an exact length keeps that length, though.
+            val pinned = if (mode == MeasureMode.TWO_POINT && leftLocked && rightLocked) {
+                measuredWidthValue
+            } else {
+                0f
+            }
             seedPoints()
+            if (pinned > 0f) setLength(pinned)
         } else if (oldw > 0 && oldh > 0) {
             val scaleX = w.toFloat() / oldw
             val scaleY = h.toFloat() / oldh
@@ -249,14 +279,18 @@ class MeasureView @JvmOverloads constructor(
         fillPaint.color = toolColor
         canvas.drawRect(r, fillPaint)
 
+        // A grip runs along each line inside the band: the band's own fill hides the plain
+        // tool colour, so every grip uses the dimmed variant.
         handlePaint.color = dim(toolColor, 0.7f)
-        if (portrait && mode != MeasureMode.FOUR_POINT) {
-            canvas.drawLine(r.left, right.y, r.right, right.y, handlePaint)
-        } else {
-            canvas.drawLine(right.x, r.top, right.x, r.bottom, handlePaint)
-        }
         if (mode == MeasureMode.FOUR_POINT) {
             canvas.drawLine(r.left, right.y, r.right, right.y, handlePaint)
+            canvas.drawLine(right.x, r.top, right.x, r.bottom, handlePaint)
+        } else if (portrait) {
+            canvas.drawLine(r.left, left.y, r.right, left.y, handlePaint)
+            canvas.drawLine(r.left, right.y, r.right, right.y, handlePaint)
+        } else {
+            canvas.drawLine(left.x, r.top, left.x, r.bottom, handlePaint)
+            canvas.drawLine(right.x, r.top, right.x, r.bottom, handlePaint)
         }
 
         linePaint.color = toolColor
@@ -271,6 +305,7 @@ class MeasureView @JvmOverloads constructor(
         val unitWidth = textWidth(smallPaint, unitText)
         valuePaint.getTextBounds("99,99", 0, 5, textBounds)
         val textHeight = textBounds.height().toFloat()
+        readoutRect.setEmpty()
 
         if (mode == MeasureMode.FOUR_POINT) {
             val heightText = String.format(Locale.ROOT, "%.2f", measuredHeightValue)
@@ -313,6 +348,10 @@ class MeasureView @JvmOverloads constructor(
             val baseline = (r.bottom + margin + textHeight).coerceAtMost(height - margin)
             drawDualText(canvas, valueText, blockLeft + valueWidth, baseline, valuePaint, r, toolColor)
             drawDualText(canvas, unitText, blockLeft + valueWidth + margin, baseline, smallPaint, r, toolColor)
+            readoutRect.set(
+                blockLeft - margin, baseline - textHeight - margin,
+                blockLeft + blockWidth + margin, baseline + margin
+            )
         } else {
             // Single readout, vertically centred next to the band.
             val baseline = r.centerY() + textHeight / 2f
@@ -322,6 +361,68 @@ class MeasureView @JvmOverloads constructor(
             ).coerceAtLeast(margin)
             drawDualText(canvas, valueText, blockStart + valueWidth, baseline, valuePaint, r, toolColor)
             drawDualText(canvas, unitText, blockStart + valueWidth + margin, baseline, smallPaint, r, toolColor)
+            readoutRect.set(
+                blockStart - margin, baseline - textHeight - margin,
+                blockStart + valueWidth + unitWidth + margin, baseline + margin
+            )
+        }
+
+        // The lock chips sit at the far end of each line, on top of everything else.
+        if (mode != MeasureMode.FOUR_POINT) {
+            drawLockChip(canvas, lockChipX(left), lockChipY(left), leftLocked, toolColor)
+            drawLockChip(canvas, lockChipX(right), lockChipY(right), rightLocked, toolColor)
+        }
+    }
+
+    /**
+     * Where the lock chip of [point] sits: portrait anchors the chips to the right edge,
+     * landscape to the bottom edge. Both keep clear of the screen edge, and a chip that
+     * would hide under the close button in the top right corner steps left of it.
+     */
+    private fun lockChipX(point: PointF): Float = if (portrait) {
+        if (point.y < chipCloseZone) width - chipMargin - chipCloseShift else width - chipMargin
+    } else {
+        point.x.coerceIn(chipRadius + chipEdgeGap, width - chipRadius - chipEdgeGap)
+    }
+
+    private fun lockChipY(point: PointF): Float = if (portrait) {
+        point.y.coerceIn(chipRadius + chipEdgeGap, height - chipRadius - chipEdgeGap)
+    } else {
+        height - chipMargin
+    }
+
+    /**
+     * A padlock chip pinned to a line: the filled body means the line is fixed, and the
+     * lifted shackle means it can still be dragged.
+     */
+    private fun drawLockChip(canvas: Canvas, cx: Float, cy: Float, locked: Boolean, color: Int) {
+        chipPaint.style = Paint.Style.FILL
+        chipPaint.color = palette.background
+        canvas.drawCircle(cx, cy, chipRadius, chipPaint)
+        chipPaint.style = Paint.Style.STROKE
+        chipPaint.strokeWidth = dp(1.2f)
+        chipPaint.color = color
+        canvas.drawCircle(cx, cy, chipRadius, chipPaint)
+
+        lockPaint.color = color
+        lockPaint.style = if (locked) Paint.Style.FILL else Paint.Style.STROKE
+        lockPaint.strokeWidth = dp(1.4f)
+        val bodyWidth = dp(9f)
+        val bodyHeight = dp(7f)
+        lockBody.set(cx - bodyWidth / 2f, cy - dp(0.5f), cx + bodyWidth / 2f, cy - dp(0.5f) + bodyHeight)
+        canvas.drawRoundRect(lockBody, dp(1.5f), dp(1.5f), lockPaint)
+
+        lockPaint.style = Paint.Style.STROKE
+        lockPaint.strokeWidth = dp(1.4f)
+        val shackle = dp(3.2f)
+        val top = lockBody.top
+        // A pinned line gets the closed shackle; a free one has it lifted off the body.
+        val lift = if (locked) 0f else dp(1.4f)
+        lockArc.set(cx - shackle, top - shackle - lift, cx + shackle, top + shackle - lift)
+        canvas.drawArc(lockArc, 180f, 180f, false, lockPaint)
+        if (locked) {
+            canvas.drawLine(cx - shackle, lockArc.centerY(), cx - shackle, top, lockPaint)
+            canvas.drawLine(cx + shackle, lockArc.centerY(), cx + shackle, top, lockPaint)
         }
     }
 
@@ -387,10 +488,43 @@ class MeasureView @JvmOverloads constructor(
     private fun textWidth(paint: Paint, text: String): Float =
         paint.measureText(text)
 
-    private fun unitLabel(): String = when (unit) {
+    fun unitLabel(): String = when (unit) {
         LengthUnit.CM -> "cm"
         LengthUnit.MM -> "mm"
         LengthUnit.INCH -> "inch"
+    }
+
+    /** Current reading, used to pre-fill the length dialog. */
+    fun measuredValue(): Float = measuredWidthValue
+
+    /** Pins the distance between the lines to [value] and locks both of them. */
+    fun setLength(value: Float) {
+        if (value <= 0f || width == 0 || height == 0) return
+        val metrics = resources.displayMetrics
+        val vertical = portrait && mode != MeasureMode.FOUR_POINT
+        val dpi = if (vertical) metrics.ydpi else metrics.xdpi
+        val axis = if (vertical) height.toFloat() else width.toFloat()
+        val span = Scale.unitsToPx(value, unit, dpi, calibration).coerceIn(0f, axis)
+        val half = span / 2f
+        val current = if (vertical) (left.y + right.y) / 2f else (left.x + right.x) / 2f
+        val center = current.coerceIn(half, axis - half)
+        if (vertical) {
+            left.set(0f, center - half)
+            right.set(width.toFloat(), center + half)
+        } else {
+            left.set(center - half, 0f)
+            right.set(center + half, height.toFloat())
+        }
+        leftLocked = true
+        rightLocked = true
+        releasePointers()
+        refresh()
+    }
+
+    /** Restores the pin state of one line, used when the activity is recreated. */
+    fun setLocked(isLeft: Boolean, locked: Boolean) {
+        if (isLeft) leftLocked = locked else rightLocked = locked
+        invalidate()
     }
 
     // endregion
@@ -401,7 +535,10 @@ class MeasureView @JvmOverloads constructor(
         when (event.actionMasked) {
             MotionEvent.ACTION_DOWN -> {
                 val index = event.actionIndex
-                grab(event.getPointerId(index), event.getX(index), event.getY(index))
+                val x = event.getX(index)
+                val y = event.getY(index)
+                beginGesture(x, y)
+                grab(event.getPointerId(index), x, y)
                 onTouchDown?.invoke()
             }
 
@@ -412,36 +549,105 @@ class MeasureView @JvmOverloads constructor(
 
             MotionEvent.ACTION_MOVE -> {
                 for (i in 0 until event.pointerCount) {
+                    noteMove(event.getX(i), event.getY(i))
                     move(event.getPointerId(i), event.getX(i), event.getY(i))
                 }
             }
 
             MotionEvent.ACTION_UP -> {
+                finishGesture()
                 releasePointers()
                 onTouchUp?.invoke()
             }
 
             MotionEvent.ACTION_POINTER_UP, MotionEvent.ACTION_CANCEL -> {
                 release(event.getPointerId(event.actionIndex))
-                if (event.actionMasked == MotionEvent.ACTION_CANCEL) onTouchUp?.invoke()
+                if (event.actionMasked == MotionEvent.ACTION_CANCEL) {
+                    tapTarget = TAP_NONE
+                    onTouchUp?.invoke()
+                }
             }
         }
         return true
     }
 
+    /** Remembers what the gesture started on, so a clean tap can work the lock chips. */
+    private fun beginGesture(x: Float, y: Float) {
+        tapStartX = x
+        tapStartY = y
+        tapMoved = false
+        tapTarget = when {
+            mode != MeasureMode.FOUR_POINT && overChip(left, x, y) -> TAP_LOCK_LEFT
+            mode != MeasureMode.FOUR_POINT && overChip(right, x, y) -> TAP_LOCK_RIGHT
+            readoutRect.contains(x, y) -> TAP_READOUT
+            else -> TAP_NONE
+        }
+    }
+
+    private fun noteMove(x: Float, y: Float) {
+        if (!tapMoved && hypot(x - tapStartX, y - tapStartY) > touchSlop) tapMoved = true
+    }
+
+    private fun finishGesture() {
+        val target = tapTarget
+        tapTarget = TAP_NONE
+        if (tapMoved) return
+        when (target) {
+            TAP_LOCK_LEFT -> {
+                leftLocked = !leftLocked
+                invalidate()
+            }
+
+            TAP_LOCK_RIGHT -> {
+                rightLocked = !rightLocked
+                invalidate()
+            }
+
+            TAP_READOUT -> onValueTap?.invoke()
+        }
+    }
+
+    private fun overChip(point: PointF, x: Float, y: Float): Boolean =
+        hypot(x - lockChipX(point), y - lockChipY(point)) <= chipRadius * 1.6f
+
     private fun grab(id: Int, x: Float, y: Float) {
-        val canGrabLeft = mode == MeasureMode.TWO_POINT || mode == MeasureMode.FOUR_POINT
+        // A tap on a chip or the readout never drags a line.
+        if (tapTarget != TAP_NONE) return
+        if (mode == MeasureMode.FOUR_POINT) {
+            when {
+                firstPointer == MotionEvent.INVALID_POINTER_ID -> {
+                    val takeLeft = distanceTo(left, x, y) < distanceTo(right, x, y)
+                    firstPointer = id
+                    firstHandleIsLeft = takeLeft
+                    apply(takeLeft, x, y)
+                }
+
+                secondPointer == MotionEvent.INVALID_POINTER_ID -> {
+                    secondPointer = id
+                    apply(!firstHandleIsLeft, x, y)
+                }
+            }
+            return
+        }
+        // Line tool: locked lines stay put, so the finger grabs the nearest free one.
         when {
             firstPointer == MotionEvent.INVALID_POINTER_ID -> {
-                val takeLeft = canGrabLeft && distanceTo(left, x, y) < distanceTo(right, x, y)
+                if (leftLocked && rightLocked) return
+                val takeLeft = when {
+                    rightLocked -> true
+                    leftLocked -> false
+                    else -> distanceTo(left, x, y) < distanceTo(right, x, y)
+                }
                 firstPointer = id
                 firstHandleIsLeft = takeLeft
                 apply(takeLeft, x, y)
             }
 
-            secondPointer == MotionEvent.INVALID_POINTER_ID && canGrabLeft -> {
+            secondPointer == MotionEvent.INVALID_POINTER_ID -> {
+                val other = !firstHandleIsLeft
+                if (if (other) leftLocked else rightLocked) return
                 secondPointer = id
-                apply(!firstHandleIsLeft, x, y)
+                apply(other, x, y)
             }
         }
     }
@@ -461,6 +667,7 @@ class MeasureView @JvmOverloads constructor(
 
     private fun apply(toLeft: Boolean, x: Float, y: Float) {
         val target = if (toLeft) left else right
+        if (mode != MeasureMode.FOUR_POINT && (if (toLeft) leftLocked else rightLocked)) return
         if (portrait && mode != MeasureMode.FOUR_POINT) {
             target.y = y.coerceIn(0f, height.toFloat())
         } else {
@@ -504,4 +711,12 @@ class MeasureView @JvmOverloads constructor(
     /** `coerceIn` that tolerates an empty range, which happens on very small screens. */
     private fun Float.coerceInSafe(min: Float, max: Float): Float =
         if (min <= max) coerceIn(min, max) else this
+
+    private companion object {
+        /** Nothing tappable was touched: the gesture may drag a line. */
+        const val TAP_NONE = 0
+        const val TAP_LOCK_LEFT = 1
+        const val TAP_LOCK_RIGHT = 2
+        const val TAP_READOUT = 3
+    }
 }

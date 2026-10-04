@@ -1,5 +1,6 @@
 package org.openruler.app
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.res.ColorStateList
@@ -7,11 +8,13 @@ import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.text.InputType
 import android.view.Gravity
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowInsetsController
 import android.view.WindowManager
+import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -22,6 +25,7 @@ import org.openruler.app.view.MeasureView
 import org.openruler.app.view.ProtractorView
 import org.openruler.app.view.RulerView
 import org.openruler.app.view.UnitToggleView
+import java.util.Locale
 
 /**
  * The measuring screen: a full screen ruler with the tool bar on top.
@@ -41,7 +45,7 @@ class MainActivity : BaseActivity() {
     private lateinit var root: View
 
     private var measuring = false
-    private var mode = MeasureMode.ONE_POINT
+    private var mode = MeasureMode.TWO_POINT
 
     override fun themeRes(): Int =
         if (prefs.darkTheme) R.style.Theme_OpenRuler_Dark_Fullscreen
@@ -63,7 +67,6 @@ class MainActivity : BaseActivity() {
         orientationButton = findViewById(R.id.buttonOrientation)
 
         modeButtons = mapOf(
-            MeasureMode.ONE_POINT to findViewById(R.id.buttonModeOne),
             MeasureMode.TWO_POINT to findViewById(R.id.buttonModeTwo),
             MeasureMode.FOUR_POINT to findViewById(R.id.buttonModeFour),
             MeasureMode.PROTRACTOR to findViewById(R.id.buttonProtractor)
@@ -92,11 +95,12 @@ class MainActivity : BaseActivity() {
         closeButton.setOnClickListener { stopMeasuring() }
 
         measure.onRectChanged = { rect -> ruler.overlayRect = rect }
+        measure.onValueTap = { showLengthDialog() }
 
         if (savedInstanceState != null && savedInstanceState.getBoolean(STATE_MEASURING, false)) {
             val saved = MeasureMode.valueOf(
-                savedInstanceState.getString(STATE_MODE, MeasureMode.ONE_POINT.name)
-                    ?: MeasureMode.ONE_POINT.name
+                savedInstanceState.getString(STATE_MODE, MeasureMode.TWO_POINT.name)
+                    ?: MeasureMode.TWO_POINT.name
             )
             startMeasuring(saved)
             if (saved == MeasureMode.PROTRACTOR) {
@@ -114,6 +118,8 @@ class MainActivity : BaseActivity() {
                             android.graphics.PointF(xs[1], ys[1])
                         )
                     )
+                    measure.setLocked(true, savedInstanceState.getBoolean(STATE_LOCK_LEFT, false))
+                    measure.setLocked(false, savedInstanceState.getBoolean(STATE_LOCK_RIGHT, false))
                 }
             }
         }
@@ -151,6 +157,8 @@ class MainActivity : BaseActivity() {
             val points = measure.cornerPoints()
             outState.putFloatArray(STATE_CORNERS_X, floatArrayOf(points[0].x, points[1].x))
             outState.putFloatArray(STATE_CORNERS_Y, floatArrayOf(points[0].y, points[1].y))
+            outState.putBoolean(STATE_LOCK_LEFT, measure.leftLocked)
+            outState.putBoolean(STATE_LOCK_RIGHT, measure.rightLocked)
         }
     }
 
@@ -189,7 +197,6 @@ class MainActivity : BaseActivity() {
                 measure.visibility = View.VISIBLE
                 measure.unit = prefs.unit
                 measure.calibration = prefs.calibration
-                measure.indentFromEdge = prefs.edgePadding
                 measure.start(tool)
                 ruler.overlayRect = measure.rect
             }
@@ -205,7 +212,7 @@ class MainActivity : BaseActivity() {
         measure.visibility = View.GONE
         protractor.visibility = View.GONE
         ruler.visibility = View.VISIBLE
-        ruler.mode = MeasureMode.ONE_POINT
+        ruler.mode = MeasureMode.TWO_POINT
         ruler.mainColor = palette.rulerAccent
         ruler.topScaleColor = palette.idleScale
         ruler.overlayRect = null
@@ -216,6 +223,40 @@ class MainActivity : BaseActivity() {
     private fun styleCloseButton(color: Int) {
         closeButton.background?.mutate()?.setTint(dim(color, 0.85f))
         closeButton.setColorFilter(Color.WHITE)
+    }
+
+    /**
+     * Asks for a length and pins both lines at that distance: the band becomes a ruler of
+     * an exact size. The current reading is pre-filled so a small correction is one tap away.
+     */
+    private fun showLengthDialog() {
+        val density = resources.displayMetrics.density
+        val input = EditText(this)
+        input.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
+        input.setText(String.format(Locale.ROOT, "%.2f", measure.measuredValue()))
+        input.setSelectAllOnFocus(true)
+
+        val frame = FrameLayout(this)
+        val pad = (24f * density).toInt()
+        frame.setPadding(pad, (12f * density).toInt(), pad, 0)
+        frame.addView(
+            input,
+            FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.WRAP_CONTENT
+            )
+        )
+
+        AlertDialog.Builder(this)
+            .setTitle(getString(R.string.enter_length) + " (" + measure.unitLabel() + ")")
+            .setView(frame)
+            .setPositiveButton(R.string.save) { _, _ ->
+                // Accept both the dot and the comma as the decimal separator.
+                val value = input.text.toString().trim().replace(',', '.').toFloatOrNull()
+                if (value != null && value > 0f) measure.setLength(value)
+            }
+            .setNegativeButton(R.string.close, null)
+            .show()
     }
 
     private fun setToolBarVisible(visible: Boolean) {
@@ -243,7 +284,6 @@ class MainActivity : BaseActivity() {
         measure.palette = palette
         measure.unit = prefs.unit
         measure.calibration = prefs.calibration
-        measure.indentFromEdge = prefs.edgePadding
 
         protractor.palette = palette
 
@@ -349,6 +389,8 @@ class MainActivity : BaseActivity() {
         const val STATE_MODE = "mode"
         const val STATE_CORNERS_X = "corners_x"
         const val STATE_CORNERS_Y = "corners_y"
+        const val STATE_LOCK_LEFT = "lock_left"
+        const val STATE_LOCK_RIGHT = "lock_right"
         const val STATE_ARM_A = "arm_a"
         const val STATE_ARM_B = "arm_b"
     }

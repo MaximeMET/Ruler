@@ -57,17 +57,6 @@
                     android:src="@drawable/ic_calibration" />
 
                 <ImageView
-                    android:id="@+id/buttonModeOne"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_marginStart="6dp"
-                    android:layout_marginEnd="6dp"
-                    android:background="?android:attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/mode_one_point"
-                    android:padding="9dp"
-                    android:src="@drawable/ic_mode_one" />
-
-                <ImageView
                     android:id="@+id/buttonModeTwo"
                     android:layout_width="48dp"
                     android:layout_height="48dp"

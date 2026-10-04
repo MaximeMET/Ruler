@@ -8,8 +8,8 @@
     <string name="unit_inch">Zoll</string>
 
     <!-- Main screen -->
-    <string name="mode_one_point">Vom Rand messen</string>
     <string name="mode_two_points">Zwischen zwei Punkten messen</string>
+    <string name="enter_length">Länge eingeben</string>
     <string name="mode_four_points">Rechteck messen</string>
     <string name="mode_protractor">Winkelmesser</string>
     <string name="calibration">Kalibrierung</string>

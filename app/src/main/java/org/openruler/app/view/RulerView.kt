@@ -77,7 +77,7 @@ class RulerView @JvmOverloads constructor(
             invalidate()
         }
 
-    var mode: MeasureMode = MeasureMode.ONE_POINT
+    var mode: MeasureMode = MeasureMode.TWO_POINT
         set(value) {
             field = value
             invalidate()

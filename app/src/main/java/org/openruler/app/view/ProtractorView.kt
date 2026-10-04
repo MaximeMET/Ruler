@@ -107,19 +107,28 @@ class ProtractorView @JvmOverloads constructor(
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-        val bottomLimit = h - labelHeight - 2f * inset
         portrait = h > w
         if (portrait) {
             // The long edge is the one that gets lined up with the object, so in portrait the
             // dial takes a quarter turn: its base line runs down the left side and the scale
             // opens to the right. Only the readout stays horizontal, along the bottom.
             centerX = inset
-            centerY = bottomLimit / 2f
-            tickRadius = min(bottomLimit / 2f - inset, w - 2f * inset).coerceAtLeast(dp(40f))
+            centerY = h / 2f
+            // The dial is centred on the screen; the readout keeps its strip at the bottom.
+            tickRadius = minOf(
+                centerY - inset,
+                h - labelHeight - 2f * inset - centerY,
+                w - 2f * inset
+            ).coerceAtLeast(dp(40f))
         } else {
             centerX = w / 2f
-            centerY = bottomLimit
-            tickRadius = min(bottomLimit - inset, w / 2f - inset - gap).coerceAtLeast(dp(40f))
+            // Same idea along the long edge: the arc and the base line keep equal margins,
+            // and the readout sits in the strip under the base line.
+            tickRadius = minOf(
+                h - 2f * (labelHeight + 2f * inset),
+                w / 2f - inset - gap
+            ).coerceAtLeast(dp(40f))
+            centerY = h - (h - tickRadius) / 2f
         }
         // The wedge has to reach past every corner, whichever way the dial is turned.
         wedgeRadius = maxOf(

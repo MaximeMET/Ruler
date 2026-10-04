@@ -11,6 +11,7 @@ import android.graphics.Typeface
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
+import android.view.ViewConfiguration
 import kotlin.math.hypot
 import kotlin.math.max
 import kotlin.math.min
@@ -132,7 +133,7 @@ class MeasureView @JvmOverloads constructor(
     private val chipCloseZone = dp(66f)
     private val chipCloseShift = dp(46f)
     private val chipEdgeGap = dp(4f)
-    private val touchSlop = dp(8f)
+    private val touchSlop = ViewConfiguration.get(context).scaledTouchSlop
 
     private val margin = dp(10f)
     private val tickHalf = dp(5f)
@@ -171,6 +172,8 @@ class MeasureView @JvmOverloads constructor(
         rightLocked = false
         seedPoints()
         releasePointers()
+        tapTarget = TAP_NONE
+        tapMoved = false
         refresh()
     }
 
@@ -179,6 +182,8 @@ class MeasureView @JvmOverloads constructor(
         active = false
         pendingMode = null
         releasePointers()
+        tapTarget = TAP_NONE
+        tapMoved = false
     }
 
     private fun seedPoints() {
@@ -549,8 +554,11 @@ class MeasureView @JvmOverloads constructor(
 
             MotionEvent.ACTION_MOVE -> {
                 for (i in 0 until event.pointerCount) {
-                    noteMove(event.getX(i), event.getY(i))
-                    move(event.getPointerId(i), event.getX(i), event.getY(i))
+                    val id = event.getPointerId(i)
+                    val x = event.getX(i)
+                    val y = event.getY(i)
+                    noteMove(id, x, y)
+                    move(id, x, y)
                 }
             }
 
@@ -584,8 +592,35 @@ class MeasureView @JvmOverloads constructor(
         }
     }
 
-    private fun noteMove(x: Float, y: Float) {
-        if (!tapMoved && hypot(x - tapStartX, y - tapStartY) > touchSlop) tapMoved = true
+    /**
+     * A gesture that starts on a chip or the readout only counts as a tap while the finger
+     * stays within the touch slop; a real drag that started on the chip of an unlocked line
+     * grabs exactly that line, and the chip of a locked line refuses to move anything.
+     */
+    private fun noteMove(id: Int, x: Float, y: Float) {
+        if (tapMoved) return
+        if (hypot(x - tapStartX, y - tapStartY) <= touchSlop) return
+        tapMoved = true
+        when (tapTarget) {
+            TAP_LOCK_LEFT -> if (!leftLocked) {
+                tapTarget = TAP_NONE
+                firstPointer = id
+                firstHandleIsLeft = true
+                apply(true, x, y)
+            }
+
+            TAP_LOCK_RIGHT -> if (!rightLocked) {
+                tapTarget = TAP_NONE
+                firstPointer = id
+                firstHandleIsLeft = false
+                apply(false, x, y)
+            }
+
+            TAP_READOUT -> {
+                tapTarget = TAP_NONE
+                grab(id, x, y)
+            }
+        }
     }
 
     private fun finishGesture() {
@@ -653,14 +688,9 @@ class MeasureView @JvmOverloads constructor(
     }
 
     private fun move(id: Int, x: Float, y: Float) {
-        if (id == firstPointer) {
+        if (firstPointer != MotionEvent.INVALID_POINTER_ID && id == firstPointer) {
             apply(firstHandleIsLeft, x, y)
-        } else if (id != MotionEvent.INVALID_POINTER_ID && id == secondPointer) {
-            apply(!firstHandleIsLeft, x, y)
-        } else if (secondPointer == MotionEvent.INVALID_POINTER_ID &&
-            (mode == MeasureMode.TWO_POINT || mode == MeasureMode.FOUR_POINT)
-        ) {
-            secondPointer = id
+        } else if (secondPointer != MotionEvent.INVALID_POINTER_ID && id == secondPointer) {
             apply(!firstHandleIsLeft, x, y)
         }
     }

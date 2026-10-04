@@ -214,7 +214,12 @@ class RulerView @JvmOverloads constructor(
         canvas.restoreToCount(below)
     }
 
+    /** Start of the top and bottom scales: the padding moves the first tick in from the edge. */
     private val originX: Float
+        get() = if (indentFromEdge) indent else 0f
+
+    /** Same margin for the vertical scale, so the first tick steps down from the top edge. */
+    private val originY: Float
         get() = if (indentFromEdge) indent else 0f
 
     private fun drawHorizontalScale(
@@ -258,7 +263,7 @@ class RulerView @JvmOverloads constructor(
             }
             if (isLabel && horizontalLabelsVisible) {
                 // Do not collide with the labels of the vertical scale.
-                if (!usesVerticalScale || labelColumnX() < x) {
+                if (!usesVerticalScale || x > labelColumnX() + dp(30f)) {
                     canvas.drawText(((i / perLabel) * labelStep).toString(), x, baseline, textPaint)
                 }
             }
@@ -280,10 +285,10 @@ class RulerView @JvmOverloads constructor(
 
         val perLabel = Scale.ticksPerLabel(unit)
         val labelStep = Scale.labelStep(unit)
-        val count = (height / step).toInt() + 1
-        val labelX = originX + midTick + labelGap
+        val count = ((height - originY) / step).toInt() + 1
+        val labelX = midTick + labelGap
         for (i in 0..count) {
-            val y = i * step
+            val y = originY + i * step
             if (y > height) break
             val isLabel = i % perLabel == 0
             val isMid = perLabel > 1 && i % (perLabel / 2) == 0
@@ -294,7 +299,7 @@ class RulerView @JvmOverloads constructor(
             }
             val visible = minOf(length, y, height - y)
             val paint = if (isLabel) longPaint else shortPaint
-            canvas.drawLine(originX, y, originX + visible, y, paint)
+            canvas.drawLine(0f, y, visible, y, paint)
             if (isLabel) {
                 val label = ((i / perLabel) * labelStep).toString()
                 // Labels stay horizontal in both orientations so the scale can be read at a
@@ -305,7 +310,7 @@ class RulerView @JvmOverloads constructor(
         textPaint.textAlign = Paint.Align.CENTER
     }
 
-    private fun labelColumnX(): Float = originX + midTick + labelGap
+    private fun labelColumnX(): Float = midTick + labelGap
 
     private fun dp(value: Float): Float = value * resources.displayMetrics.density
 

@@ -12,7 +12,6 @@ import android.view.View
 import org.openruler.app.core.LengthUnit
 import org.openruler.app.core.Palette
 import org.openruler.app.core.Scale
-import org.openruler.app.core.readout
 import java.util.Locale
 
 /**
@@ -165,9 +164,9 @@ class CalibrationRulerView @JvmOverloads constructor(
         }
         val cardText = String.format(
             Locale.ROOT,
-            "%s %s %s",
+            "%s %.2f %s",
             context.getString(org.openruler.app.R.string.credit_card_length).replace(":", ""),
-            unit.readout(cardValue),
+            cardValue,
             unitLabel()
         )
         canvas.drawText(cardText, origin + cardLength / 2f, (laneStart + laneEnd) / 2f + labelHeight / 2f, textPaint)

@@ -186,7 +186,7 @@ class RulerView @JvmOverloads constructor(
         get() = !portrait && mode != MeasureMode.FOUR_POINT
 
     private val usesTopScale: Boolean
-        get() = !portrait
+        get() = !portrait || mode == MeasureMode.FOUR_POINT
 
     private val usesVerticalScale: Boolean
         get() = portrait || mode == MeasureMode.FOUR_POINT

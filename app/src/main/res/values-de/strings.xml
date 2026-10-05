@@ -50,12 +50,33 @@
 
     <!-- About -->
     <string name="about_version">Version %1$s</string>
-    <string name="about_tagline">Open-Source-Lineal und Winkelmesser für Android. Keine Werbung, keine Berechtigungen, kein Tracking.</string>
+    <string name="about_tagline">Open-Source-Lineal und Winkelmesser für Android. Keine Werbung, kein Tracking. Die App geht nur online, wenn du nach Updates suchst.</string>
     <string name="about_license_title">Lizenz</string>
     <string name="about_license_body">Veröffentlicht unter der MIT-Lizenz. Nutzung, Studium, Änderung und Weitergabe sind frei.</string>
     <string name="about_disclaimer_title">Haftungsausschluss</string>
     <string name="about_disclaimer_body">Die App wird ohne Gewähr bereitgestellt. Die Genauigkeit hängt vom Touchscreen und einer korrekten Kalibrierung ab; die Werte sind Näherungen.</string>
     <string name="about_source">Quellcode</string>
+
+    <!-- Updates -->
+    <string name="check_updates">Nach Updates suchen</string>
+    <string name="update_current">Installierte Version: %1$s</string>
+    <string name="update_checking">Suche nach Updates…</string>
+    <string name="update_none_title">Du bist auf dem neuesten Stand</string>
+    <string name="update_none_detail">Version %1$s ist die neueste Veröffentlichung.</string>
+    <string name="update_available_title">Version %1$s ist verfügbar</string>
+    <string name="update_available_detail">Downloadgröße: %1$s</string>
+    <string name="update_download">Herunterladen</string>
+    <string name="update_downloading">Wird heruntergeladen… %1$d%%</string>
+    <string name="update_ready_title">Bereit zur Installation</string>
+    <string name="update_ready_detail">Android fragt dich, um die Installation zu bestätigen.</string>
+    <string name="update_install">Installieren</string>
+    <string name="update_permission_detail">Erlaube Ruler in den Systemeinstellungen, Apps zu installieren, und tippe dann erneut auf Installieren.</string>
+    <string name="update_failed_title">Updates konnten nicht geprüft werden</string>
+    <string name="update_download_failed_title">Update konnte nicht heruntergeladen werden</string>
+    <string name="update_failed_detail">Prüfe deine Internetverbindung und versuche es erneut.</string>
+    <string name="update_retry">Erneut versuchen</string>
+    <string name="update_releases">Release-Seite öffnen</string>
+    <string name="update_no_apk">Dieses Release enthält keine APK. Öffne stattdessen die Release-Seite.</string>
 
     <!-- Accessibility -->
     <string name="a11y_unit_toggle">Maßeinheit</string>

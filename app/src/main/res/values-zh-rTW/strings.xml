@@ -50,12 +50,33 @@
 
     <!-- About -->
     <string name="about_version">版本 %1$s</string>
-    <string name="about_tagline">開源的 Android 尺子與量角器：沒有廣告、不申請權限、不做統計。</string>
+    <string name="about_tagline">開源的 Android 尺子與量角器：沒有廣告、不做統計。只有你主動檢查更新時才會連網。</string>
     <string name="about_license_title">開源授權</string>
     <string name="about_license_body">本專案以 MIT 授權條款發布，你可以自由使用、研究、修改和再發布。</string>
     <string name="about_disclaimer_title">免責聲明</string>
     <string name="about_disclaimer_body">本應用程式依「現狀」提供，不附帶任何擔保。尺子精確度取決於觸控螢幕的像素密度標稱值與校正結果，測量值僅供參考，不作為計量依據。</string>
     <string name="about_source">原始碼</string>
+
+    <!-- Updates -->
+    <string name="check_updates">檢查更新</string>
+    <string name="update_current">目前版本：%1$s</string>
+    <string name="update_checking">正在檢查更新…</string>
+    <string name="update_none_title">已是最新版本</string>
+    <string name="update_none_detail">版本 %1$s 就是最新發布。</string>
+    <string name="update_available_title">發現新版本 %1$s</string>
+    <string name="update_available_detail">下載大小：%1$s</string>
+    <string name="update_download">下載</string>
+    <string name="update_downloading">正在下載… %1$d%%</string>
+    <string name="update_ready_title">已下載，可以安裝</string>
+    <string name="update_ready_detail">系統會請你確認安裝。</string>
+    <string name="update_install">安裝</string>
+    <string name="update_permission_detail">請在系統設定裡允許「尺子」安裝應用程式，然後再次點按安裝。</string>
+    <string name="update_failed_title">檢查更新失敗</string>
+    <string name="update_download_failed_title">下載更新失敗</string>
+    <string name="update_failed_detail">請檢查網路連線後重試。</string>
+    <string name="update_retry">重試</string>
+    <string name="update_releases">開啟發布頁面</string>
+    <string name="update_no_apk">這個版本沒有附上 APK，請開啟發布頁面。</string>
 
     <!-- Accessibility -->
     <string name="a11y_unit_toggle">測量單位</string>

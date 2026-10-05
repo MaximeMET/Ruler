@@ -50,12 +50,33 @@
 
     <!-- About -->
     <string name="about_version">Version %1$s</string>
-    <string name="about_tagline">Règle et rapporteur open source pour Android. Sans publicité, sans permissions, sans suivi.</string>
+    <string name="about_tagline">Règle et rapporteur open source pour Android. Sans publicité, sans suivi. L’application ne se connecte que lorsque vous recherchez des mises à jour.</string>
     <string name="about_license_title">Licence</string>
     <string name="about_license_body">Publié sous licence MIT. Vous pouvez l’utiliser, l’étudier, le modifier et le redistribuer librement.</string>
     <string name="about_disclaimer_title">Avertissement</string>
     <string name="about_disclaimer_body">L’application est fournie telle quelle, sans garantie. La précision dépend de l’écran tactile et d’un étalonnage correct : les valeurs sont indicatives.</string>
     <string name="about_source">Code source</string>
+
+    <!-- Updates -->
+    <string name="check_updates">Rechercher des mises à jour</string>
+    <string name="update_current">Version installée : %1$s</string>
+    <string name="update_checking">Recherche de mises à jour…</string>
+    <string name="update_none_title">Vous êtes à jour</string>
+    <string name="update_none_detail">La version %1$s est la dernière publiée.</string>
+    <string name="update_available_title">La version %1$s est disponible</string>
+    <string name="update_available_detail">Taille du téléchargement : %1$s</string>
+    <string name="update_download">Télécharger</string>
+    <string name="update_downloading">Téléchargement… %1$d%%</string>
+    <string name="update_ready_title">Prêt à installer</string>
+    <string name="update_ready_detail">Android vous demandera de confirmer l’installation.</string>
+    <string name="update_install">Installer</string>
+    <string name="update_permission_detail">Autorisez Ruler à installer des applications dans les réglages système, puis touchez à nouveau Installer.</string>
+    <string name="update_failed_title">Impossible de vérifier les mises à jour</string>
+    <string name="update_download_failed_title">Impossible de télécharger la mise à jour</string>
+    <string name="update_failed_detail">Vérifiez votre connexion internet et réessayez.</string>
+    <string name="update_retry">Réessayer</string>
+    <string name="update_releases">Ouvrir la page des versions</string>
+    <string name="update_no_apk">Cette version ne contient pas d’APK. Ouvrez la page des versions.</string>
 
     <!-- Accessibility -->
     <string name="a11y_unit_toggle">Unité de mesure</string>

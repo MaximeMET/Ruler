@@ -2,18 +2,21 @@
 
 [![Release](https://img.shields.io/github/v/release/MaximeMET/ruler?label=release)](https://github.com/MaximeMET/ruler/releases/latest)
 [![License](https://img.shields.io/github/license/MaximeMET/ruler?label=license)](LICENSE)
-[![APK size](https://img.shields.io/badge/APK-115%20KB-4f46e5)](https://github.com/MaximeMET/ruler/releases/latest)
+[![APK size](https://img.shields.io/badge/APK-150%20KB-4f46e5)](https://github.com/MaximeMET/ruler/releases/latest)
 
 把手机屏幕当尺子用的开源 Android 应用：测量厘米、毫米、英寸与角度。
 
 **下载**：[最新 Release](https://github.com/MaximeMET/ruler/releases/latest) 里的 APK，
-约 115 KB，支持 Android 6.0（API 23）及以上。
+约 150 KB，支持 Android 6.0（API 23）及以上。装好之后也可以直接在应用内检查更新，
+不需要再手动下载安装包。
 
 ## 特性
 
 * 没有广告：AdMob、Pangle、AppLovin、Yandex、IronSource、Firebase 等全部不存在
-* 不申请任何权限：清单里连 `INTERNET` 都没有，装完就是一个纯离线工具
-* 零第三方依赖：只用 Android Framework + Kotlin 标准库，release 包约 115 KB
+* 只申请 2 个权限，而且只为应用内更新服务：`INTERNET` 用来在你点「检查更新」时访问
+  GitHub，`REQUEST_INSTALL_PACKAGES` 用来把下载好的 APK 交给系统安装器。没有后台联网、
+  没有统计、没有存储权限（安装包放在应用缓存里，通过私有 ContentProvider 交给系统）
+* 零第三方依赖：只用 Android Framework + Kotlin 标准库，release 包约 150 KB
 * 17 种语言，默认跟随系统语言，也可以在设置里单独指定
 * 深色主题（默认）/ 浅色主题，全应用统一用一个靛蓝强调色
 * 矢量自适应图标：Android 8+ 走自适应图标（含 Android 13 主题图标），更早的系统用同一套图形的方角图标
@@ -28,6 +31,7 @@
 | 矩形测量 | 可拖动矩形，实时显示宽、高与面积 |
 | 量角器 | 半圆刻度盘，两根可拖动的针，双指可同时调整夹角；每根针都能单独固定（点针上的小锁），点读数输入角度可把两根针一起固定；竖屏下刻度盘沿左侧长边转 90°，读数横排在屏幕底部 |
 | 校准 | 用银行卡长边（85.60 mm）做参照，加减按钮或直接拖动微调，系数实时保存 |
+| 检查更新 | 应用内直接检查 GitHub 上的最新 Release：显示当前版本、下载 APK、交给系统安装器完成安装；平时不联网，只有打开这个页面才会访问网络 |
 | 设置 | 屏幕方向、屏幕常亮、深色主题、边缘留白、语言、测量单位 |
 
 ## 截图
@@ -99,10 +103,26 @@ adb install -r app/build/outputs/apk/debug/app-debug.apk
 ```
 
 release 构建默认开启 R8 代码压缩与资源压缩，并剔除 Kotlin 的反射元数据，本仓库构建出来的
-`app-release.apk` 约 115 KB（其中约 40 KB 是 17 种语言的文案；debug 包约 1 MB，因为它不做任何压缩）。
+`app-release.apk` 约 150 KB（其中约 50 KB 是 17 种语言的文案；debug 包约 1 MB，因为它不做任何压缩）。
 
 「关于」页底部的源码按钮指向 <https://github.com/MaximeMET/ruler>；如果你 fork 了本项目，
 把 `app/src/main/java/org/openruler/app/AboutActivity.kt` 里的 `SOURCE_URL` 换成自己的仓库地址即可。
+
+fork 之后记得同时把 `app/src/main/java/org/openruler/app/core/Updater.kt` 里的 `RELEASES_API`
+换成你自己的仓库，应用内更新才会检查你的 Release。
+
+## 应用内更新
+
+设置页的「检查更新」→ 更新页，流程只有三步：查最新 Release、下载 APK、交给系统安装器。
+
+* 请求只发生在你打开更新页之后：一次 `api.github.com/repos/MaximeMET/ruler/releases/latest`，
+  一次 APK 下载；失败或没新版本时不会有任何其它网络行为，应用没有后台服务、不会在启动时联网
+* 下载优先走 `api.github.com` 的 asset 接口（更新检查已经证明这个域名可达），失败再退回
+  Release 页面上的直链；两条路都失败时页面会给你「打开发布页」的按钮
+* 下载的文件放在应用缓存目录 `cache/update.apk`，通过一个不导出的私有 `ContentProvider`
+  交给系统安装器，所以不需要存储权限
+* Android 8 及以上第一次安装需要你在系统设置里允许「尺子」安装未知应用，更新页会直接把你
+  带到那个开关，授权后回来再点一次「安装」即可
 
 也可以直接用 Android Studio 打开仓库根目录，同步后点运行。
 
@@ -114,12 +134,15 @@ app/src/main/java/org/openruler/app/
 ├── CalibrationActivity.kt       # 校准界面
 ├── SettingsActivity.kt          # 设置界面（代码生成列表行）
 ├── AboutActivity.kt             # 关于 / 许可
+├── UpdateActivity.kt            # 应用内更新（检查 / 下载 / 交给系统安装器）
 ├── ProtractorActivity.kt        # 可以单独作为快捷方式启动的量角器
 ├── BaseActivity.kt              # 主题（浅色/深色）与调色板
 ├── core/
 │   ├── Units.kt                 # 单位、测量模式、像素与物理长度换算
 │   ├── Prefs.kt                 # SharedPreferences 封装
 │   ├── Locales.kt               # 语言列表与语言切换
+│   ├── Updater.kt               # GitHub Release 查询与 APK 下载
+│   ├── ApkProvider.kt           # 把缓存里的安装包交给系统安装器的私有 Provider
 │   └── Palette.kt               # 调色板与颜色工具
 └── view/
     ├── RulerView.kt             # 三向刻度、测量区域内反色重绘

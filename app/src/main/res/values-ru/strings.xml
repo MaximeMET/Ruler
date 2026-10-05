@@ -50,12 +50,33 @@
 
     <!-- About -->
     <string name="about_version">Версия %1$s</string>
-    <string name="about_tagline">Линейка и транспортир с открытым исходным кодом для Android. Без рекламы, без разрешений, без слежки.</string>
+    <string name="about_tagline">Линейка и транспортир с открытым исходным кодом для Android. Без рекламы, без слежки. Приложение выходит в сеть только при проверке обновлений.</string>
     <string name="about_license_title">Лицензия</string>
     <string name="about_license_body">Распространяется по лицензии MIT. Можно свободно использовать, изучать, изменять и распространять.</string>
     <string name="about_disclaimer_title">Отказ от ответственности</string>
     <string name="about_disclaimer_body">Приложение предоставляется как есть, без гарантий. Точность зависит от сенсорного экрана и правильной калибровки, поэтому значения приблизительные.</string>
     <string name="about_source">Исходный код</string>
+
+    <!-- Updates -->
+    <string name="check_updates">Проверить обновления</string>
+    <string name="update_current">Установленная версия: %1$s</string>
+    <string name="update_checking">Проверка обновлений…</string>
+    <string name="update_none_title">У вас последняя версия</string>
+    <string name="update_none_detail">Версия %1$s — последний выпуск.</string>
+    <string name="update_available_title">Доступна версия %1$s</string>
+    <string name="update_available_detail">Размер загрузки: %1$s</string>
+    <string name="update_download">Скачать</string>
+    <string name="update_downloading">Загрузка… %1$d%%</string>
+    <string name="update_ready_title">Готово к установке</string>
+    <string name="update_ready_detail">Android попросит подтвердить установку.</string>
+    <string name="update_install">Установить</string>
+    <string name="update_permission_detail">Разрешите Ruler установку приложений в настройках системы и снова нажмите «Установить».</string>
+    <string name="update_failed_title">Не удалось проверить обновления</string>
+    <string name="update_download_failed_title">Не удалось скачать обновление</string>
+    <string name="update_failed_detail">Проверьте подключение к интернету и повторите попытку.</string>
+    <string name="update_retry">Повторить</string>
+    <string name="update_releases">Открыть страницу выпусков</string>
+    <string name="update_no_apk">В этом выпуске нет APK. Откройте страницу выпусков.</string>
 
     <!-- Accessibility -->
     <string name="a11y_unit_toggle">Единица измерения</string>

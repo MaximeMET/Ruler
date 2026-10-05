@@ -50,12 +50,33 @@
 
     <!-- About -->
     <string name="about_version">Versión %1$s</string>
-    <string name="about_tagline">Una regla y transportador de código abierto para Android. Sin anuncios, sin permisos, sin rastreo.</string>
+    <string name="about_tagline">Una regla y transportador de código abierto para Android. Sin anuncios, sin rastreo. La app solo se conecta cuando buscas actualizaciones.</string>
     <string name="about_license_title">Licencia</string>
     <string name="about_license_body">Publicado bajo la licencia MIT. Puedes usarlo, estudiarlo, modificarlo y redistribuirlo libremente.</string>
     <string name="about_disclaimer_title">Aviso legal</string>
     <string name="about_disclaimer_body">La aplicación se ofrece tal cual, sin garantía de ningún tipo. La precisión depende de la pantalla táctil y de una calibración correcta, así que los valores son estimaciones.</string>
     <string name="about_source">Código fuente</string>
+
+    <!-- Updates -->
+    <string name="check_updates">Buscar actualizaciones</string>
+    <string name="update_current">Versión instalada: %1$s</string>
+    <string name="update_checking">Buscando actualizaciones…</string>
+    <string name="update_none_title">Estás al día</string>
+    <string name="update_none_detail">La versión %1$s es la última publicada.</string>
+    <string name="update_available_title">La versión %1$s está disponible</string>
+    <string name="update_available_detail">Tamaño de descarga: %1$s</string>
+    <string name="update_download">Descargar</string>
+    <string name="update_downloading">Descargando… %1$d%%</string>
+    <string name="update_ready_title">Listo para instalar</string>
+    <string name="update_ready_detail">Android te pedirá que confirmes la instalación.</string>
+    <string name="update_install">Instalar</string>
+    <string name="update_permission_detail">Permite que Ruler instale apps en los ajustes del sistema y vuelve a tocar Instalar.</string>
+    <string name="update_failed_title">No se pudieron buscar actualizaciones</string>
+    <string name="update_download_failed_title">No se pudo descargar la actualización</string>
+    <string name="update_failed_detail">Comprueba tu conexión a internet e inténtalo de nuevo.</string>
+    <string name="update_retry">Reintentar</string>
+    <string name="update_releases">Abrir la página de versiones</string>
+    <string name="update_no_apk">Esta versión no incluye un APK. Abre la página de versiones.</string>
 
     <!-- Accessibility -->
     <string name="a11y_unit_toggle">Unidad de medida</string>

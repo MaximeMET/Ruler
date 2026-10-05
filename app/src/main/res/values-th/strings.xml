@@ -50,12 +50,33 @@
 
     <!-- About -->
     <string name="about_version">เวอร์ชัน %1$s</string>
-    <string name="about_tagline">ไม้บรรทัดและไม้โปรแทรกเตอร์โอเพนซอร์สสำหรับ Android ไม่มีโฆษณา ไม่ขอสิทธิ์ ไม่ติดตาม</string>
+    <string name="about_tagline">ไม้บรรทัดและไม้โปรแทรกเตอร์โอเพนซอร์สสำหรับ Android ไม่มีโฆษณา ไม่ติดตาม แอปจะเชื่อมต่ออินเทอร์เน็ตเฉพาะเมื่อคุณตรวจสอบอัปเดต</string>
     <string name="about_license_title">สัญญาอนุญาต</string>
     <string name="about_license_body">เผยแพร่ภายใต้สัญญาอนุญาต MIT คุณสามารถใช้ ศึกษา แก้ไข และเผยแพร่ต่อได้อย่างอิสระ</string>
     <string name="about_disclaimer_title">ข้อจำกัดความรับผิด</string>
     <string name="about_disclaimer_body">แอปนี้ให้บริการตามสภาพ โดยไม่มีการรับประกันใด ๆ ความแม่นยำขึ้นอยู่กับจอสัมผัสและการปรับเทียบที่ถูกต้อง ค่าที่ได้จึงเป็นเพียงค่าประมาณ</string>
     <string name="about_source">ซอร์สโค้ด</string>
+
+    <!-- Updates -->
+    <string name="check_updates">ตรวจสอบอัปเดต</string>
+    <string name="update_current">เวอร์ชันที่ติดตั้ง: %1$s</string>
+    <string name="update_checking">กำลังตรวจสอบอัปเดต…</string>
+    <string name="update_none_title">คุณใช้เวอร์ชันล่าสุดแล้ว</string>
+    <string name="update_none_detail">เวอร์ชัน %1$s เป็นรุ่นล่าสุด</string>
+    <string name="update_available_title">มีเวอร์ชัน %1$s ให้ใช้</string>
+    <string name="update_available_detail">ขนาดดาวน์โหลด: %1$s</string>
+    <string name="update_download">ดาวน์โหลด</string>
+    <string name="update_downloading">กำลังดาวน์โหลด… %1$d%%</string>
+    <string name="update_ready_title">พร้อมติดตั้ง</string>
+    <string name="update_ready_detail">Android จะขอให้คุณยืนยันการติดตั้ง</string>
+    <string name="update_install">ติดตั้ง</string>
+    <string name="update_permission_detail">อนุญาตให้ Ruler ติดตั้งแอปในการตั้งค่าระบบ แล้วแตะติดตั้งอีกครั้ง</string>
+    <string name="update_failed_title">ตรวจสอบอัปเดตไม่ได้</string>
+    <string name="update_download_failed_title">ดาวน์โหลดอัปเดตไม่ได้</string>
+    <string name="update_failed_detail">ตรวจสอบการเชื่อมต่ออินเทอร์เน็ตแล้วลองอีกครั้ง</string>
+    <string name="update_retry">ลองอีกครั้ง</string>
+    <string name="update_releases">เปิดหน้ารุ่นเผยแพร่</string>
+    <string name="update_no_apk">รุ่นนี้ไม่มีไฟล์ APK เปิดหน้ารุ่นเผยแพร่แทน</string>
 
     <!-- Accessibility -->
     <string name="a11y_unit_toggle">หน่วยวัด</string>

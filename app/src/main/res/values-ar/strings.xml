@@ -50,12 +50,33 @@
 
     <!-- About -->
     <string name="about_version">الإصدار %1$s</string>
-    <string name="about_tagline">مسطرة ومنقلة مفتوحة المصدر لأندرويد. بلا إعلانات، بلا أذونات، بلا تتبّع.</string>
+    <string name="about_tagline">مسطرة ومنقلة مفتوحة المصدر لأندرويد. بلا إعلانات، بلا تتبّع. لا يتصل التطبيق بالإنترنت إلا عند التحقق من التحديثات.</string>
     <string name="about_license_title">الترخيص</string>
     <string name="about_license_body">منشور تحت رخصة MIT. يمكنك استخدامه ودراسته وتعديله وإعادة توزيعه بحرية.</string>
     <string name="about_disclaimer_title">إخلاء المسؤولية</string>
     <string name="about_disclaimer_body">يُقدَّم التطبيق كما هو دون أي ضمان. تعتمد الدقة على شاشة اللمس وعلى معايرة صحيحة، لذا القيم تقديرية.</string>
     <string name="about_source">الكود المصدري</string>
+
+    <!-- Updates -->
+    <string name="check_updates">التحقق من التحديثات</string>
+    <string name="update_current">الإصدار المثبَّت: %1$s</string>
+    <string name="update_checking">جارٍ التحقق من التحديثات…</string>
+    <string name="update_none_title">لديك أحدث إصدار</string>
+    <string name="update_none_detail">الإصدار %1$s هو أحدث إصدار منشور.</string>
+    <string name="update_available_title">الإصدار %1$s متاح</string>
+    <string name="update_available_detail">حجم التنزيل: %1$s</string>
+    <string name="update_download">تنزيل</string>
+    <string name="update_downloading">جارٍ التنزيل… %1$d%%</string>
+    <string name="update_ready_title">جاهز للتركيب</string>
+    <string name="update_ready_detail">سيطلب منك أندرويد تأكيد عملية التركيب.</string>
+    <string name="update_install">تركيب</string>
+    <string name="update_permission_detail">اسمح لتطبيق Ruler بتركيب التطبيقات من إعدادات النظام، ثم اضغط «تركيب» مرة أخرى.</string>
+    <string name="update_failed_title">تعذّر التحقق من التحديثات</string>
+    <string name="update_download_failed_title">تعذّر تنزيل التحديث</string>
+    <string name="update_failed_detail">تحقق من اتصالك بالإنترنت وحاول مرة أخرى.</string>
+    <string name="update_retry">إعادة المحاولة</string>
+    <string name="update_releases">فتح صفحة الإصدارات</string>
+    <string name="update_no_apk">هذا الإصدار لا يحتوي على ملف APK. افتح صفحة الإصدارات بدلاً من ذلك.</string>
 
     <!-- Accessibility -->
     <string name="a11y_unit_toggle">وحدة القياس</string>

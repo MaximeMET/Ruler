@@ -50,12 +50,33 @@
 
     <!-- About -->
     <string name="about_version">Sürüm %1$s</string>
-    <string name="about_tagline">Android için açık kaynaklı cetvel ve iletki. Reklam yok, izin yok, takip yok.</string>
+    <string name="about_tagline">Android için açık kaynaklı cetvel ve iletki. Reklam yok, takip yok. Uygulama yalnızca güncellemeleri denetlediğinizde çevrimiçi olur.</string>
     <string name="about_license_title">Lisans</string>
     <string name="about_license_body">MIT lisansı ile yayınlanmıştır. Özgürce kullanabilir, inceleyebilir, değiştirebilir ve dağıtabilirsiniz.</string>
     <string name="about_disclaimer_title">Yasal uyarı</string>
     <string name="about_disclaimer_body">Uygulama olduğu gibi sunulur, hiçbir garanti verilmez. Doğruluk dokunmatik ekrana ve doğru kalibrasyona bağlıdır; değerler tahminidir.</string>
     <string name="about_source">Kaynak kodu</string>
+
+    <!-- Updates -->
+    <string name="check_updates">Güncellemeleri denetle</string>
+    <string name="update_current">Yüklü sürüm: %1$s</string>
+    <string name="update_checking">Güncellemeler denetleniyor…</string>
+    <string name="update_none_title">En son sürümdesiniz</string>
+    <string name="update_none_detail">Sürüm %1$s en son yayın.</string>
+    <string name="update_available_title">Sürüm %1$s kullanılabilir</string>
+    <string name="update_available_detail">İndirme boyutu: %1$s</string>
+    <string name="update_download">İndir</string>
+    <string name="update_downloading">İndiriliyor… %1$d%%</string>
+    <string name="update_ready_title">Kuruluma hazır</string>
+    <string name="update_ready_detail">Android kurulumu onaylamanızı isteyecek.</string>
+    <string name="update_install">Kur</string>
+    <string name="update_permission_detail">Sistem ayarlarında Ruler’a uygulama kurma izni verin, sonra tekrar Kur’a dokunun.</string>
+    <string name="update_failed_title">Güncellemeler denetlenemedi</string>
+    <string name="update_download_failed_title">Güncelleme indirilemedi</string>
+    <string name="update_failed_detail">İnternet bağlantınızı denetleyip tekrar deneyin.</string>
+    <string name="update_retry">Tekrar dene</string>
+    <string name="update_releases">Sürümler sayfasını aç</string>
+    <string name="update_no_apk">Bu sürümde APK yok. Sürümler sayfasını açın.</string>
 
     <!-- Accessibility -->
     <string name="a11y_unit_toggle">Ölçü birimi</string>

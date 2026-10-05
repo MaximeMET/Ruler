@@ -50,12 +50,33 @@
 
     <!-- About -->
     <string name="about_version">バージョン %1$s</string>
-    <string name="about_tagline">Android 向けのオープンソース定規・分度器。広告なし、権限なし、トラッキングなし。</string>
+    <string name="about_tagline">Android 向けのオープンソース定規・分度器。広告なし、トラッキングなし。アップデートを確認するときだけ通信します。</string>
     <string name="about_license_title">ライセンス</string>
     <string name="about_license_body">MIT ライセンスで公開しています。自由に使用、研究、改変、再配布できます。</string>
     <string name="about_disclaimer_title">免責事項</string>
     <string name="about_disclaimer_body">本アプリは「現状のまま」提供され、いかなる保証も伴いません。精度はタッチパネルの公称画素密度と校正結果に依存するため、測定値は目安です。</string>
     <string name="about_source">ソースコード</string>
+
+    <!-- Updates -->
+    <string name="check_updates">アップデートを確認</string>
+    <string name="update_current">インストール済みバージョン: %1$s</string>
+    <string name="update_checking">アップデートを確認しています…</string>
+    <string name="update_none_title">最新バージョンです</string>
+    <string name="update_none_detail">バージョン %1$s が最新のリリースです。</string>
+    <string name="update_available_title">バージョン %1$s が利用可能です</string>
+    <string name="update_available_detail">ダウンロードサイズ: %1$s</string>
+    <string name="update_download">ダウンロード</string>
+    <string name="update_downloading">ダウンロード中… %1$d%%</string>
+    <string name="update_ready_title">インストールの準備完了</string>
+    <string name="update_ready_detail">Android がインストールの確認を求めます。</string>
+    <string name="update_install">インストール</string>
+    <string name="update_permission_detail">システム設定で Ruler にアプリのインストールを許可してから、もう一度「インストール」をタップしてください。</string>
+    <string name="update_failed_title">アップデートを確認できませんでした</string>
+    <string name="update_download_failed_title">アップデートをダウンロードできませんでした</string>
+    <string name="update_failed_detail">インターネット接続を確認して、もう一度お試しください。</string>
+    <string name="update_retry">再試行</string>
+    <string name="update_releases">リリースページを開く</string>
+    <string name="update_no_apk">このリリースには APK がありません。リリースページを開いてください。</string>
 
     <!-- Accessibility -->
     <string name="a11y_unit_toggle">測定単位</string>

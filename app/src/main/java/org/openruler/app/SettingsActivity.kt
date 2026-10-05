@@ -109,6 +109,13 @@ class SettingsActivity : BaseActivity() {
 
         addSection(R.string.pref_group_info)
         addValueRow(
+            icon = R.drawable.ic_update,
+            title = R.string.check_updates,
+            value = BuildConfig.VERSION_NAME
+        ) {
+            startActivity(Intent(this, UpdateActivity::class.java))
+        }
+        addValueRow(
             icon = R.drawable.ic_info,
             title = R.string.information,
             value = null

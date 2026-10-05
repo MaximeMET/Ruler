@@ -50,12 +50,33 @@
 
     <!-- About -->
     <string name="about_version">Versi %1$s</string>
-    <string name="about_tagline">Penggaris dan busur derajat open source untuk Android. Tanpa iklan, tanpa izin, tanpa pelacakan.</string>
+    <string name="about_tagline">Penggaris dan busur derajat open source untuk Android. Tanpa iklan, tanpa pelacakan. Aplikasi hanya terhubung ke internet saat Anda memeriksa pembaruan.</string>
     <string name="about_license_title">Lisensi</string>
     <string name="about_license_body">Dirilis dengan lisensi MIT. Anda bebas menggunakan, mempelajari, mengubah, dan menyebarkannya.</string>
     <string name="about_disclaimer_title">Penafian</string>
     <string name="about_disclaimer_body">Aplikasi disediakan apa adanya, tanpa jaminan apa pun. Akurasi bergantung pada layar sentuh dan kalibrasi yang tepat, jadi nilainya hanya perkiraan.</string>
     <string name="about_source">Kode sumber</string>
+
+    <!-- Updates -->
+    <string name="check_updates">Periksa pembaruan</string>
+    <string name="update_current">Versi terpasang: %1$s</string>
+    <string name="update_checking">Memeriksa pembaruan…</string>
+    <string name="update_none_title">Aplikasi sudah terbaru</string>
+    <string name="update_none_detail">Versi %1$s adalah rilis terbaru.</string>
+    <string name="update_available_title">Versi %1$s tersedia</string>
+    <string name="update_available_detail">Ukuran unduhan: %1$s</string>
+    <string name="update_download">Unduh</string>
+    <string name="update_downloading">Mengunduh… %1$d%%</string>
+    <string name="update_ready_title">Siap dipasang</string>
+    <string name="update_ready_detail">Android akan meminta Anda mengonfirmasi pemasangan.</string>
+    <string name="update_install">Pasang</string>
+    <string name="update_permission_detail">Izinkan Ruler memasang aplikasi di pengaturan sistem, lalu ketuk Pasang lagi.</string>
+    <string name="update_failed_title">Tidak dapat memeriksa pembaruan</string>
+    <string name="update_download_failed_title">Tidak dapat mengunduh pembaruan</string>
+    <string name="update_failed_detail">Periksa koneksi internet Anda dan coba lagi.</string>
+    <string name="update_retry">Coba lagi</string>
+    <string name="update_releases">Buka halaman rilis</string>
+    <string name="update_no_apk">Rilis ini tidak menyertakan APK. Buka halaman rilis.</string>
 
     <!-- Accessibility -->
     <string name="a11y_unit_toggle">Satuan ukur</string>

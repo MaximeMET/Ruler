@@ -50,12 +50,33 @@
 
     <!-- About -->
     <string name="about_version">버전 %1$s</string>
-    <string name="about_tagline">Android용 오픈 소스 자와 각도기. 광고 없음, 권한 없음, 추적 없음.</string>
+    <string name="about_tagline">Android용 오픈 소스 자와 각도기. 광고 없음, 추적 없음. 업데이트를 확인할 때만 인터넷에 연결합니다.</string>
     <string name="about_license_title">라이선스</string>
     <string name="about_license_body">MIT 라이선스로 배포됩니다. 자유롭게 사용, 연구, 수정, 재배포할 수 있습니다.</string>
     <string name="about_disclaimer_title">면책 조항</string>
     <string name="about_disclaimer_body">이 앱은 있는 그대로 제공되며 어떠한 보증도 하지 않습니다. 정확도는 터치스크린의 공칭 픽셀 밀도와 보정 결과에 따라 달라지므로 측정값은 참고용입니다.</string>
     <string name="about_source">소스 코드</string>
+
+    <!-- Updates -->
+    <string name="check_updates">업데이트 확인</string>
+    <string name="update_current">설치된 버전: %1$s</string>
+    <string name="update_checking">업데이트 확인 중…</string>
+    <string name="update_none_title">최신 버전입니다</string>
+    <string name="update_none_detail">버전 %1$s이(가) 최신 릴리스입니다.</string>
+    <string name="update_available_title">버전 %1$s 사용 가능</string>
+    <string name="update_available_detail">다운로드 크기: %1$s</string>
+    <string name="update_download">다운로드</string>
+    <string name="update_downloading">다운로드 중… %1$d%%</string>
+    <string name="update_ready_title">설치 준비 완료</string>
+    <string name="update_ready_detail">Android가 설치 확인을 요청합니다.</string>
+    <string name="update_install">설치</string>
+    <string name="update_permission_detail">시스템 설정에서 Ruler의 앱 설치를 허용한 뒤 다시 설치를 누르세요.</string>
+    <string name="update_failed_title">업데이트를 확인할 수 없습니다</string>
+    <string name="update_download_failed_title">업데이트를 다운로드할 수 없습니다</string>
+    <string name="update_failed_detail">인터넷 연결을 확인하고 다시 시도하세요.</string>
+    <string name="update_retry">다시 시도</string>
+    <string name="update_releases">릴리스 페이지 열기</string>
+    <string name="update_no_apk">이 릴리스에는 APK가 없습니다. 릴리스 페이지를 여세요.</string>
 
     <!-- Accessibility -->
     <string name="a11y_unit_toggle">측정 단위</string>

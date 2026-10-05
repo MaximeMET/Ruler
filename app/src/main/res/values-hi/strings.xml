@@ -50,12 +50,33 @@
 
     <!-- About -->
     <string name="about_version">संस्करण %1$s</string>
-    <string name="about_tagline">Android के लिए ओपन सोर्स रूलर और चांदा। कोई विज्ञापन नहीं, कोई अनुमति नहीं, कोई ट्रैकिंग नहीं।</string>
+    <string name="about_tagline">Android के लिए ओपन सोर्स रूलर और चांदा। कोई विज्ञापन नहीं, कोई ट्रैकिंग नहीं। ऐप केवल अपडेट जाँचने पर ही इंटरनेट से जुड़ता है।</string>
     <string name="about_license_title">लाइसेंस</string>
     <string name="about_license_body">MIT लाइसेंस के अंतर्गत जारी। आप इसे स्वतंत्र रूप से उपयोग, अध्ययन, संशोधन और वितरित कर सकते हैं।</string>
     <string name="about_disclaimer_title">अस्वीकरण</string>
     <string name="about_disclaimer_body">ऐप जैसा है वैसा ही दिया गया है, किसी प्रकार की गारंटी नहीं। सटीकता टचस्क्रीन और सही कैलिब्रेशन पर निर्भर है, इसलिए मान अनुमानित हैं।</string>
     <string name="about_source">सोर्स कोड</string>
+
+    <!-- Updates -->
+    <string name="check_updates">अपडेट जाँचें</string>
+    <string name="update_current">इंस्टॉल किया गया संस्करण: %1$s</string>
+    <string name="update_checking">अपडेट जाँचे जा रहे हैं…</string>
+    <string name="update_none_title">आपका ऐप अप टू डेट है</string>
+    <string name="update_none_detail">संस्करण %1$s नवीनतम रिलीज़ है।</string>
+    <string name="update_available_title">संस्करण %1$s उपलब्ध है</string>
+    <string name="update_available_detail">डाउनलोड आकार: %1$s</string>
+    <string name="update_download">डाउनलोड करें</string>
+    <string name="update_downloading">डाउनलोड हो रहा है… %1$d%%</string>
+    <string name="update_ready_title">इंस्टॉल के लिए तैयार</string>
+    <string name="update_ready_detail">Android आपसे इंस्टॉल की पुष्टि करने को कहेगा।</string>
+    <string name="update_install">इंस्टॉल करें</string>
+    <string name="update_permission_detail">सिस्टम सेटिंग्स में Ruler को ऐप इंस्टॉल करने की अनुमति दें, फिर दोबारा इंस्टॉल दबाएँ।</string>
+    <string name="update_failed_title">अपडेट की जाँच नहीं हो सकी</string>
+    <string name="update_download_failed_title">अपडेट डाउनलोड नहीं हो सका</string>
+    <string name="update_failed_detail">अपना इंटरनेट कनेक्शन जाँचें और फिर कोशिश करें।</string>
+    <string name="update_retry">फिर कोशिश करें</string>
+    <string name="update_releases">रिलीज़ पेज खोलें</string>
+    <string name="update_no_apk">इस रिलीज़ में APK संलग्न नहीं है। रिलीज़ पेज खोलें।</string>
 
     <!-- Accessibility -->
     <string name="a11y_unit_toggle">माप इकाई</string>

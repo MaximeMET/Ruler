@@ -50,12 +50,33 @@
 
     <!-- About -->
     <string name="about_version">Versione %1$s</string>
-    <string name="about_tagline">Righello e goniometro open source per Android. Senza pubblicità, senza permessi, senza tracciamento.</string>
+    <string name="about_tagline">Righello e goniometro open source per Android. Senza pubblicità, senza tracciamento. L’app si collega solo quando cerchi aggiornamenti.</string>
     <string name="about_license_title">Licenza</string>
     <string name="about_license_body">Distribuito con licenza MIT. Puoi usarlo, studiarlo, modificarlo e ridistribuirlo liberamente.</string>
     <string name="about_disclaimer_title">Avvertenza</string>
     <string name="about_disclaimer_body">L’app è fornita così com’è, senza garanzie. La precisione dipende dallo schermo tattile e da una calibrazione corretta: i valori sono indicativi.</string>
     <string name="about_source">Codice sorgente</string>
+
+    <!-- Updates -->
+    <string name="check_updates">Controlla aggiornamenti</string>
+    <string name="update_current">Versione installata: %1$s</string>
+    <string name="update_checking">Controllo aggiornamenti…</string>
+    <string name="update_none_title">Hai già l’ultima versione</string>
+    <string name="update_none_detail">La versione %1$s è l’ultima pubblicata.</string>
+    <string name="update_available_title">La versione %1$s è disponibile</string>
+    <string name="update_available_detail">Dimensione del download: %1$s</string>
+    <string name="update_download">Scarica</string>
+    <string name="update_downloading">Download… %1$d%%</string>
+    <string name="update_ready_title">Pronto per l’installazione</string>
+    <string name="update_ready_detail">Android ti chiederà di confermare l’installazione.</string>
+    <string name="update_install">Installa</string>
+    <string name="update_permission_detail">Consenti a Ruler di installare app nelle impostazioni di sistema, poi tocca di nuovo Installa.</string>
+    <string name="update_failed_title">Impossibile controllare gli aggiornamenti</string>
+    <string name="update_download_failed_title">Impossibile scaricare l’aggiornamento</string>
+    <string name="update_failed_detail">Controlla la connessione a internet e riprova.</string>
+    <string name="update_retry">Riprova</string>
+    <string name="update_releases">Apri la pagina delle versioni</string>
+    <string name="update_no_apk">Questa versione non include un APK. Apri la pagina delle versioni.</string>
 
     <!-- Accessibility -->
     <string name="a11y_unit_toggle">Unità di misura</string>

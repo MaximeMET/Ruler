@@ -50,12 +50,33 @@
 
     <!-- About -->
     <string name="about_version">Phiên bản %1$s</string>
-    <string name="about_tagline">Thước và thước đo góc mã nguồn mở cho Android. Không quảng cáo, không quyền, không theo dõi.</string>
+    <string name="about_tagline">Thước và thước đo góc mã nguồn mở cho Android. Không quảng cáo, không theo dõi. Ứng dụng chỉ kết nối mạng khi bạn kiểm tra cập nhật.</string>
     <string name="about_license_title">Giấy phép</string>
     <string name="about_license_body">Phát hành theo giấy phép MIT. Bạn có thể tự do sử dụng, nghiên cứu, sửa đổi và phân phối lại.</string>
     <string name="about_disclaimer_title">Miễn trừ trách nhiệm</string>
     <string name="about_disclaimer_body">Ứng dụng được cung cấp nguyên trạng, không kèm bảo đảm nào. Độ chính xác phụ thuộc vào màn hình cảm ứng và hiệu chuẩn đúng, nên giá trị chỉ mang tính tham khảo.</string>
     <string name="about_source">Mã nguồn</string>
+
+    <!-- Updates -->
+    <string name="check_updates">Kiểm tra cập nhật</string>
+    <string name="update_current">Phiên bản đã cài: %1$s</string>
+    <string name="update_checking">Đang kiểm tra cập nhật…</string>
+    <string name="update_none_title">Bạn đang dùng bản mới nhất</string>
+    <string name="update_none_detail">Phiên bản %1$s là bản phát hành mới nhất.</string>
+    <string name="update_available_title">Đã có phiên bản %1$s</string>
+    <string name="update_available_detail">Kích thước tải về: %1$s</string>
+    <string name="update_download">Tải về</string>
+    <string name="update_downloading">Đang tải… %1$d%%</string>
+    <string name="update_ready_title">Sẵn sàng cài đặt</string>
+    <string name="update_ready_detail">Android sẽ yêu cầu bạn xác nhận cài đặt.</string>
+    <string name="update_install">Cài đặt</string>
+    <string name="update_permission_detail">Cho phép Ruler cài đặt ứng dụng trong cài đặt hệ thống, rồi nhấn Cài đặt lần nữa.</string>
+    <string name="update_failed_title">Không kiểm tra được cập nhật</string>
+    <string name="update_download_failed_title">Không tải được bản cập nhật</string>
+    <string name="update_failed_detail">Kiểm tra kết nối internet và thử lại.</string>
+    <string name="update_retry">Thử lại</string>
+    <string name="update_releases">Mở trang phát hành</string>
+    <string name="update_no_apk">Bản phát hành này không kèm APK. Hãy mở trang phát hành.</string>
 
     <!-- Accessibility -->
     <string name="a11y_unit_toggle">Đơn vị đo</string>

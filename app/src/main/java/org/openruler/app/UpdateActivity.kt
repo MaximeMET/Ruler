@@ -331,6 +331,6 @@ class UpdateActivity : BaseActivity() {
 
     private companion object {
         const val TAG = "RulerUpdate"
-        const val RELEASES_PAGE = "https://github.com/MaximeMET/ruler/releases"
+        const val RELEASES_PAGE = "https://github.com/MaximeMET/Ruler/releases"
     }
 }

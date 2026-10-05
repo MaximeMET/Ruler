@@ -15,7 +15,7 @@ import java.net.URL
 object Updater {
 
     /** Latest published release of the project. */
-    const val RELEASES_API = "https://api.github.com/repos/MaximeMET/ruler/releases/latest"
+    const val RELEASES_API = "https://api.github.com/repos/MaximeMET/Ruler/releases/latest"
 
     private const val USER_AGENT = "Ruler-Android"
 

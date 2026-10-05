@@ -1,38 +1,35 @@
 # 尺子 Ruler
 
-[![Release](https://img.shields.io/github/v/release/MaximeMET/ruler?label=release)](https://github.com/MaximeMET/ruler/releases/latest)
-[![License](https://img.shields.io/github/license/MaximeMET/ruler?label=license)](LICENSE)
-[![APK size](https://img.shields.io/badge/APK-150%20KB-4f46e5)](https://github.com/MaximeMET/ruler/releases/latest)
+[![Release](https://img.shields.io/github/v/release/MaximeMET/Ruler?label=release)](https://github.com/MaximeMET/Ruler/releases/latest)
+[![License](https://img.shields.io/github/license/MaximeMET/Ruler?label=license)](LICENSE)
+[![APK size](https://img.shields.io/badge/APK-150%20KB-4f46e5)](https://github.com/MaximeMET/Ruler/releases/latest)
 
-把手机屏幕当尺子用的开源 Android 应用：测量厘米、毫米、英寸与角度。
+把手机屏幕变成尺子和量角器的开源 Android 应用。没有广告、没有统计、不会自己联网，
+装完就是一把安静的尺子。
 
-**下载**：[最新 Release](https://github.com/MaximeMET/ruler/releases/latest) 里的 APK，
-约 150 KB，支持 Android 6.0（API 23）及以上。装好之后也可以直接在应用内检查更新，
-不需要再手动下载安装包。
+**下载**：[最新 Release](https://github.com/MaximeMET/Ruler/releases/latest) 里的 APK，
+约 150 KB，支持 Android 6.0（API 23）及以上；装好之后可以在应用内直接检查更新。
 
-## 特性
+## 为什么做这个
 
-* 没有广告：AdMob、Pangle、AppLovin、Yandex、IronSource、Firebase 等全部不存在
-* 只申请 2 个权限，而且只为应用内更新服务：`INTERNET` 用来在你点「检查更新」时访问
-  GitHub，`REQUEST_INSTALL_PACKAGES` 用来把下载好的 APK 交给系统安装器。没有后台联网、
-  没有统计、没有存储权限（安装包放在应用缓存里，通过私有 ContentProvider 交给系统）
-* 零第三方依赖：只用 Android Framework + Kotlin 标准库，release 包约 150 KB
-* 17 种语言，默认跟随系统语言，也可以在设置里单独指定
-* 深色主题（默认）/ 浅色主题，全应用统一用一个靛蓝强调色
-* 矢量自适应图标：Android 8+ 走自适应图标（含 Android 13 主题图标），更早的系统用同一套图形的方角图标
+应用商店里的尺规应用功能都不差，但打开先看广告、量一下要联网、随手弹评分框，
+工具本身反而被埋在最底下——而「把屏幕当尺子」这个需求本身，简单到不该有这些东西。
+
+所以这个项目从头写了一个功能对等的版本，只坚持一条：**能离线用的功能就让它安安静静地离线**。
+该删的依赖全删掉（没有广告 SDK、没有统计、没有第三方库），该加的功能一个不少，
+安装包最终只有 150 KB——一把屏幕尺本来就该这么重。
 
 ## 功能
 
 | 功能 | 说明 |
 | --- | --- |
-| 全屏尺子 | 默认竖屏，刻度沿左侧长边；横屏时刻度回到上下长边；厘米 / 毫米 / 英寸三种单位，1 mm 或 1/8 inch 一格，数字始终横排、不用歪头看 |
-| 横竖屏切换 | 工具栏上的旋转按钮一键切换，设置里还可以选竖屏 / 横屏各自的反向 |
-| 两点尺 | 两条可拖动的边，测量两点之间的距离；每条边都能单独固定（点线端的小锁），点一下读数可以输入长度、两端一起固定，变成一把固定长度的尺子 |
-| 矩形测量 | 可拖动矩形，实时显示宽、高与面积 |
-| 量角器 | 半圆刻度盘，两根可拖动的针，双指可同时调整夹角；每根针都能单独固定（点针上的小锁），点读数输入角度可把两根针一起固定；竖屏下刻度盘沿左侧长边转 90°，读数横排在屏幕底部 |
-| 校准 | 用银行卡长边（85.60 mm）做参照，加减按钮或直接拖动微调，系数实时保存 |
-| 检查更新 | 应用内直接检查 GitHub 上的最新 Release：显示当前版本、下载 APK、交给系统安装器完成安装；平时不联网，只有打开这个页面才会访问网络 |
-| 设置 | 屏幕方向、屏幕常亮、深色主题、边缘留白、语言、测量单位 |
+| 全屏尺子 | 刻度贴着屏幕长边，厘米 / 毫米 / 英寸三种单位，1 mm 或 1/8 inch 一格，数字始终横排 |
+| 横竖屏 | 默认竖屏，工具栏旋转按钮一键切换，选择会被记住；设置里可选竖屏 / 横屏各自的反向 |
+| 两点尺 | 两条可拖动的测量线，每条都能点小锁单独固定；点一下读数可以输入长度、两端一起固定，当一把固定长度的尺子用 |
+| 矩形测量 | 拖动矩形实时显示宽、高与面积，竖屏和横屏都是两把标尺 |
+| 量角器 | 半圆刻度盘，两根针都可以单独锁定，双指可同时调整夹角；点读数可以输入精确角度，竖屏读数横排在底部 |
+| 校准 | 用银行卡长边（85.60 mm）做参照，加减按钮或直接拖动微调，系数实时保存并作用于所有模式 |
+| 检查更新 | 应用内检查 GitHub 上的最新版本并交给系统安装器；平时不联网，只有主动打开这个页面才会访问网络 |
 
 ## 截图
 
@@ -40,46 +37,43 @@
 | --- | --- | --- | --- |
 | ![portrait](docs/screenshots/portrait.png) | ![main](docs/screenshots/main.png) | ![rect](docs/screenshots/measure-rect.png) | ![protractor](docs/screenshots/protractor.png) |
 
-| 两点尺（输入长度后两端固定） | 校准 | 设置（深色，默认） | 关于 |
+| 两点尺（输入长度后两端固定） | 校准 | 设置 | 检查更新 |
 | --- | --- | --- | --- |
-| ![two point](docs/screenshots/measure-two.png) | ![calibration](docs/screenshots/calibration.png) | ![settings](docs/screenshots/settings.png) | ![about](docs/screenshots/about.png) |
+| ![two point](docs/screenshots/measure-two.png) | ![calibration](docs/screenshots/calibration.png) | ![settings](docs/screenshots/settings.png) | ![update](docs/screenshots/update.png) |
+
+## 权限与隐私
+
+应用只声明两个权限，而且都只服务于「检查更新」：
+
+* `INTERNET`：你点「检查更新」时访问 GitHub 的 Release 接口
+* `REQUEST_INSTALL_PACKAGES`：把下载好的安装包交给系统安装器
+
+不打开更新页，应用不会发出任何网络请求：没有后台服务、没有统计 SDK、没有账号，测量数据
+也不会离开手机。安装包放在应用自己的缓存目录，通过私有的 `ContentProvider` 交给系统安装器，
+所以连存储权限都不需要。
+
+## 校准与精度
+
+刻度的换算关系是：
+
+```
+每格像素 = 屏幕 xdpi（或 ydpi）/ 25.4 × 校准系数     // 厘米 / 毫米模式
+每格像素 = 屏幕 xdpi（或 ydpi）/ 8 × 校准系数        // 英寸模式
+```
+
+手机上报的 `xdpi` / `ydpi` 只是厂家标称值，往往和真实尺寸有偏差，所以第一次使用建议先校准：
+在校准页把银行卡的长边贴到蓝色方框上，用 `+` / `−` 或直接拖动刻度，直到银行卡完全对齐方框，
+再点右上角保存。校准系数会作用于所有模式，直到你再次修改。
 
 ## 语言
 
-默认**跟随系统语言**；如果系统语言不在支持列表里，会回落到英文。设置页的「语言」一行可以在
-应用内直接切换，列表里每一项都用该语言自己的写法（English、简体中文、日本語、Русский…），
-不用先看懂当前界面也能找到自己的语言。
+界面跟随系统语言，也可以在任何一页的设置里单独指定。目前有 English、简体中文、繁體中文、
+日本語、한국어、Español、Português (Brasil)、Français、Deutsch、Italiano、Русский、Türkçe、
+العربية、हिन्दी、Bahasa Indonesia、Tiếng Việt、ไทย 共 17 种翻译。
 
-目前带完整翻译的语言：English、简体中文、繁體中文、日本語、한국어、Español、Português (Brasil)、
-Français、Deutsch、Italiano、Русский、Türkçe、العربية、हिन्दी、Bahasa Indonesia、Tiếng Việt、ไทย。
-
-![语言选择](docs/screenshots/language.png)
-
-实现在 `core/Locales.kt`：语言选项存在 `SharedPreferences`，每个 Activity 在 `attachBaseContext()`
-里用 `createConfigurationContext()` 套上对应语言；Android 13+ 另外通过 `android:localeConfig`
-注册到系统的「应用语言」页面，两处设置保持同步。工具栏弹窗与所有读数统一使用拉丁数字与小数点，
-和刻度上的数字保持一致。
-
-想贡献新语言也很简单：把 `app/src/main/res/values/strings.xml` 复制成 `values-<语言代码>/strings.xml`
-翻译一遍，再把语言加进 `core/Locales.kt` 的 `choices` 与 `res/xml/locales_config.xml` 就行，
+想补充一种新语言：把 `app/src/main/res/values/strings.xml` 复制成 `values-<语言代码>/strings.xml`
+翻译一遍，再把语言加进 `core/Locales.kt` 的 `choices` 与 `res/xml/locales_config.xml` 即可，
 不需要改其它代码。
-
-## 配色与图标
-
-全应用只有一个强调色，深色主题 `#818CF8`、浅色主题 `#4F46E5`。两点尺、矩形、量角器三个
-测量工具共用它，切换功能不会换配色：
-
-| | 深色主题（默认） | 浅色主题 |
-| --- | --- | --- |
-| 画布 | `#0B0E14` 近黑 | `#F4F6FB` 低亮度灰白 |
-| 工具栏 | `#151A24` | `#4F46E5` |
-| 刻度、测量线与读数 | `#818CF8` | `#4F46E5` |
-
-深色主题默认打开，因为纯白底在暗环境里太刺眼。工具栏、单位切换胶囊、设置页图标、
-量角器的扇形填色都取同一个强调色。
-
-图标是矢量绘制的圆角方形尺身，顶部刻度 + 左侧短刻度 + 挂孔；Android 8+ 使用自适应图标，
-包含前景、背景与单色三层，Android 7 及以下使用同一套图形的方角版本。
 
 ## 构建
 
@@ -93,9 +87,6 @@ Français、Deutsch、Italiano、Русский、Türkçe、العربية、�
 ./gradlew assembleRelease
 ```
 
-第一次执行 wrapper 会下载 Gradle 8.9（约 130 MB）；如果网络受限，也可以装好 Gradle 8.9 后
-直接执行 `gradle assembleRelease`，或者用 Android Studio 打开仓库根目录构建。
-
 产物在 `app/build/outputs/apk/` 下。安装到手机：
 
 ```bash
@@ -103,28 +94,11 @@ adb install -r app/build/outputs/apk/debug/app-debug.apk
 ```
 
 release 构建默认开启 R8 代码压缩与资源压缩，并剔除 Kotlin 的反射元数据，本仓库构建出来的
-`app-release.apk` 约 150 KB（其中约 50 KB 是 17 种语言的文案；debug 包约 1 MB，因为它不做任何压缩）。
+`app-release.apk` 约 150 KB（debug 包约 1 MB，因为它不做任何压缩）。
 
-「关于」页底部的源码按钮指向 <https://github.com/MaximeMET/ruler>；如果你 fork 了本项目，
-把 `app/src/main/java/org/openruler/app/AboutActivity.kt` 里的 `SOURCE_URL` 换成自己的仓库地址即可。
-
-fork 之后记得同时把 `app/src/main/java/org/openruler/app/core/Updater.kt` 里的 `RELEASES_API`
-换成你自己的仓库，应用内更新才会检查你的 Release。
-
-## 应用内更新
-
-设置页的「检查更新」→ 更新页，流程只有三步：查最新 Release、下载 APK、交给系统安装器。
-
-* 请求只发生在你打开更新页之后：一次 `api.github.com/repos/MaximeMET/ruler/releases/latest`，
-  一次 APK 下载；失败或没新版本时不会有任何其它网络行为，应用没有后台服务、不会在启动时联网
-* 下载优先走 `api.github.com` 的 asset 接口（更新检查已经证明这个域名可达），失败再退回
-  Release 页面上的直链；两条路都失败时页面会给你「打开发布页」的按钮
-* 下载的文件放在应用缓存目录 `cache/update.apk`，通过一个不导出的私有 `ContentProvider`
-  交给系统安装器，所以不需要存储权限
-* Android 8 及以上第一次安装需要你在系统设置里允许「尺子」安装未知应用，更新页会直接把你
-  带到那个开关，授权后回来再点一次「安装」即可
-
-也可以直接用 Android Studio 打开仓库根目录，同步后点运行。
+如果你 fork 了本项目，记得把 `app/src/main/java/org/openruler/app/core/Updater.kt` 里的
+`RELEASES_API` 和 `AboutActivity.kt` 里的 `SOURCE_URL` 换成你自己的仓库地址，
+应用内更新与「关于」页的源码按钮才会指向你的仓库。
 
 ## 项目结构
 
@@ -132,52 +106,28 @@ fork 之后记得同时把 `app/src/main/java/org/openruler/app/core/Updater.kt`
 app/src/main/java/org/openruler/app/
 ├── MainActivity.kt              # 测量主界面（全屏尺子 + 工具）
 ├── CalibrationActivity.kt       # 校准界面
-├── SettingsActivity.kt          # 设置界面（代码生成列表行）
+├── SettingsActivity.kt          # 设置界面
 ├── AboutActivity.kt             # 关于 / 许可
-├── UpdateActivity.kt            # 应用内更新（检查 / 下载 / 交给系统安装器）
-├── ProtractorActivity.kt        # 可以单独作为快捷方式启动的量角器
-├── BaseActivity.kt              # 主题（浅色/深色）与调色板
-├── core/
-│   ├── Units.kt                 # 单位、测量模式、像素与物理长度换算
-│   ├── Prefs.kt                 # SharedPreferences 封装
-│   ├── Locales.kt               # 语言列表与语言切换
-│   ├── Updater.kt               # GitHub Release 查询与 APK 下载
-│   ├── ApkProvider.kt           # 把缓存里的安装包交给系统安装器的私有 Provider
-│   └── Palette.kt               # 调色板与颜色工具
-└── view/
-    ├── RulerView.kt             # 三向刻度、测量区域内反色重绘
-    ├── MeasureView.kt           # 两点尺（可固定任一端或输入长度）与矩形测量工具
-    ├── ProtractorView.kt        # 量角器
-    ├── CalibrationRulerView.kt  # 校准尺（银行卡参照）
-    └── UnitToggleView.kt        # 单位切换胶囊控件
+├── UpdateActivity.kt            # 应用内更新（检查 / 下载 / 安装）
+├── ProtractorActivity.kt        # 可单独作为快捷方式启动的量角器
+├── BaseActivity.kt              # 主题与调色板
+├── core/                        # 单位换算、偏好设置、语言、更新器、调色板
+└── view/                        # 尺子、两点尺、量角器、校准尺等自绘控件
 ```
 
-## 测量精度
+## 出处与许可
 
-刻度的换算关系是：
+这是一个**功能对等的重写**，不是原 APK 的重打包。界面交互参考了 Google Play 上的同类
+尺规应用 `org.nixgame.ruler`（作者 Evgrafov Aleksei），但源码、图标与界面资源全部重新编写、
+绘制，仓库里不含原应用的任何代码、图片、字体或 APK 文件，也没有移植它的广告（AdMob、
+Pangle、AppLovin、Yandex、IronSource）、Firebase / AppMetrica 统计、评分弹窗与内购。
 
-```
-每格像素 = 屏幕 xdpi（或 ydpi）/ 25.4 × 校准系数     // 厘米 / 毫米模式
-每格像素 = 屏幕 xdpi（或 ydpi）/ 8 × 校准系数        // 英寸模式
-```
-
-手机上报的 `xdpi` / `ydpi` 只是厂家标称值，往往和真实尺寸有偏差，所以第一次使用建议先校准：
-在校准页把银行卡的长边贴到蓝色方框上，用 `+` / `−` 或直接拖动刻度，直到银行卡完全对齐方框，
-再点右上角保存。校准系数会作用于所有模式，直到你再次修改。
-
-## 与参考应用的关系
-
-这是一个**功能对等的重写**，不是原 APK 的重打包。源码、图标与界面资源全部重新编写、绘制，
-仓库里不含参考应用 `org.nixgame.ruler`（作者 Evgrafov Aleksei）的任何代码、图片、字体或 APK 文件。
-
-相比参考应用，这里移除了广告（AdMob、Pangle、AppLovin、Yandex、IronSource）、
-Firebase / AppMetrica 统计、评分弹窗、内购（Pro 版）与自家应用互推。
-
-## 许可证
-
-[MIT](LICENSE)。你可以自由使用、修改、再发布，包括商用。
-
-## 免责声明
+[MIT](LICENSE) 许可证，可以自由使用、修改、再发布（包括商用）。
 
 软件按「现状」提供，不附带任何担保。尺子精度取决于触摸屏的像素密度标称值与校准结果，
 测量值仅供参考，不作为计量依据。
+
+## 更新日志
+
+每个版本的完整改动见 [CHANGELOG.md](CHANGELOG.md)；安装包都在
+[Releases](https://github.com/MaximeMET/Ruler/releases) 页面。

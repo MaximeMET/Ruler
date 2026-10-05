@@ -21,6 +21,7 @@ import android.widget.LinearLayout
 import org.openruler.app.core.DisplayOrientation
 import org.openruler.app.core.MeasureMode
 import org.openruler.app.core.dim
+import org.openruler.app.core.readoutDecimals
 import org.openruler.app.view.MeasureView
 import org.openruler.app.view.ProtractorView
 import org.openruler.app.view.RulerView
@@ -234,7 +235,7 @@ class MainActivity : BaseActivity() {
     private fun showLengthDialog() = showValueDialog(
         getString(R.string.enter_length) + " (" + measure.unitLabel() + ")",
         measure.measuredValue(),
-        2
+        measure.unit.readoutDecimals()
     ) { measure.setLength(it) }
 
     /** Asks for an angle and pins both arms at that opening: the dial holds an exact angle. */

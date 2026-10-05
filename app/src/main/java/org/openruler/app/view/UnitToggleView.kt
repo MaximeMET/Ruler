@@ -13,8 +13,8 @@ import org.openruler.app.core.LengthUnit
 import org.openruler.app.core.Palette
 
 /**
- * Two segment switch used for picking the unit, drawn as a pill: the selected half keeps
- * the colour of the tool bar and gets a white outline, the other half is filled white.
+ * Pill switch used for picking the unit: the selected segment keeps the colour of the tool
+ * bar and gets a white outline, the other segments are filled with the surface colour.
  */
 class UnitToggleView @JvmOverloads constructor(
     context: Context,
@@ -37,8 +37,8 @@ class UnitToggleView @JvmOverloads constructor(
             invalidate()
         }
 
-    private val leftLabel = LengthUnit.INCH
-    private val rightLabel = LengthUnit.CM
+    /** Units offered by the switch, in the order they appear on screen. */
+    private val segments = listOf(LengthUnit.INCH, LengthUnit.CM, LengthUnit.MM)
 
     private val fillPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply { style = Paint.Style.FILL }
     private val strokePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply { style = Paint.Style.STROKE }
@@ -70,49 +70,56 @@ class UnitToggleView @JvmOverloads constructor(
         val w = width.toFloat()
         val h = height.toFloat()
         val radius = h / 2f
-        val middle = w / 2f
+        val segmentWidth = w / segments.size
 
-        // Unselected half: plain surface pill.
+        // Unselected segments: plain surface pill.
         fillPaint.color = palette.toggleSurface
         rect.set(0f, 0f, w, h)
         canvas.drawRoundRect(rect, radius, radius, fillPaint)
 
-        // Selected half: tool bar colour with a white outline.
-        path.reset()
-        val leftSelected = unit == leftLabel
-        val selectedHeight = h
-        if (leftSelected) {
+        // Selected segment: tool bar colour with a white outline. Only the corners that
+        // touch the outside of the pill stay round, so the segments read as one control.
+        // A unit picked in the settings screen may not be on the pill at all; then nothing
+        // is highlighted and a tap here simply switches back to one of the three below.
+        val selectedIndex = segments.indexOf(unit)
+        if (selectedIndex >= 0) {
+            val left = selectedIndex * segmentWidth
+            val right = left + segmentWidth
+            val roundLeft = if (selectedIndex == 0) radius else 0f
+            val roundRight = if (selectedIndex == segments.lastIndex) radius else 0f
+            path.reset()
             path.addRoundRect(
-                RectF(stroke / 2f, stroke / 2f, middle, selectedHeight - stroke / 2f),
-                floatArrayOf(radius, radius, 0f, 0f, 0f, 0f, radius, radius),
+                RectF(left + stroke / 2f, stroke / 2f, right - stroke / 2f, h - stroke / 2f),
+                floatArrayOf(
+                    roundLeft, roundLeft,
+                    roundRight, roundRight,
+                    roundRight, roundRight,
+                    roundLeft, roundLeft
+                ),
                 Path.Direction.CW
             )
-        } else {
-            path.addRoundRect(
-                RectF(middle, stroke / 2f, w - stroke / 2f, selectedHeight - stroke / 2f),
-                floatArrayOf(0f, 0f, radius, radius, radius, radius, 0f, 0f),
-                Path.Direction.CW
-            )
+            fillPaint.color = palette.panel
+            canvas.drawPath(path, fillPaint)
+            strokePaint.color = palette.toggleStroke
+            canvas.drawPath(path, strokePaint)
         }
-        fillPaint.color = palette.panel
-        canvas.drawPath(path, fillPaint)
-        strokePaint.color = palette.toggleStroke
-        canvas.drawPath(path, strokePaint)
 
-        // Labels.
+        // One label per segment.
         textPaint.getTextBounds("cm", 0, 2, textBounds)
         val baseline = h / 2f + textBounds.height() / 2f
-        textPaint.color = if (leftSelected) palette.iconOnPanel else palette.accent
-        canvas.drawText(label(leftLabel), middle / 2f, baseline, textPaint)
-        textPaint.color = if (leftSelected) palette.accent else palette.iconOnPanel
-        canvas.drawText(label(rightLabel), middle + middle / 2f, baseline, textPaint)
+        segments.forEachIndexed { index, entry ->
+            textPaint.color = if (index == selectedIndex) palette.iconOnPanel else palette.accent
+            canvas.drawText(label(entry), segmentWidth * (index + 0.5f), baseline, textPaint)
+        }
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
         when (event.actionMasked) {
             MotionEvent.ACTION_DOWN -> return true
             MotionEvent.ACTION_UP -> {
-                val selected = if (event.x < width / 2f) leftLabel else rightLabel
+                val segmentWidth = width.toFloat() / segments.size
+                val index = (event.x / segmentWidth).toInt().coerceIn(0, segments.lastIndex)
+                val selected = segments[index]
                 if (selected != unit) {
                     unit = selected
                     onUnitSelected?.invoke(selected)

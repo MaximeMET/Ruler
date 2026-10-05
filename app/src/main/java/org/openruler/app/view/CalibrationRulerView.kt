@@ -12,6 +12,7 @@ import android.view.View
 import org.openruler.app.core.LengthUnit
 import org.openruler.app.core.Palette
 import org.openruler.app.core.Scale
+import org.openruler.app.core.readout
 import java.util.Locale
 
 /**
@@ -20,7 +21,8 @@ import java.util.Locale
  * The screen is used in portrait, so the ruler is drawn rotated 90° and runs along the
  * long edge of the phone. A bank card is 85.60 mm long all over the world, so the drawn
  * outline gives the user a physical reference: line the card up with the outline and
- * adjust until the ticks match.
+ * adjust until the ticks match. Because the scale runs down the long edge it reads `ydpi`,
+ * the same density the portrait ruler uses for its vertical scale.
  */
 class CalibrationRulerView @JvmOverloads constructor(
     context: Context,
@@ -114,10 +116,10 @@ class CalibrationRulerView @JvmOverloads constructor(
         val laneEnd = band * 0.70f
         val origin = dp(10f)
 
-        val step = Scale.pxPerTick(unit, resources.displayMetrics.xdpi, coefficient)
+        val step = Scale.pxPerTick(unit, resources.displayMetrics.ydpi, coefficient)
         val ticksPerLabel = Scale.ticksPerLabel(unit)
         val labelStep = Scale.labelStep(unit)
-        val cardLength = Scale.pxPerTick(LengthUnit.MM, resources.displayMetrics.xdpi, coefficient) * CARD_LENGTH_MM
+        val cardLength = Scale.pxPerTick(LengthUnit.MM, resources.displayMetrics.ydpi, coefficient) * CARD_LENGTH_MM
 
         tickPaint.color = palette.accent
         cardPaint.color = palette.accent
@@ -163,9 +165,9 @@ class CalibrationRulerView @JvmOverloads constructor(
         }
         val cardText = String.format(
             Locale.ROOT,
-            "%s %.2f %s",
+            "%s %s %s",
             context.getString(org.openruler.app.R.string.credit_card_length).replace(":", ""),
-            cardValue,
+            unit.readout(cardValue),
             unitLabel()
         )
         canvas.drawText(cardText, origin + cardLength / 2f, (laneStart + laneEnd) / 2f + labelHeight / 2f, textPaint)

@@ -1,5 +1,7 @@
 package org.openruler.app.core
 
+import java.util.Locale
+
 /**
  * Length units the ruler can be calibrated for.
  *
@@ -16,6 +18,16 @@ enum class LengthUnit(val id: String) {
         fun fromId(id: String?): LengthUnit = entries.firstOrNull { it.id == id } ?: CM
     }
 }
+
+/** Digits after the decimal point the readouts use for this unit. */
+fun LengthUnit.readoutDecimals(): Int = when (this) {
+    LengthUnit.MM -> 1
+    LengthUnit.CM, LengthUnit.INCH -> 2
+}
+
+/** Formats [value] with the precision this unit's readouts use. */
+fun LengthUnit.readout(value: Float): String =
+    String.format(Locale.ROOT, "%.${readoutDecimals()}f", value)
 
 /** Measurement tools available on the main screen. */
 enum class MeasureMode {

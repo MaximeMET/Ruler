@@ -1,5 +1,7 @@
 # 尺子 Ruler
 
+**中文** | [English](README.en.md)
+
 [![Release](https://img.shields.io/github/v/release/MaximeMET/Ruler?label=release)](https://github.com/MaximeMET/Ruler/releases/latest)
 [![License](https://img.shields.io/github/license/MaximeMET/Ruler?label=license)](LICENSE)
 [![APK size](https://img.shields.io/badge/APK-150%20KB-4f46e5)](https://github.com/MaximeMET/Ruler/releases/latest)

@@ -14,6 +14,7 @@
     <!-- Main screen -->
     <string name="mode_two_points">Measure between two points</string>
     <string name="enter_length">Enter length</string>
+    <string name="enter_angle">Enter angle</string>
     <string name="mode_four_points">Measure a rectangle</string>
     <string name="mode_protractor">Protractor</string>
     <string name="calibration">Calibration</string>

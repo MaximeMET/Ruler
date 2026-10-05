@@ -10,6 +10,7 @@
     <!-- Main screen -->
     <string name="mode_two_points">القياس بين نقطتين</string>
     <string name="enter_length">أدخل الطول</string>
+    <string name="enter_angle">أدخل الزاوية</string>
     <string name="mode_four_points">قياس مستطيل</string>
     <string name="mode_protractor">المنقلة</string>
     <string name="calibration">المعايرة</string>

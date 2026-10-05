@@ -122,13 +122,10 @@ class MeasureView @JvmOverloads constructor(
     }
 
     private val textBounds = Rect()
-    private val lockBody = RectF()
-    private val lockArc = RectF()
-
-    private val chipPaint = Paint(Paint.ANTI_ALIAS_FLAG)
-    private val lockPaint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val chipRadius = dp(12f)
     private val chipMargin = dp(26f)
+    /** In landscape the chips float above the bottom scale instead of sitting on its ticks. */
+    private val chipBottomOffset = dp(76f)
     /** The close button floats over the top right corner; chips step left to stay tappable. */
     private val chipCloseZone = dp(66f)
     private val chipCloseShift = dp(46f)
@@ -374,15 +371,21 @@ class MeasureView @JvmOverloads constructor(
 
         // The lock chips sit at the far end of each line, on top of everything else.
         if (mode != MeasureMode.FOUR_POINT) {
-            drawLockChip(canvas, lockChipX(left), lockChipY(left), leftLocked, toolColor)
-            drawLockChip(canvas, lockChipX(right), lockChipY(right), rightLocked, toolColor)
+            LockChip.draw(
+                canvas, lockChipX(left), lockChipY(left), chipRadius,
+                leftLocked, toolColor, palette.background
+            )
+            LockChip.draw(
+                canvas, lockChipX(right), lockChipY(right), chipRadius,
+                rightLocked, toolColor, palette.background
+            )
         }
     }
 
     /**
      * Where the lock chip of [point] sits: portrait anchors the chips to the right edge,
-     * landscape to the bottom edge. Both keep clear of the screen edge, and a chip that
-     * would hide under the close button in the top right corner steps left of it.
+     * landscape lifts them above the bottom scale. Both keep clear of the screen edge, and
+     * a chip that would hide under the close button in the top right corner steps left of it.
      */
     private fun lockChipX(point: PointF): Float = if (portrait) {
         if (point.y < chipCloseZone) width - chipMargin - chipCloseShift else width - chipMargin
@@ -393,42 +396,7 @@ class MeasureView @JvmOverloads constructor(
     private fun lockChipY(point: PointF): Float = if (portrait) {
         point.y.coerceIn(chipRadius + chipEdgeGap, height - chipRadius - chipEdgeGap)
     } else {
-        height - chipMargin
-    }
-
-    /**
-     * A padlock chip pinned to a line: the filled body means the line is fixed, and the
-     * lifted shackle means it can still be dragged.
-     */
-    private fun drawLockChip(canvas: Canvas, cx: Float, cy: Float, locked: Boolean, color: Int) {
-        chipPaint.style = Paint.Style.FILL
-        chipPaint.color = palette.background
-        canvas.drawCircle(cx, cy, chipRadius, chipPaint)
-        chipPaint.style = Paint.Style.STROKE
-        chipPaint.strokeWidth = dp(1.2f)
-        chipPaint.color = color
-        canvas.drawCircle(cx, cy, chipRadius, chipPaint)
-
-        lockPaint.color = color
-        lockPaint.style = if (locked) Paint.Style.FILL else Paint.Style.STROKE
-        lockPaint.strokeWidth = dp(1.4f)
-        val bodyWidth = dp(9f)
-        val bodyHeight = dp(7f)
-        lockBody.set(cx - bodyWidth / 2f, cy - dp(0.5f), cx + bodyWidth / 2f, cy - dp(0.5f) + bodyHeight)
-        canvas.drawRoundRect(lockBody, dp(1.5f), dp(1.5f), lockPaint)
-
-        lockPaint.style = Paint.Style.STROKE
-        lockPaint.strokeWidth = dp(1.4f)
-        val shackle = dp(3.2f)
-        val top = lockBody.top
-        // A pinned line gets the closed shackle; a free one has it lifted off the body.
-        val lift = if (locked) 0f else dp(1.4f)
-        lockArc.set(cx - shackle, top - shackle - lift, cx + shackle, top + shackle - lift)
-        canvas.drawArc(lockArc, 180f, 180f, false, lockPaint)
-        if (locked) {
-            canvas.drawLine(cx - shackle, lockArc.centerY(), cx - shackle, top, lockPaint)
-            canvas.drawLine(cx + shackle, lockArc.centerY(), cx + shackle, top, lockPaint)
-        }
+        height - chipBottomOffset
     }
 
     private fun drawArea(canvas: Canvas, unitText: String) {

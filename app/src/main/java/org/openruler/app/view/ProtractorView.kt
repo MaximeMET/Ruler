@@ -10,10 +10,13 @@ import android.graphics.Typeface
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
+import android.view.ViewConfiguration
 import kotlin.math.abs
 import kotlin.math.atan2
+import kotlin.math.cos
 import kotlin.math.hypot
 import kotlin.math.min
+import kotlin.math.sin
 import org.openruler.app.core.Palette
 import java.util.Locale
 
@@ -22,6 +25,7 @@ import java.util.Locale
  *
  * Angles use the mathematical convention: 0° points right, 90° up, 180° left. The wedge
  * between the two arms is filled with the tool colour and the angle is printed below.
+ * Either arm can be pinned with its padlock, and a typed angle pins both at once.
  */
 class ProtractorView @JvmOverloads constructor(
     context: Context,
@@ -36,8 +40,17 @@ class ProtractorView @JvmOverloads constructor(
 
     /** Called with the angle between the arms every time it changes. */
     var onAngleChanged: ((Float) -> Unit)? = null
+
+    /** Called when the user taps the readout: the host then asks for an angle. */
+    var onValueTap: (() -> Unit)? = null
     var onTouchDown: (() -> Unit)? = null
     var onTouchUp: (() -> Unit)? = null
+
+    /** Each arm can be pinned in place, so the dial can hold an exact opening. */
+    var firstLocked = false
+        private set
+    var secondLocked = false
+        private set
 
     private val arms = floatArrayOf(DEFAULT_A, DEFAULT_B)
     private val pointerIds = intArrayOf(MotionEvent.INVALID_POINTER_ID, MotionEvent.INVALID_POINTER_ID)
@@ -50,6 +63,15 @@ class ProtractorView @JvmOverloads constructor(
 
     /** `true` while the phone is upright: the dial then runs along the left long edge. */
     private var portrait = false
+
+    /** What the current gesture started on: an arm padlock, the readout, or nothing. */
+    private var tapTarget = TAP_NONE
+    private var tapStartX = 0f
+    private var tapStartY = 0f
+    private var tapMoved = false
+
+    /** Hit box of the readout, refreshed on every draw. */
+    private val readoutRect = RectF()
 
     private val tickPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply { style = Paint.Style.STROKE }
     private val labelPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
@@ -68,10 +90,13 @@ class ProtractorView @JvmOverloads constructor(
     private val textBounds = Rect()
 
     private val inset = dp(20f)
+    private val margin = dp(10f)
     private val tickLong = dp(25f)
     private val tickMid = dp(20f)
     private val tickShort = dp(15f)
     private val gap = dp(5f)
+    private val chipRadius = dp(12f)
+    private val touchSlop = ViewConfiguration.get(context).scaledTouchSlop
 
     private var labelHeight = 0f
 
@@ -95,13 +120,36 @@ class ProtractorView @JvmOverloads constructor(
     fun start() {
         arms[0] = DEFAULT_A
         arms[1] = DEFAULT_B
+        firstLocked = false
+        secondLocked = false
         releasePointers()
+        tapTarget = TAP_NONE
+        tapMoved = false
         notifyChanged()
     }
 
     fun restore(a: Float, b: Float) {
         arms[0] = a.coerceIn(0f, 180f)
         arms[1] = b.coerceIn(0f, 180f)
+        notifyChanged()
+    }
+
+    /** Restores the pin state of one arm, used when the activity is recreated. */
+    fun setLocked(index: Int, locked: Boolean) {
+        if (index == 0) firstLocked = locked else secondLocked = locked
+        invalidate()
+    }
+
+    /** Pins the opening to [value] degrees around the current bisector and locks both arms. */
+    fun setAngle(value: Float) {
+        val span = value.coerceIn(0.1f, 180f)
+        val half = span / 2f
+        val mid = ((arms[0] + arms[1]) / 2f).coerceIn(half, 180f - half)
+        arms[0] = mid - half
+        arms[1] = mid + half
+        firstLocked = true
+        secondLocked = true
+        releasePointers()
         notifyChanged()
     }
 
@@ -190,7 +238,43 @@ class ProtractorView @JvmOverloads constructor(
 
         // The readout keeps its own direction so it can be read while the phone is upright.
         anglePaint.color = color
-        canvas.drawText(String.format(Locale.ROOT, "%.1f°", angle), width / 2f, height - inset, anglePaint)
+        val readout = String.format(Locale.ROOT, "%.1f°", angle)
+        anglePaint.getTextBounds(readout, 0, readout.length, textBounds)
+        val baseline = height - inset
+        val readoutWidth = anglePaint.measureText(readout)
+        canvas.drawText(readout, width / 2f, baseline, anglePaint)
+        readoutRect.set(
+            width / 2f - readoutWidth / 2f - margin,
+            baseline - textBounds.height() - margin,
+            width / 2f + readoutWidth / 2f + margin,
+            baseline + margin
+        )
+
+        // One padlock per arm, drawn upright in both orientations, just inside the numbers.
+        LockChip.draw(canvas, chipX(0), chipY(0), chipRadius, firstLocked, color, palette.background)
+        LockChip.draw(canvas, chipX(1), chipY(1), chipRadius, secondLocked, color, palette.background)
+    }
+
+    /** Distance of the arm padlocks from the pivot: in the free area inside the numbers. */
+    private val chipDistance: Float
+        get() = (tickRadius - dp(80f)).coerceAtLeast(dp(40f))
+
+    /**
+     * Screen position of the padlock of one arm. The dial frame points 0° to the right and
+     * 90° up; in portrait the whole dial carries the same quarter turn the canvas gets.
+     */
+    private fun chipX(index: Int): Float {
+        val radians = Math.toRadians(arms[index].toDouble())
+        val dx = cos(radians).toFloat()
+        val dy = -sin(radians).toFloat()
+        return if (portrait) centerX - dy * chipDistance else centerX + dx * chipDistance
+    }
+
+    private fun chipY(index: Int): Float {
+        val radians = Math.toRadians(arms[index].toDouble())
+        val dx = cos(radians).toFloat()
+        val dy = -sin(radians).toFloat()
+        return if (portrait) centerY + dx * chipDistance else centerY + dy * chipDistance
     }
 
     private fun drawWedge(canvas: Canvas) {
@@ -239,19 +323,32 @@ class ProtractorView @JvmOverloads constructor(
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
         when (event.actionMasked) {
-            MotionEvent.ACTION_DOWN, MotionEvent.ACTION_POINTER_DOWN -> {
+            MotionEvent.ACTION_DOWN -> {
+                val index = event.actionIndex
+                val x = event.getX(index)
+                val y = event.getY(index)
+                beginGesture(x, y)
+                grab(event.getPointerId(index), x, y)
+                onTouchDown?.invoke()
+            }
+
+            MotionEvent.ACTION_POINTER_DOWN -> {
                 val index = event.actionIndex
                 grab(event.getPointerId(index), event.getX(index), event.getY(index))
-                if (event.actionMasked == MotionEvent.ACTION_DOWN) onTouchDown?.invoke()
             }
 
             MotionEvent.ACTION_MOVE -> {
                 for (i in 0 until event.pointerCount) {
-                    drag(event.getPointerId(i), event.getX(i), event.getY(i))
+                    val id = event.getPointerId(i)
+                    val x = event.getX(i)
+                    val y = event.getY(i)
+                    noteMove(id, x, y)
+                    drag(id, x, y)
                 }
             }
 
             MotionEvent.ACTION_UP -> {
+                finishGesture()
                 releasePointers()
                 onTouchUp?.invoke()
             }
@@ -260,18 +357,100 @@ class ProtractorView @JvmOverloads constructor(
 
             MotionEvent.ACTION_CANCEL -> {
                 releasePointers()
+                tapTarget = TAP_NONE
                 onTouchUp?.invoke()
             }
         }
         return true
     }
 
-    /** Assigns a free finger to the arm it points at. */
-    private fun grab(id: Int, x: Float, y: Float) {
+    /** Remembers what the gesture started on, so a clean tap can work the padlocks. */
+    private fun beginGesture(x: Float, y: Float) {
+        tapStartX = x
+        tapStartY = y
+        tapMoved = false
+        tapTarget = when {
+            overChip(0, x, y) -> TAP_CHIP_FIRST
+            overChip(1, x, y) -> TAP_CHIP_SECOND
+            readoutRect.contains(x, y) -> TAP_READOUT
+            else -> TAP_NONE
+        }
+    }
+
+    /**
+     * A gesture that starts on a padlock or the readout only counts as a tap while the finger
+     * stays within the touch slop; a real drag on a padlock grabs exactly that arm, and a
+     * pinned arm refuses to move.
+     */
+    private fun noteMove(id: Int, x: Float, y: Float) {
+        if (tapMoved) return
+        if (hypot(x - tapStartX, y - tapStartY) <= touchSlop) return
+        tapMoved = true
+        when (tapTarget) {
+            TAP_CHIP_FIRST -> if (!firstLocked) {
+                tapTarget = TAP_NONE
+                grabArm(id, 0, x, y)
+            }
+
+            TAP_CHIP_SECOND -> if (!secondLocked) {
+                tapTarget = TAP_NONE
+                grabArm(id, 1, x, y)
+            }
+
+            TAP_READOUT -> {
+                tapTarget = TAP_NONE
+                grab(id, x, y)
+            }
+        }
+    }
+
+    private fun finishGesture() {
+        val target = tapTarget
+        tapTarget = TAP_NONE
+        if (tapMoved) return
+        when (target) {
+            TAP_CHIP_FIRST -> {
+                firstLocked = !firstLocked
+                invalidate()
+            }
+
+            TAP_CHIP_SECOND -> {
+                secondLocked = !secondLocked
+                invalidate()
+            }
+
+            TAP_READOUT -> onValueTap?.invoke()
+        }
+    }
+
+    /** Hands a finger straight to a known arm, used when a drag starts on its padlock. */
+    private fun grabArm(id: Int, arm: Int, x: Float, y: Float) {
         val direction = angleOf(x, y) ?: return
         val slot = armOfPointer.indexOfFirst { it == NO_ARM }
         if (slot < 0) return
-        val preferred = if (abs(direction - arms[0]) <= abs(direction - arms[1])) 0 else 1
+        pointerIds[slot] = id
+        armOfPointer[slot] = arm
+        arms[arm] = direction
+        notifyChanged()
+    }
+
+    private fun overChip(index: Int, x: Float, y: Float): Boolean =
+        hypot(x - chipX(index), y - chipY(index)) <= chipRadius * 1.6f
+
+    /** Assigns a free finger to the nearest arm that is not pinned. */
+    private fun grab(id: Int, x: Float, y: Float) {
+        // A tap on a padlock or the readout never drags an arm.
+        if (tapTarget != TAP_NONE) return
+        if (firstLocked && secondLocked) return
+        val direction = angleOf(x, y) ?: return
+        val slot = armOfPointer.indexOfFirst { it == NO_ARM }
+        if (slot < 0) return
+        val preferred = when {
+            firstLocked -> 1
+            secondLocked -> 0
+            abs(direction - arms[0]) <= abs(direction - arms[1]) -> 0
+            else -> 1
+        }
         val chosen = if (armOfPointer.contains(preferred)) 1 - preferred else preferred
         pointerIds[slot] = id
         armOfPointer[slot] = chosen
@@ -285,6 +464,8 @@ class ProtractorView @JvmOverloads constructor(
         if (slot < 0) return
         val arm = armOfPointer[slot]
         if (arm < 0) return
+        if (arm == 0 && firstLocked) return
+        if (arm == 1 && secondLocked) return
         val direction = angleOf(x, y) ?: return
         arms[arm] = direction
         notifyChanged()
@@ -333,5 +514,11 @@ class ProtractorView @JvmOverloads constructor(
         const val NO_ARM = -1
         const val DEFAULT_A = 45f
         const val DEFAULT_B = 135f
+
+        /** Nothing tappable was touched: the gesture may drag an arm. */
+        const val TAP_NONE = 0
+        const val TAP_CHIP_FIRST = 1
+        const val TAP_CHIP_SECOND = 2
+        const val TAP_READOUT = 3
     }
 }

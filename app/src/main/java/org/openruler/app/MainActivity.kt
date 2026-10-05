@@ -96,6 +96,7 @@ class MainActivity : BaseActivity() {
 
         measure.onRectChanged = { rect -> ruler.overlayRect = rect }
         measure.onValueTap = { showLengthDialog() }
+        protractor.onValueTap = { showAngleDialog() }
 
         if (savedInstanceState != null && savedInstanceState.getBoolean(STATE_MEASURING, false)) {
             val saved = MeasureMode.valueOf(
@@ -108,6 +109,8 @@ class MainActivity : BaseActivity() {
                     savedInstanceState.getFloat(STATE_ARM_A, 45f),
                     savedInstanceState.getFloat(STATE_ARM_B, 135f)
                 )
+                protractor.setLocked(0, savedInstanceState.getBoolean(STATE_PROTRACTOR_LOCK_A, false))
+                protractor.setLocked(1, savedInstanceState.getBoolean(STATE_PROTRACTOR_LOCK_B, false))
             } else {
                 val xs = savedInstanceState.getFloatArray(STATE_CORNERS_X)
                 val ys = savedInstanceState.getFloatArray(STATE_CORNERS_Y)
@@ -153,6 +156,8 @@ class MainActivity : BaseActivity() {
             val arms = protractor.arms()
             outState.putFloat(STATE_ARM_A, arms[0])
             outState.putFloat(STATE_ARM_B, arms[1])
+            outState.putBoolean(STATE_PROTRACTOR_LOCK_A, protractor.firstLocked)
+            outState.putBoolean(STATE_PROTRACTOR_LOCK_B, protractor.secondLocked)
         } else if (measuring) {
             val points = measure.cornerPoints()
             outState.putFloatArray(STATE_CORNERS_X, floatArrayOf(points[0].x, points[1].x))
@@ -225,15 +230,29 @@ class MainActivity : BaseActivity() {
         closeButton.setColorFilter(Color.WHITE)
     }
 
+    /** Asks for a length and pins both lines at that distance: the band becomes a ruler. */
+    private fun showLengthDialog() = showValueDialog(
+        getString(R.string.enter_length) + " (" + measure.unitLabel() + ")",
+        measure.measuredValue(),
+        2
+    ) { measure.setLength(it) }
+
+    /** Asks for an angle and pins both arms at that opening: the dial holds an exact angle. */
+    private fun showAngleDialog() = showValueDialog(
+        getString(R.string.enter_angle) + " (°)",
+        protractor.angle,
+        1
+    ) { protractor.setAngle(it) }
+
     /**
-     * Asks for a length and pins both lines at that distance: the band becomes a ruler of
-     * an exact size. The current reading is pre-filled so a small correction is one tap away.
+     * A one field dialog for an exact value, pre-filled with the current reading so a small
+     * correction is one tap away. Both the comma and the dot work as the decimal separator.
      */
-    private fun showLengthDialog() {
+    private fun showValueDialog(title: String, prefill: Float, decimals: Int, onValue: (Float) -> Unit) {
         val density = resources.displayMetrics.density
         val input = EditText(this)
         input.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
-        input.setText(String.format(Locale.ROOT, "%.2f", measure.measuredValue()))
+        input.setText(String.format(Locale.ROOT, "%.${decimals}f", prefill))
         input.setSelectAllOnFocus(true)
 
         val frame = FrameLayout(this)
@@ -248,12 +267,11 @@ class MainActivity : BaseActivity() {
         )
 
         AlertDialog.Builder(this)
-            .setTitle(getString(R.string.enter_length) + " (" + measure.unitLabel() + ")")
+            .setTitle(title)
             .setView(frame)
             .setPositiveButton(R.string.save) { _, _ ->
-                // Accept both the dot and the comma as the decimal separator.
                 val value = input.text.toString().trim().replace(',', '.').toFloatOrNull()
-                if (value != null && value > 0f) measure.setLength(value)
+                if (value != null && value > 0f) onValue(value)
             }
             .setNegativeButton(R.string.close, null)
             .show()
@@ -393,5 +411,7 @@ class MainActivity : BaseActivity() {
         const val STATE_LOCK_RIGHT = "lock_right"
         const val STATE_ARM_A = "arm_a"
         const val STATE_ARM_B = "arm_b"
+        const val STATE_PROTRACTOR_LOCK_A = "protractor_lock_a"
+        const val STATE_PROTRACTOR_LOCK_B = "protractor_lock_b"
     }
 }
